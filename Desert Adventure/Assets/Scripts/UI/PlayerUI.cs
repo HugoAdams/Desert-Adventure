@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour {
 
     [Header("General")]
+    public PlayerStats m_baseViewedStats;
     public PlayerStats m_currentViewedStats;
     public PlayerHealthBar m_healthBar;
 
@@ -26,7 +27,10 @@ public class PlayerUI : MonoBehaviour {
             return;
 
         if (m_healthBar)
+        {
+            m_healthBar.SetMaxLife(m_baseViewedStats.Life);
             m_healthBar.UpdateLife(m_currentViewedStats.Life);
+        }
 
         OnBoatProgressChange();
     }

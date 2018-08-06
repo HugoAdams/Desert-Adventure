@@ -35,6 +35,8 @@ public class PlayerHealthBar : MonoBehaviour {
         }
     }
 
+    public void SetMaxLife(int _maxLife) { m_maxLife = _maxLife; }
+
     void ClearCurrentImages()
     {
         foreach (Transform t in m_imageList)
