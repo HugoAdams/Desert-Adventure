@@ -336,7 +336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pickupKey: 113
-  m_pickUpRangeRadius: 5
+  m_pickUpRangeRadius: 1.5
+  m_throwStrength: 1000
 --- !u!1 &1300822654
 GameObject:
   m_ObjectHideFlags: 0

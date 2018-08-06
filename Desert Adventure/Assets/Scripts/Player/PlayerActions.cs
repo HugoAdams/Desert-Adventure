@@ -6,6 +6,7 @@ public class PlayerActions : MonoBehaviour {
 
     public KeyCode m_pickupKey;
     public float m_pickUpRangeRadius;
+    public float m_throwStrength;
 
     private bool m_holdingObject;
     private GameObject m_pickup;
@@ -30,7 +31,9 @@ public class PlayerActions : MonoBehaviour {
             {
                 EnableRagdoll(m_pickup.GetComponent<Rigidbody>());
                 m_pickup.transform.SetParent(null);
-                m_pickup.GetComponent<Rigidbody>().AddForce(0, 1, 500);
+                Vector3 throwforce = transform.forward * m_throwStrength;
+                throwforce.y = 10.0f;
+                m_pickup.GetComponent<Rigidbody>().AddForce(throwforce);
                 m_holdingObject = false;
             }
         }
