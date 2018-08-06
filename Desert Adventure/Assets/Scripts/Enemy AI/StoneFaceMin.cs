@@ -19,7 +19,7 @@ public class StoneFaceMin : EnemyBase {
     {
 
     }
-    public override void OnEnemyHit(int _damage)
+    public override void OnEnemyHit(int _damage, Transform _attacker)
     {
 
     }
@@ -31,6 +31,7 @@ public class StoneFaceMin : EnemyBase {
     {
 
     }
-
+    public override void Wander()
+    { }
 
 }
