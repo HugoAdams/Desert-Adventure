@@ -13,9 +13,13 @@ public class PlayerHealthBar : MonoBehaviour {
     List<Transform> m_imageList;
     int m_maxLife;
 
+    const float baseRatio = 16.0f / 9.0f;
+    float m_screenRatio;
+
     private void Awake()
     {
         m_imageList = new List<Transform>();
+        m_screenRatio = Camera.main.aspect / baseRatio;
     }
 
     public void UpdateLife(int _newLife)
@@ -31,7 +35,7 @@ public class PlayerHealthBar : MonoBehaviour {
             else
                 m_imageList.Add(Instantiate(m_singleEmptyPrefab, m_currentPosition, Quaternion.identity, transform));
 
-            m_currentPosition += m_OffsetPerLifePoint;
+            m_currentPosition += m_OffsetPerLifePoint * m_screenRatio;
         }
     }
 
