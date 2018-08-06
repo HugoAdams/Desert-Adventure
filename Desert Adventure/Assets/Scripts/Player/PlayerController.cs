@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerActions : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
-    public KeyCode m_pickupKey;
-
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
 	// Update is called once per frame
 	void Update () {
+		
 	}
 }
