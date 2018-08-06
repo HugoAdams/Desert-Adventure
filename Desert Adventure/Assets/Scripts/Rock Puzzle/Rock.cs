@@ -33,7 +33,7 @@ public class Rock : MonoBehaviour {
 
         for (int i = 0; i < hitColliders.Length; ++i)
         {
-            if(hitColliders[i].GetComponent<RockButton>().m_rockPlaced) // The button already has a rock on it
+            if(hitColliders[i].GetComponent<RockButton>().RockIsPlaced()) // The button already has a rock on it
                 continue;
 
             float dist = Vector3.Distance(hitColliders[i].transform.position, currentPos);

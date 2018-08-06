@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RockButton : MonoBehaviour {
 
-    public bool m_rockPlaced;
+    bool m_rockPlaced;
 
     public void TriggerRockPlaced(Quaternion rotation)
     {
@@ -12,5 +12,11 @@ public class RockButton : MonoBehaviour {
         GameObject rock = transform.Find("Rock").gameObject;
         rock.SetActive(true);
         rock.transform.rotation = rotation;
+        transform.parent.GetComponent<RockPuzzle>().CheckPuzzleComplete();
+    }
+
+    public bool RockIsPlaced()
+    {
+        return m_rockPlaced;
     }
 }
