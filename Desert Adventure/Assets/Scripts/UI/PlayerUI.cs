@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerUI : MonoBehaviour {
 
@@ -49,5 +51,18 @@ public class PlayerUI : MonoBehaviour {
 
         if (m_boatTiller)
             m_boatBase.ChangeSprite(m_currentViewedStats.BoatTiller);
+    }
+
+    private void OnEnable()
+    {
+        EventsController.Instance.OnPlayerLifeChange += OnHealthChange;
+        EventsController.Instance.OnBoatPieceObtained += OnBoatProgressChange;
+    }
+
+    private void OnDisable()
+    {
+        EventsController.Instance.OnPlayerLifeChange -= OnHealthChange;
+        EventsController.Instance.OnBoatPieceObtained -= OnBoatProgressChange;
+
     }
 }
