@@ -2,15 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour {
+[CreateAssetMenu(menuName = "Custom")]
+public class PlayerStats : ScriptableObject {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int Life;
+    public bool BoatBase;
+    public bool BoatMast;
+    public bool BoatSail;
+    public bool BoatTiller;
+
+    public PlayerUI CurrentPlayerUI;
+
+    public void HitPlayer(int _damage)
+    {
+        Life -= _damage;
+
+        if (CurrentPlayerUI)
+            CurrentPlayerUI.OnHealthChange();
+
+    }
+
+    public void UpdatePlayerProgress()
+    {
+        if (CurrentPlayerUI)
+            CurrentPlayerUI.OnBoatProgressChange();
+    }
 }
