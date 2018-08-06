@@ -357,7 +357,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 586774978}
   m_LocalRotation: {x: -0.3514136, y: -0.6136029, z: 0.6136029, w: -0.3514136}
-  m_LocalPosition: {x: 70.24, y: 1.56, z: 76.63}
+  m_LocalPosition: {x: 193.9, y: 16.79, z: 384.69}
   m_LocalScale: {x: 1, y: 1, z: 0.25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -370,13 +370,13 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 586774978}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 20
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.8
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &586774984
 MonoBehaviour:
@@ -390,7 +390,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_forceApplied: 5000
-  m_maxVelocity: 10
+  m_maxVelocity: 100
+  m_minAngleBeforeSliding: 20
 --- !u!1 &757838250
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +402,7 @@ GameObject:
   - component: {fileID: 757838253}
   - component: {fileID: 757838252}
   - component: {fileID: 757838251}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
