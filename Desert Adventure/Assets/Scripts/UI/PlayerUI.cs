@@ -14,13 +14,6 @@ public class PlayerUI : MonoBehaviour {
     public BoatPieceUI m_boatSail;
     public BoatPieceUI m_boatTiller;
 
-    private void Awake()
-    {
-        // Link up so PlayerStats know what UI is controlling it
-        if (m_currentViewedStats)
-            m_currentViewedStats.CurrentPlayerUI = this;
-    }
-
     private void Start()
     {
         if (!m_currentViewedStats)

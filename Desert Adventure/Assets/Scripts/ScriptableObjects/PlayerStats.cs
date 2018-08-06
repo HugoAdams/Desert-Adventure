@@ -10,21 +10,4 @@ public class PlayerStats : ScriptableObject {
     public bool BoatMast;
     public bool BoatSail;
     public bool BoatTiller;
-
-    public PlayerUI CurrentPlayerUI;
-
-    public void HitPlayer(int _damage)
-    {
-        Life -= _damage;
-
-        if (CurrentPlayerUI)
-            CurrentPlayerUI.OnHealthChange();
-
-    }
-
-    public void UpdatePlayerProgress()
-    {
-        if (CurrentPlayerUI)
-            CurrentPlayerUI.OnBoatProgressChange();
-    }
 }
