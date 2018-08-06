@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pickupKey: 113
+  m_throwKey: 101
   m_pickUpRangeRadius: 1.5
   m_forwardThrowStrength: 1000
   m_upwardsThrowStrength: 500

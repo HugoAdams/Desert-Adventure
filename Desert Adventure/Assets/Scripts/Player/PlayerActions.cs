@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour {
 
     public KeyCode m_pickupKey;
+    public KeyCode m_throwKey;
+
     public float m_pickUpRangeRadius;
     public float m_forwardThrowStrength;
     public float m_upwardsThrowStrength;
@@ -13,8 +15,9 @@ public class PlayerActions : MonoBehaviour {
     private GameObject m_pickup;
 
     // Update is called once per frame
-    void Update () {
-        if(Input.GetKeyDown(m_pickupKey))
+    void Update()
+    {
+        if (Input.GetKeyDown(m_pickupKey))
         {
             if (!m_holdingObject)
             {
@@ -30,15 +33,25 @@ public class PlayerActions : MonoBehaviour {
             }
             else
             {
-                EnableRagdoll(m_pickup.GetComponent<Rigidbody>());
-                m_pickup.transform.SetParent(null);
-                Vector3 throwforce = transform.forward * m_forwardThrowStrength;
-                throwforce.y = m_upwardsThrowStrength;
-                m_pickup.GetComponent<Rigidbody>().AddForce(throwforce);
-                m_holdingObject = false;
+                m_pickup.transform.position = transform.position + (transform.forward * 1.5f);
+                detatchPickup();
             }
         }
-	}
+        if (m_holdingObject && Input.GetKeyDown(m_throwKey))
+        {
+            detatchPickup();
+            Vector3 throwforce = transform.forward * m_forwardThrowStrength;
+            throwforce.y = m_upwardsThrowStrength;
+            m_pickup.GetComponent<Rigidbody>().AddForce(throwforce);
+        }
+    }
+
+    void detatchPickup()
+    {
+        EnableRagdoll(m_pickup.GetComponent<Rigidbody>());
+        m_pickup.transform.SetParent(null);
+        m_holdingObject = false;
+    }
 
     void EnableRagdoll(Rigidbody rb)
     {
