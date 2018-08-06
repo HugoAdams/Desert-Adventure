@@ -16,4 +16,3 @@ MonoBehaviour:
   BoatMast: 0
   BoatSail: 0
   BoatTiller: 0
-  CurrentPlayerUI: {fileID: 0}
