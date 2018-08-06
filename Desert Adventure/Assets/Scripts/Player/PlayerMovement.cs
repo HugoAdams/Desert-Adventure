@@ -5,11 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     private CharacterController charControl;
-   
-    public float m_walkSpeed;
 
     public KeyCode m_jumpKey;
 
+    public float m_walkSpeed;
     public float m_jumpSpeed = 8.0f;
     public float m_gravity = 20.0f;
     private float m_gravityScale = 1.0f;
@@ -60,5 +59,7 @@ public class PlayerMovement : MonoBehaviour {
             transform.rotation = Quaternion.LookRotation(NextDir);
         NextDir = NextDir * m_walkSpeed;
         moveDirection = new Vector3(NextDir.x, moveDirection.y, NextDir.z); // Add movement to the move direction vector
+
+
     }
 }
