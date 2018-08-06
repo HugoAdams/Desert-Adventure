@@ -44,7 +44,7 @@ public class Rock : MonoBehaviour {
             }
         }
 
-        if (closestButton == null)
+        if (!closestButton)
             return;
 
         closestButton.GetComponent<RockButton>().TriggerRockPlaced(new Quaternion(0, transform.rotation.y, 0, 1));
