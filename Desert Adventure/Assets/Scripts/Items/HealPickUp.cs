@@ -7,9 +7,10 @@ public class HealPickUp : ItemPickUp
     [Range(1, 6)]
     public int m_healAmount = 2;
 
-    public override void OnPickUp()
+    public override void OnPickUp(PlayerController _player)
     {
-        // TODO: Tell player they have healed
+        // TODO: Heal the player
+        //       Delete this object
     }
 
 }

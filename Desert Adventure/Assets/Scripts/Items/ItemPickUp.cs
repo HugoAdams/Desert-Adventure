@@ -12,5 +12,5 @@ public enum ItemType
 
 public abstract class ItemPickUp : MonoBehaviour {
 
-    public abstract void OnPickUp();
+    public abstract void OnPickUp(PlayerController _player);
 }
