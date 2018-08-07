@@ -14,9 +14,20 @@ public class PlayerActions : MonoBehaviour {
     private bool m_holdingObject;
     private GameObject m_pickup;
 
+    private bool m_playerStunned;
+
+    private void Awake()
+    {
+        GetComponent<PlayerStatusEffects>().m_onStunned += onStunned;
+        GetComponent<PlayerStatusEffects>().m_onUnStunned += onUnStunned;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (m_playerStunned)
+            return;
+
         if (Input.GetKeyDown(m_pickupKey))
         {
             if (!m_holdingObject)
@@ -86,5 +97,15 @@ public class PlayerActions : MonoBehaviour {
             }
         }
         return closestPickup;
+    }
+
+    void onStunned()
+    {
+        m_playerStunned = true;
+    }
+
+    void onUnStunned()
+    {
+        m_playerStunned = false;
     }
 }
