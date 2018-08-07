@@ -64,17 +64,13 @@ public class BoatMovement : MonoBehaviour {
     void StablizingLogic()
     {
         // Try rotate towards a stable state
-        if (m_grounded)
-        {
-            // Try rotate towards ground normal
-        }
-        else
+        if (!m_grounded)
         {
             // Try just stablize
             Vector3 eulers = transform.eulerAngles;
             eulers.z = 0;
             eulers.x = 0;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(eulers), 45 * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(eulers), 120 * Time.deltaTime);
         }
     }
 
