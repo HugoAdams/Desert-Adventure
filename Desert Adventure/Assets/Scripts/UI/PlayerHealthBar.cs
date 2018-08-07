@@ -31,7 +31,7 @@ public class PlayerHealthBar : MonoBehaviour {
         for (int i = 0; i < m_maxLife; i++)
         {
             if (i < _newLife)
-                m_imageList.Add(Instantiate(m_singleEmptyPrefab, m_currentPosition, Quaternion.identity, transform));
+                m_imageList.Add(Instantiate(m_singleFilledPrefab, m_currentPosition, Quaternion.identity, transform));
             else
                 m_imageList.Add(Instantiate(m_singleEmptyPrefab, m_currentPosition, Quaternion.identity, transform));
 
