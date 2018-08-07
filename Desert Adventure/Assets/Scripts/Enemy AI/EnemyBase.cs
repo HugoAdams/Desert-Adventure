@@ -175,4 +175,15 @@ public abstract class EnemyBase : MonoBehaviour
         
     }
     #endregion
+
+    protected void LookAt(Transform _t)
+    {
+        transform.LookAt(_t);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
+    protected void LookAt(Vector3 _v3)
+    {
+        transform.LookAt(_v3);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
 }

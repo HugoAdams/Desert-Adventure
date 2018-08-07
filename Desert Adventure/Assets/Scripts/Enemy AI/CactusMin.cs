@@ -171,16 +171,7 @@ public class CactusMin : EnemyBase
         }
     }
 
-    void LookAt(Transform _t)
-    {
-        transform.LookAt(_t);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-    }
-    void LookAt(Vector3 _v3)
-    {
-        transform.LookAt(_v3);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-    }
+
 
     private void OnCollisionEnter(Collision coll)
     {
