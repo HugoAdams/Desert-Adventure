@@ -18,15 +18,19 @@ public class PlayerMovement : MonoBehaviour {
 
     private Vector3 moveDirection = Vector3.zero;
 
+    private bool m_playerStunned;
+
     void Awake () {
         charControl = GetComponent<CharacterController>();
+
+        GetComponent<PlayerStatusEffects>().m_onStunned += onStunned;
+        GetComponent<PlayerStatusEffects>().m_onUnStunned += onUnStunned;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
         MovePlayer();
-
         JumpPlayer();
     }
 
@@ -37,7 +41,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void JumpPlayer()
     {
-        if (charControl.isGrounded && Input.GetKeyDown(m_jumpKey))
+        if (!m_playerStunned && charControl.isGrounded && Input.GetKeyDown(m_jumpKey))
             moveDirection.y = m_jumpSpeed; // Apply the jump speed if space bar hit
         else if (charControl.isGrounded)
             return;
@@ -54,6 +58,9 @@ public class PlayerMovement : MonoBehaviour {
 
     void MovePlayer()
     {
+        if (m_playerStunned)
+            return;
+
         Vector3 NextDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         if (NextDir != Vector3.zero) // Make the player look at the move direction
             transform.rotation = Quaternion.LookRotation(NextDir);
@@ -61,5 +68,16 @@ public class PlayerMovement : MonoBehaviour {
         moveDirection = new Vector3(NextDir.x, moveDirection.y, NextDir.z); // Add movement to the move direction vector
 
 
+    }
+
+    void onStunned()
+    {
+        m_playerStunned = true;
+        moveDirection = new Vector3(0,0,0);
+    }
+
+    void onUnStunned()
+    {
+        m_playerStunned = false;
     }
 }
