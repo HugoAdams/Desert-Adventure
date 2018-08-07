@@ -498,6 +498,11 @@ Prefab:
       propertyPath: m_flattenedStunTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114077046283537784, guid: 6e1398ef493e96b46a1617b30e0cfbf1,
+        type: 2}
+      propertyPath: m_flattenedIncapacitedTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e1398ef493e96b46a1617b30e0cfbf1, type: 2}
   m_IsPrefabParent: 0

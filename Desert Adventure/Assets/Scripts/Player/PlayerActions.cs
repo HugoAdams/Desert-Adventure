@@ -14,18 +14,18 @@ public class PlayerActions : MonoBehaviour {
     private bool m_holdingObject;
     private GameObject m_pickup;
 
-    private bool m_playerStunned;
+    private bool m_playerIncapacited;
 
     private void Awake()
     {
-        GetComponent<PlayerStatusEffects>().m_onStunned += onStunned;
-        GetComponent<PlayerStatusEffects>().m_onUnStunned += onUnStunned;
+        GetComponent<PlayerStatusEffects>().m_onIncapacited += onIncapacited;
+        GetComponent<PlayerStatusEffects>().m_onUnIncapacited += onUnIncapacited;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_playerStunned)
+        if (m_playerIncapacited)
             return;
 
         if (Input.GetKeyDown(m_pickupKey))
@@ -99,13 +99,18 @@ public class PlayerActions : MonoBehaviour {
         return closestPickup;
     }
 
-    void onStunned()
+    void onIncapacited()
     {
-        m_playerStunned = true;
+        m_playerIncapacited = true;
+        if(m_holdingObject)
+        {
+            m_pickup.transform.position = transform.position + (transform.forward * 1.5f);
+            detatchPickup();
+        }
     }
 
-    void onUnStunned()
+    void onUnIncapacited()
     {
-        m_playerStunned = false;
+        m_playerIncapacited = false;
     }
 }
