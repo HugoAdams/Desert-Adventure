@@ -32,6 +32,8 @@ public class StoneFaceMin : EnemyBase {
 
     }
     public override void Wander()
-    { }
+    {
+
+    }
 
 }
