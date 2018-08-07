@@ -87,7 +87,6 @@ public class CameraController : MonoBehaviour {
         backDir.y = 0;
         float angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
         m_angle = Mathf.MoveTowardsAngle(m_angle, angle, rotateAmount * Time.deltaTime);
-        Debug.Log(m_angle);
         Focus();
     }
 
