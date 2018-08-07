@@ -30,6 +30,7 @@ public class CameraController : MonoBehaviour {
     void Start ()
     {
         m_targetLastPos = transform.position;
+        m_baseTopAngle = 5;
     }
 	
 	// Update is called once per frame
@@ -77,9 +78,16 @@ public class CameraController : MonoBehaviour {
     void ResetCameraLogic()
     {
         float moveAmount = 4;
+        float rotateAmount = 20;
 
         // Move towards angles
-        m_YDiff = Mathf.Clamp(m_YDiff - m_baseTopAngle, -moveAmount * Time.deltaTime, moveAmount * Time.deltaTime);
+        m_YDiff -= Mathf.Clamp(m_YDiff - m_baseTopAngle, -moveAmount * Time.deltaTime, moveAmount * Time.deltaTime);
+
+        Vector3 backDir = -m_target.forward;
+        backDir.y = 0;
+        float angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
+        m_angle = Mathf.MoveTowardsAngle(m_angle, angle, rotateAmount * Time.deltaTime);
+        Focus();
     }
 
 
@@ -137,9 +145,9 @@ public class CameraController : MonoBehaviour {
         else
         {
             m_YDiff -= m_MaxMoveSpeed * Time.deltaTime;
-            if(m_YDiff < 5)
+            if(m_YDiff < 3)
             {
-                m_YDiff = 5;
+                m_YDiff = 3;
             }
         }
         Focus();
