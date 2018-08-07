@@ -98,7 +98,11 @@ public class BoatMovement : MonoBehaviour {
         if (Mathf.Abs(m_xInput) < 0.05f && Mathf.Abs(m_zInput) < 0.05f) // Insufficent user input to rotate
             return;
 
-        float angle = Mathf.Atan2(m_zInput, m_xInput) * Mathf.Rad2Deg;
+        // Rotate input by camera dir
+        Vector3 turnDir = Camera.main.transform.rotation * new Vector3(m_xInput, 0, -m_zInput);
+        turnDir.y = 0;
+
+        float angle = Mathf.Atan2(turnDir.x, turnDir.z) * Mathf.Rad2Deg;
 
         // Now rotate towards target angle
         Vector3 newEulers = transform.eulerAngles;

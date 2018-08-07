@@ -2,42 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CameraState
+{
+    NORMAL,
+    ON_SHIP
+}
+
 public class CameraController : MonoBehaviour {
 
-    float m_angle = 0;
-    public float m_topAngle = 0;
     public Transform m_target;
+
     public float m_radius = 5;
+    float m_angle = 0;
+
+    public float m_topAngle = 7;
+    float m_baseTopAngle;
+
     Vector3 m_targetLastPos;
     public float m_MaxTurnSpeed = 100;
 
     public float m_MaxMoveSpeed = 10;
     float m_YDiff = 10;
 
-    // Use this for initialization
+    public float m_timeTillCameraReset = 3;
+    float m_cameraResetTimer;
+
     void Start ()
     {
         m_targetLastPos = transform.position;
-	}
+    }
 	
 	// Update is called once per frame
 
     void Update()
     {
-       
-        if(Input.GetKey(KeyCode.Z))
+        float xInput = Input.GetAxisRaw("CameraHorizontal");
+        float yInput = Input.GetAxisRaw("CameraVertical");
+
+        if (Mathf.Abs(xInput) > 0.1f || Mathf.Abs(yInput) > 0.1f)
+            m_cameraResetTimer = m_timeTillCameraReset;
+
+        if (m_cameraResetTimer > 0)
+            m_cameraResetTimer -= Time.deltaTime;
+
+        if (m_cameraResetTimer <= 0)
+            ResetCameraLogic();
+
+        if (xInput > 0)
         {
             Rotate(true);
         }
-        if(Input.GetKey(KeyCode.X))
+        if(xInput < 0)
         {
             Rotate(false);
         }
-        if(Input.GetKey(KeyCode.F))
+        if(yInput > 0)
         {
             VertMove(true);
         }
-        if (Input.GetKey(KeyCode.V))
+        if (yInput < 0)
         {
             VertMove(false);
         }
@@ -50,6 +73,15 @@ public class CameraController : MonoBehaviour {
             m_targetLastPos = m_target.position;
         }
     }
+
+    void ResetCameraLogic()
+    {
+        float moveAmount = 4;
+
+        // Move towards angles
+        m_YDiff = Mathf.Clamp(m_YDiff - m_baseTopAngle, -moveAmount * Time.deltaTime, moveAmount * Time.deltaTime);
+    }
+
 
     void Rotate(bool _left)
     {//the horizontal axis amount will multiply m_MaxTurnSpeed
@@ -69,6 +101,7 @@ public class CameraController : MonoBehaviour {
         {
             m_angle += 360;
         }
+
         Focus();
     }
 
@@ -104,9 +137,9 @@ public class CameraController : MonoBehaviour {
         else
         {
             m_YDiff -= m_MaxMoveSpeed * Time.deltaTime;
-            if(m_YDiff < -1)
+            if(m_YDiff < 5)
             {
-                m_YDiff = -1;
+                m_YDiff = 5;
             }
         }
         Focus();

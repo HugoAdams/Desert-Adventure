@@ -253,13 +253,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 573164792}
-  m_LocalRotation: {x: -0.12896144, y: -0.8380401, z: 0.22517943, w: -0.47995}
-  m_LocalPosition: {x: 58.57881, y: 13.684999, z: 83.47157}
+  m_LocalRotation: {x: -0.2942318, y: -0.57741016, z: 0.7246052, w: -0.23446205}
+  m_LocalPosition: {x: 180, y: 13.684999, z: 367}
   m_LocalScale: {x: 1, y: 0.43840778, z: 0.8115925}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -59.92, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 102.9, y: 495.8, z: 0}
 --- !u!114 &573164797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,9 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb3f22eea0fb1b47927bef8952f1377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_topAngle: 0
   m_target: {fileID: 586774982}
-  m_radius: 5
+  m_radius: 8.5
+  m_topAngle: 0
   m_MaxTurnSpeed: 100
   m_MaxMoveSpeed: 10
 --- !u!1 &586774978
@@ -392,9 +392,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_canControl: 1
   m_canGoUpHills: 1
-  m_shittyMaxVelocity: 5
+  m_shittyMaxVelocity: 6.5
   m_maxVelocity: 10
-  m_gravityAccel: 10
+  m_gravityAccel: 20
   m_smoothTime: 0.5
   m_rotationSmoothTime: 0.5
   m_groundedRayLength: 0.05
