@@ -186,4 +186,12 @@ public abstract class EnemyBase : MonoBehaviour
         transform.LookAt(_v3);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
+
+    protected float Distance2D(Vector3 _a, Vector3 _b)
+    {
+        Vector2 a = new Vector2(_a.x, _a.z);
+        Vector2 b = new Vector2(_b.x, _b.z);
+
+        return Vector2.Distance(a, b);
+    }
 }
