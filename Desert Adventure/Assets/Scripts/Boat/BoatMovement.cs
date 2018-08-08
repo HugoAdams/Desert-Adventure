@@ -31,13 +31,13 @@ public class BoatMovement : MonoBehaviour {
     float m_airGracePeriod;
     float m_inputStrength, m_refInputStrength;
     float m_xInput, m_zInput;
-    bool m_grounded, m_lastGroundedState;
+    bool m_grounded;
 
     private void Awake()
     {
         m_rbody = GetComponent<Rigidbody>();
         m_terrainMask = 1 << LayerMask.NameToLayer("Terrain");
-        m_grounded = m_lastGroundedState = false;
+        m_grounded = false;
     }
 
     private void Update()
@@ -145,7 +145,6 @@ public class BoatMovement : MonoBehaviour {
 
     void UpdateIfGrounded()
     {
-        
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
