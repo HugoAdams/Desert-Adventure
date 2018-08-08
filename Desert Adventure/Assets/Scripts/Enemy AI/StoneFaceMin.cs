@@ -10,6 +10,7 @@ public class StoneFaceMin : EnemyBase
         FALLING,
         MOVING,
         ROLLING,
+        STANDING_UP,
         NULL
     }
     ENEMYSTATE m_state;
@@ -19,6 +20,12 @@ public class StoneFaceMin : EnemyBase
     float m_targetTimer = 5;//seconds
     float m_targetAquiredTime = -1;
     CharacterController chara;
+    Vector3 fallStart = Vector3.zero;
+    float fallStartTime = -1;
+    bool startfall = false;
+    float standUpTime = 0;
+    float m_lastWanderTime = -1;
+
 
     void Start ()
     {
@@ -29,7 +36,8 @@ public class StoneFaceMin : EnemyBase
         m_targetAquiredTime = Time.time;
 
         m_moveSpeed = m_maxMoveSpeed;
-        chara = GetComponent<CharacterController>();
+        //chara = GetComponent<CharacterController>();
+        m_rbdy = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -52,8 +60,9 @@ public class StoneFaceMin : EnemyBase
                 Debug.Log(name + " in ??? state");
                 break;
         }
-
+        
         SetOnGround();
+        
     }
 
     public override void OnDeath()
@@ -71,14 +80,33 @@ public class StoneFaceMin : EnemyBase
 
     public override void Idle()
     {
-
+        
     }
 
     public override void Attack()
     {
+        if(m_bigState == BIGSTATE.FALLING)
+        {
+            Fall();
+        }
+        else if(m_bigState == BIGSTATE.STANDING_UP)
+        {
+            Stand();
+        }
+
         if(m_target != null)
         {
-            PathSteering(PathSeek(m_target.position));
+            if (m_bigState != BIGSTATE.STANDING_UP && m_bigState != BIGSTATE.FALLING)
+            {
+                if (Distance2D(transform.position, m_target.position) < 4.2f && Time.time - standUpTime > 3)
+                {
+                    Fall();
+                    return;
+                }
+
+                PathSteering(PathSeek(m_target.position));//move logic
+                LookAt(m_target);
+            }
 
 
             if (Time.time - m_targetAquiredTime >= m_targetTimer)
@@ -105,14 +133,20 @@ public class StoneFaceMin : EnemyBase
     public override void Wander()
     {
         //PathWander
-        //chara.SimpleMove(Vector3.right  * m_moveSpeed);
-        chara.SimpleMove(transform.forward * m_maxMoveSpeed);
-        transform.eulerAngles = new Vector3(90, transform.eulerAngles.y + 40 * Time.deltaTime, 0);
-        Debug.Log(chara.isGrounded);
+        Vector3 oldwander = m_wanderTarget;
+        m_wanderTarget = PathWander(m_lastWanderTime, m_wanderTarget);
+        if (oldwander != m_wanderTarget)
+        {
+            m_lastWanderTime = Time.time;
+        }
+            PathSteering(PathSeek(m_wanderTarget));
+            LookAt(transform.position + m_curVel);
+        
         
         if(Sight())
         {
-            //m_state = ENEMYSTATE.ATTACK;
+            m_state = ENEMYSTATE.ATTACK;
+            m_targetAquiredTime = Time.time;
         }
     }
 
@@ -123,12 +157,52 @@ public class StoneFaceMin : EnemyBase
 
         if (Physics.Raycast(ray, out hit, 4.0f, (int)m_groundLayer))
         {
-           // transform.position = new Vector3(transform.position.x, hit.point.y + 3.3f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, hit.point.y , transform.position.z);
             if(m_bigState == BIGSTATE.STANDING)
             {
-                //m_rbdy.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+               m_rbdy.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             }
         }
     }
 
+    void Fall()
+    {
+        if(fallStartTime == -1)
+        {
+            m_bigState = BIGSTATE.FALLING;
+            fallStart = transform.eulerAngles;
+            fallStartTime = Time.time;            
+        }
+
+        float t = (Time.time - fallStartTime) * 2;
+        //Debug.Log(t);
+        Vector3 v = Vector3.Lerp(fallStart, new Vector3(90, fallStart.y, 0), t);
+        transform.eulerAngles = v;
+
+        if(Time.time - fallStartTime > 6)
+        {
+            fallStartTime = -1;
+            m_bigState = BIGSTATE.STANDING_UP;
+        }
+    }
+
+    void Stand()
+    {
+        if(fallStartTime == -1)
+        {
+            fallStartTime = Time.time;
+            fallStart = transform.eulerAngles;
+        }
+
+        float t = (Time.time - fallStartTime) * 3;
+        Vector3 v = Vector3.Lerp(fallStart, new Vector3(0, fallStart.y, 0), t);
+        transform.eulerAngles = v;
+
+        if (t >= 1)
+        {
+            fallStartTime = -1;
+            m_bigState = BIGSTATE.STANDING;
+            standUpTime = Time.time;
+        }
+    }
 }
