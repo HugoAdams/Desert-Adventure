@@ -27,12 +27,10 @@ public class BoatParticles : MonoBehaviour {
     {
         // CAN ONLY COLLIDE WITH TERRAIN
         ToggleParticles(true);
-        Debug.Log("ENTER");
     }
 
     private void OnTriggerExit(Collider other)
     {
         ToggleParticles(false);
-        Debug.Log("EXIT");
     }
 }
