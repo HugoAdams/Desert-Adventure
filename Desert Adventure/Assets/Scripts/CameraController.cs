@@ -10,6 +10,7 @@ public enum CameraState
 
 public class CameraController : MonoBehaviour {
 
+    public bool b_auto = true;
     public Transform m_target;
 
     public float m_radius = 5;
@@ -77,6 +78,10 @@ public class CameraController : MonoBehaviour {
 
     void ResetCameraLogic()
     {
+        if (b_auto == false)
+        {
+            return;
+        }
         float moveAmount = 4;
         float rotateAmount = 20;
 
