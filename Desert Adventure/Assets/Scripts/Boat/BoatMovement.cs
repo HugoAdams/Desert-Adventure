@@ -31,13 +31,13 @@ public class BoatMovement : MonoBehaviour {
     float m_airGracePeriod;
     float m_inputStrength, m_refInputStrength;
     float m_xInput, m_zInput;
-    bool m_grounded;
+    bool m_grounded, m_lastGroundedState;
 
     private void Awake()
     {
         m_rbody = GetComponent<Rigidbody>();
         m_terrainMask = 1 << LayerMask.NameToLayer("Terrain");
-        m_grounded = false;
+        m_grounded = m_lastGroundedState = false;
     }
 
     private void Update()
@@ -128,14 +128,24 @@ public class BoatMovement : MonoBehaviour {
 
         float maxVel = m_canGoUpHills ? m_maxVelocity : m_shittyMaxVelocity;
         float targetInputStr = Mathf.Max(Mathf.Abs(m_xInput), Mathf.Abs(m_zInput));
+
         m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime);
 
-        if (m_canControl || m_canGoUpHills) // Player has control!
-            m_currentVel = transform.forward * maxVel * m_inputStrength;
+        if (targetInputStr < 0.1f) // Don't do anything if no input
+        {
+            // Slow down 
+            m_currentVel *= (1 - Time.deltaTime);
+        }
+        else
+        {
+            if (m_canControl || m_canGoUpHills) // Player has control!
+                m_currentVel = transform.forward * maxVel * m_inputStrength;
+        }
     }
 
     void UpdateIfGrounded()
     {
+        
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
