@@ -59,7 +59,7 @@ public class PlayerStatusEffects : MonoBehaviour {
         while ((m_timeStamp + knockbackTime) >= Time.time)
         {
             // Make the players model wobble in size
-            float scas = ((Mathf.Sin(Time.time * 8) + 1.0f) * 0.2f) + 0.8f;
+            float scas = ((Mathf.Sin(Time.time * 16) + 1.0f) * 0.2f) + 0.8f;
             m_model.localScale = new Vector3(scas, scas, scas);
 
             // Move the player in the direction of the attack
@@ -97,7 +97,7 @@ public class PlayerStatusEffects : MonoBehaviour {
         float m_flattenedTimeStamp = Time.time;
         while ((m_flattenedTimeStamp + m_flattenedRecoveryTime) >= Time.time)
         {
-            float scas = ((Mathf.Sin(Time.time * 8) + 1.0f) * 0.2f) + 0.8f;
+            float scas = ((Mathf.Sin(Time.time * 16) + 1.0f) * 0.2f) + 0.8f;
             m_model.localScale = new Vector3(scas, 0.01f, scas);
             yield return null;
         }
