@@ -503,6 +503,21 @@ Prefab:
       propertyPath: m_flattenedIncapacitedTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114077046283537784, guid: 6e1398ef493e96b46a1617b30e0cfbf1,
+        type: 2}
+      propertyPath: m_spearedStunTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077046283537784, guid: 6e1398ef493e96b46a1617b30e0cfbf1,
+        type: 2}
+      propertyPath: m_spearedIncapacitedTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077046283537784, guid: 6e1398ef493e96b46a1617b30e0cfbf1,
+        type: 2}
+      propertyPath: m_spearedKnockbackstrength
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e1398ef493e96b46a1617b30e0cfbf1, type: 2}
   m_IsPrefabParent: 0
@@ -533,7 +548,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1524987318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c30d279c9450ac04398bf4ab79cbe755, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bfdf39ea5c7ea0479fd2fab026a2597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!65 &1524987320
@@ -597,7 +612,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1524987318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.65, y: 2.3167706, z: -0.45383692}
+  m_LocalPosition: {x: -8.69, y: -3.74, z: -0.45383692}
   m_LocalScale: {x: 12.060311, y: 12.060305, z: 72.380165}
   m_Children: []
   m_Father: {fileID: 0}
