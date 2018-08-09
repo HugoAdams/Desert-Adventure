@@ -27,13 +27,14 @@ public class BoatMovement : MonoBehaviour {
     public Transform m_boatBase;
     public Transform m_boatMast;
     public Transform m_boatSail;
-    public Transform m_tiller;
+    public Transform m_boatTiller;
 
     float m_refRot;
     Vector3 m_currentVel, m_groundNormal;
     LayerMask m_terrainMask;
     Rigidbody m_rbody;
 
+    float m_rayCastDistApart = 1.2f;
     float m_airGracePeriod;
     float m_inputStrength, m_refInputStrength;
     float m_xInput, m_zInput;
@@ -153,17 +154,17 @@ public class BoatMovement : MonoBehaviour {
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
+        if (Physics.Raycast(m_boatBase.position - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
             m_grounded = true;
             m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
             // Get average of 3 raycasts
-            if (Physics.Raycast(m_boatBase.position + transform.forward * 0.4f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position + transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
                 m_groundNormal += hit.normal;
 
-            if (Physics.Raycast(m_boatBase.position - transform.forward * 0.4f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
                 m_groundNormal += hit.normal;
 
             m_groundNormal = m_groundNormal.normalized;
@@ -210,13 +211,53 @@ public class BoatMovement : MonoBehaviour {
         }
     }
 
+    public void Initialize(PlayerStats _pStats)
+    {
+        if (_pStats.BoatTiller && _pStats.BoatSail && _pStats.BoatMast)
+        {
+            // Full boat!
+            m_canControl = m_canGoUpHills = true;
+        }
+        else if (_pStats.BoatTiller || (_pStats.BoatSail && _pStats.BoatMast))
+        {
+            // Shit control
+            m_canControl = true;
+            m_canGoUpHills = false;
+        }
+        else
+        {
+            // No Control at all!
+            m_canGoUpHills = m_canControl = false;
+        }
+
+        UpdateBoatPieces(_pStats);
+    }
+
+    void UpdateBoatPieces(PlayerStats _pStats)
+    {
+        // Mast 
+        if (!_pStats.BoatMast)
+            m_boatMast.gameObject.SetActive(false);
+
+        // Sail
+        if (!_pStats.BoatMast || !_pStats.BoatSail)
+            m_boatSail.gameObject.SetActive(false);
+
+        // Tiller
+        if (!_pStats.BoatTiller)
+            m_boatTiller.gameObject.SetActive(false);
+
+        // Base should always be there!
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(m_boatBase.position, m_boatBase.position - transform.up * m_groundedRayLength);
-        Vector3 newPos = m_boatBase.position + transform.forward * 0.4f;
+        Vector3 newPos = m_boatBase.position + transform.forward * m_rayCastDistApart;
         Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
-        newPos = m_boatBase.position - transform.forward * 0.4f;
+        newPos = m_boatBase.position - transform.forward * m_rayCastDistApart;
+        Gizmos.color = Color.blue;
         Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
     }
 }
