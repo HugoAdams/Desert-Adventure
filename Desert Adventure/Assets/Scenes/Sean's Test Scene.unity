@@ -854,7 +854,7 @@ TerrainCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 757838250}
-  m_Material: {fileID: 13400000, guid: efb4623b1f29e6c47943b56a9c7913d3, type: 2}
+  m_Material: {fileID: 0}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: 62d16bb542e9ae441a642f5fcb03eaec, type: 2}
   m_EnableTreeColliders: 1
@@ -1077,7 +1077,7 @@ Prefab:
         type: 2}
       propertyPath: m_target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 220483031}
     - target: {fileID: 198806178169456228, guid: ba7bae01b4d4c6c419c6846affa81934,
         type: 2}
       propertyPath: InitialModule.startColor.maxColor.r

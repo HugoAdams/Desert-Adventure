@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6722158a18044e142ad48d6493442d17, type: 3}
   m_Name: PlayerCurrentStats
   m_EditorClassIdentifier: 
-  Life: 6
+  Life: 4
   BoatBase: 1
   BoatMast: 1
   BoatSail: 1

@@ -128,7 +128,7 @@ public class CameraController : MonoBehaviour {
         x += m_target.position.x;
         yz += m_target.position.z;
 
-        transform.position = new Vector3(x, m_target.position.y + m_YDiff, yz);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(x, m_target.position.y + m_YDiff, yz), 10 * Time.deltaTime);
 
 
         // transform.LookAt(center);

@@ -53,6 +53,6 @@ public class PlayerController : MonoBehaviour {
         GetComponent<CharacterController>().enabled = true;
         m_movement.DismountBoat();
         m_onBoat = false;
-
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0); // Stand back up
     }
 }

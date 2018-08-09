@@ -31,7 +31,7 @@ public class BoatMovement : MonoBehaviour {
     public Transform m_playerStandPoint;
 
     float m_refRot;
-    Vector3 m_currentVel, m_groundNormal;
+    Vector3 m_currentVel, m_groundNormal, m_currentSlideVel;
     LayerMask m_terrainMask;
     Rigidbody m_rbody;
 
@@ -64,8 +64,6 @@ public class BoatMovement : MonoBehaviour {
         // Apply gravity
         if (!m_grounded)
             m_currentVel += Vector3.down * m_gravityAccel * Time.deltaTime;
-        else
-            m_currentVel.y = 0;
 
         if (m_airGracePeriod > 0)
             m_airGracePeriod -= Time.deltaTime;
@@ -137,6 +135,15 @@ public class BoatMovement : MonoBehaviour {
 
     void PlayerMove()
     {
+        // Input strength
+        float maxVel = m_canGoUpHills ? m_maxVelocity : m_shittyMaxVelocity;
+        float targetInputStr = Mathf.Max(Mathf.Abs(m_xInput), Mathf.Abs(m_zInput));
+
+        if (targetInputStr > 0.05f)
+            m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime);
+        else
+            m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime * 0.5f);
+
         if (!m_grounded && m_airGracePeriod <= 0) // No grounded, no controlleded
         {
             m_currentVel = m_rbody.velocity;
@@ -152,11 +159,6 @@ public class BoatMovement : MonoBehaviour {
             return; // Don't allow movement, return input back to zero
         }
 
-        float maxVel = m_canGoUpHills ? m_maxVelocity : m_shittyMaxVelocity;
-        float targetInputStr = Mathf.Max(Mathf.Abs(m_xInput), Mathf.Abs(m_zInput));
-
-        m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime);
-
         if (targetInputStr < 0.1f) // Don't do anything if no input
         {
             // Slow down 
@@ -165,13 +167,15 @@ public class BoatMovement : MonoBehaviour {
         else
         {
             if (m_canControl || m_canGoUpHills) // Player has control!
-                m_currentVel = transform.forward * maxVel * m_inputStrength;
+                //m_currentVel = transform.forward * maxVel * m_inputStrength;
+                m_currentVel = Vector3.Cross(transform.right, m_groundNormal) * maxVel * m_inputStrength;
         }
     }
 
     void UpdateIfGrounded()
     {
         RaycastHit hit;
+        float count = 1;
 
         if (Physics.Raycast(m_boatBase.position - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
@@ -179,14 +183,20 @@ public class BoatMovement : MonoBehaviour {
             m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
-            // Get average of 3 raycasts
+            // Normal = from of boat
             if (Physics.Raycast(m_boatBase.position + transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
-                m_groundNormal += hit.normal;
+            {
+                m_groundNormal += hit.normal*2;
+                count += 2;
+            }
 
             if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            {
                 m_groundNormal += hit.normal;
+                count += 1;
+            }
 
-            m_groundNormal = m_groundNormal.normalized;
+            m_groundNormal /= count;
         }
         else
             m_grounded = false;
@@ -222,12 +232,16 @@ public class BoatMovement : MonoBehaviour {
             Vector3 slideVel = Vector3.zero;
             slideVel.x += (1f - m_groundNormal.y) * m_groundNormal.x * (1f - 0.0f);
             slideVel.z += (1f - m_groundNormal.y) * m_groundNormal.z * (1f - 0.0f);
-            m_currentVel += slideVel * m_maxVelocity * percent; // Base movement off max velocity. If slope too high, cancel out movement by max velocity
+            slideVel *= m_maxVelocity * percent;
+            m_currentSlideVel = Vector3.Lerp(m_currentSlideVel, slideVel, 3 * Time.deltaTime);
         }
         else
         {
-            m_currentVel += Vector3.Cross(Vector3.up, m_groundNormal) * m_maxVelocity * percent;
+            Vector3 superSlideVel = Vector3.Cross(Vector3.up, m_groundNormal) * m_maxVelocity * percent;
+            m_currentSlideVel = Vector3.Lerp(m_currentSlideVel, superSlideVel, Time.deltaTime);
         }
+        m_currentVel += m_currentSlideVel;
+
     }
 
     public void Initialize(PlayerStats _pStats, PlayerController _player)
@@ -285,5 +299,6 @@ public class BoatMovement : MonoBehaviour {
         newPos = m_boatBase.position - transform.forward * m_rayCastDistApart;
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
+        Gizmos.DrawLine(transform.position, transform.position + m_groundNormal * 5);
     }
 }
