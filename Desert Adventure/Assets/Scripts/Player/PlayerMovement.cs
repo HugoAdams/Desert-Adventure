@@ -61,13 +61,13 @@ public class PlayerMovement : MonoBehaviour {
         if (m_playerStunned)
             return;
 
-        Vector3 NextDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        // Rotated move dir by camera dir
+        Vector3 NextDir = (Camera.main.transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
+        NextDir.y = 0;
         if (NextDir != Vector3.zero) // Make the player look at the move direction
-            transform.rotation = Quaternion.LookRotation(NextDir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextDir), 650 * Time.deltaTime);
         NextDir = NextDir * m_walkSpeed;
         moveDirection = new Vector3(NextDir.x, moveDirection.y, NextDir.z); // Add movement to the move direction vector
-
-
     }
 
     void onStunned()

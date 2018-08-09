@@ -28,6 +28,7 @@ public class BoatMovement : MonoBehaviour {
     public Transform m_boatMast;
     public Transform m_boatSail;
     public Transform m_boatTiller;
+    public Transform m_playerStandPoint;
 
     float m_refRot;
     Vector3 m_currentVel, m_groundNormal;
@@ -40,11 +41,14 @@ public class BoatMovement : MonoBehaviour {
     float m_xInput, m_zInput;
     bool m_grounded;
 
+    PlayerController m_player;
+
     private void Awake()
     {
         m_rbody = GetComponent<Rigidbody>();
         m_terrainMask = 1 << LayerMask.NameToLayer("Terrain");
         m_grounded = false;
+        m_player = null;
     }
 
     private void Update()
@@ -55,6 +59,7 @@ public class BoatMovement : MonoBehaviour {
         PlayerMove();
         //StablizingLogic();
         SlidingSlopeLogic();
+        DismountLogic();
 
         // Apply gravity
         if (!m_grounded)
@@ -66,6 +71,12 @@ public class BoatMovement : MonoBehaviour {
             m_airGracePeriod -= Time.deltaTime;
 
         m_rbody.velocity = m_currentVel;
+    }
+
+    void DismountLogic()
+    {
+        if (!m_player) // No player to dismount to
+            return;
     }
 
     void StablizingLogic()
@@ -211,8 +222,15 @@ public class BoatMovement : MonoBehaviour {
         }
     }
 
-    public void Initialize(PlayerStats _pStats)
+    public void Initialize(PlayerStats _pStats, PlayerController _player)
     {
+        m_player = _player;
+
+        // Set the player onto boat position
+        m_player.transform.SetParent(transform);
+        m_player.transform.position = m_playerStandPoint.position;
+        m_player.transform.rotation = m_playerStandPoint.rotation;
+
         if (_pStats.BoatTiller && _pStats.BoatSail && _pStats.BoatMast)
         {
             // Full boat!
