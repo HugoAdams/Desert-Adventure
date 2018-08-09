@@ -23,6 +23,12 @@ public class BoatMovement : MonoBehaviour {
     [Range(5, 90)] public float m_shittyMaxSlopeAngle = 30;
     [Range(5, 90)] public float m_maxSlopeAngle = 60;
 
+    [Header("Boat Pieces")]
+    public Transform m_boatBase;
+    public Transform m_boatMast;
+    public Transform m_boatSail;
+    public Transform m_tiller;
+
     float m_refRot;
     Vector3 m_currentVel, m_groundNormal;
     LayerMask m_terrainMask;
@@ -46,7 +52,7 @@ public class BoatMovement : MonoBehaviour {
         UpdatePlayerInput();
         PlayerRotationLogic();
         PlayerMove();
-        StablizingLogic();
+        //StablizingLogic();
         SlidingSlopeLogic();
 
         // Apply gravity
@@ -147,17 +153,17 @@ public class BoatMovement : MonoBehaviour {
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
+        if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
             m_grounded = true;
             m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
             // Get average of 3 raycasts
-            if (Physics.Raycast(transform.position + transform.forward * 0.4f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position + transform.forward * 0.4f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
                 m_groundNormal += hit.normal;
 
-            if (Physics.Raycast(transform.position - transform.forward * 0.4f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position - transform.forward * 0.4f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
                 m_groundNormal += hit.normal;
 
             m_groundNormal = m_groundNormal.normalized;
@@ -207,10 +213,10 @@ public class BoatMovement : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position - transform.up * m_groundedRayLength);
-        Vector3 newPos = transform.position + transform.forward * 0.4f;
+        Gizmos.DrawLine(m_boatBase.position, m_boatBase.position - transform.up * m_groundedRayLength);
+        Vector3 newPos = m_boatBase.position + transform.forward * 0.4f;
         Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
-        newPos = transform.position - transform.forward * 0.4f;
+        newPos = m_boatBase.position - transform.forward * 0.4f;
         Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
     }
 }
