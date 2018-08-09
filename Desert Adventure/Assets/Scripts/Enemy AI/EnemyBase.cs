@@ -105,7 +105,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected Vector3 PathWander(float _lastWander, Vector3 _lastWanderTarget)
     {
-        if (_lastWander == -1 || Time.time - _lastWander >= 2.5f)
+        if (_lastWander == -1 || IsTimerDone(_lastWander, 2.5f))
         {
             Vector2 spot = (Random.insideUnitCircle * 10) + new Vector2(m_startPos.x, m_startPos.y);
             //Debug.Log(spot);
@@ -114,7 +114,8 @@ public abstract class EnemyBase : MonoBehaviour
         }
         else
         {
-            if (new Vector2(_lastWanderTarget.x, _lastWanderTarget.z) == new Vector2(transform.position.x, transform.position.z))
+            //if (new Vector2(_lastWanderTarget.x, _lastWanderTarget.z) == new Vector2(transform.position.x, transform.position.z))
+            if(Distance2D(_lastWanderTarget,transform.position) < 0.4f)
             {
                 return PathWander(-1, Vector3.zero);
             }
@@ -193,5 +194,17 @@ public abstract class EnemyBase : MonoBehaviour
         Vector2 b = new Vector2(_b.x, _b.z);
 
         return Vector2.Distance(a, b);
+    }
+
+    protected bool IsTimerDone(float _since, float _howlong)
+    {
+        if(Time.time - _since >= _howlong)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

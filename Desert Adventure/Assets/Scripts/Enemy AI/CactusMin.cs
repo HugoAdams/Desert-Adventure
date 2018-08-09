@@ -76,7 +76,7 @@ public class CactusMin : EnemyBase
     public override void Idle()
     {
         //we dont move
-        if(Time.time - m_idleTime >= 3.0f)
+        if(IsTimerDone(m_idleTime, 3.0f))
         {
             if(Random.Range(0,90) == 0)
             {
@@ -110,7 +110,7 @@ public class CactusMin : EnemyBase
                 PathSteering(PathSeek(m_target.position));
             }
 
-            if(Time.time - m_targetAquiredTime >= m_targetTimer)
+            if(IsTimerDone(m_targetAquiredTime,m_targetTimer))
             {
                 //been time check if you can still see them
                

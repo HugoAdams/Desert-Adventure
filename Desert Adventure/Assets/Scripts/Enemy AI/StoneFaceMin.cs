@@ -19,13 +19,11 @@ public class StoneFaceMin : EnemyBase
 
     float m_targetTimer = 5;//seconds
     float m_targetAquiredTime = -1;
-    CharacterController chara;
     Vector3 fallStart = Vector3.zero;
     float fallStartTime = -1;
-    bool startfall = false;
     float standUpTime = 0;
     float m_lastWanderTime = -1;
-
+    Animator m_anima;
 
     void Start ()
     {
@@ -36,8 +34,8 @@ public class StoneFaceMin : EnemyBase
         m_targetAquiredTime = Time.time;
 
         m_moveSpeed = m_maxMoveSpeed;
-        //chara = GetComponent<CharacterController>();
         m_rbdy = GetComponent<Rigidbody>();
+        m_anima = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -80,7 +78,7 @@ public class StoneFaceMin : EnemyBase
 
     public override void Idle()
     {
-        
+        //Dont Move
     }
 
     public override void Attack()
@@ -98,7 +96,7 @@ public class StoneFaceMin : EnemyBase
         {
             if (m_bigState != BIGSTATE.STANDING_UP && m_bigState != BIGSTATE.FALLING)
             {
-                if (Distance2D(transform.position, m_target.position) < 4.2f && Time.time - standUpTime > 3)
+                if (Distance2D(transform.position, m_target.position) < 4.2f && IsTimerDone(standUpTime,3))
                 {
                     Fall();
                     return;
@@ -109,7 +107,7 @@ public class StoneFaceMin : EnemyBase
             }
 
 
-            if (Time.time - m_targetAquiredTime >= m_targetTimer)
+            if(IsTimerDone(m_targetAquiredTime, m_targetTimer))
             {
                 //been time check if you can still see them
 
@@ -140,7 +138,7 @@ public class StoneFaceMin : EnemyBase
             m_lastWanderTime = Time.time;
         }
             PathSteering(PathSeek(m_wanderTarget));
-            LookAt(transform.position + m_curVel);
+            LookAt(m_wanderTarget);
         
         
         if(Sight())
@@ -157,7 +155,7 @@ public class StoneFaceMin : EnemyBase
 
         if (Physics.Raycast(ray, out hit, 4.0f, (int)m_groundLayer))
         {
-            transform.position = new Vector3(transform.position.x, hit.point.y , transform.position.z);
+            transform.position = new Vector3(transform.position.x, hit.point.y+0.2f , transform.position.z);
             if(m_bigState == BIGSTATE.STANDING)
             {
                m_rbdy.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -179,7 +177,7 @@ public class StoneFaceMin : EnemyBase
         Vector3 v = Vector3.Lerp(fallStart, new Vector3(90, fallStart.y, 0), t);
         transform.eulerAngles = v;
 
-        if(Time.time - fallStartTime > 6)
+        if (IsTimerDone(fallStartTime, 6)) 
         {
             fallStartTime = -1;
             m_bigState = BIGSTATE.STANDING_UP;
