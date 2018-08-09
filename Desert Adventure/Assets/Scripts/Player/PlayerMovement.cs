@@ -18,25 +18,41 @@ public class PlayerMovement : MonoBehaviour {
 
     private Vector3 moveDirection = Vector3.zero;
 
-    private bool m_playerStunned;
+    private bool m_playerStunned, m_onBoat;
 
     void Awake () {
         charControl = GetComponent<CharacterController>();
 
         GetComponent<PlayerStatusEffects>().m_onStunned += onStunned;
         GetComponent<PlayerStatusEffects>().m_onUnStunned += onUnStunned;
+
+        m_onBoat = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        MovePlayer();
-        JumpPlayer();
+        if (!m_onBoat) // Can't do shiz if on boat
+        {
+            MovePlayer();
+            JumpPlayer();
+        }
+    }
+
+    public void MountBoat()
+    {
+        m_onBoat = true;
+    }
+
+    public void DismountBoat()
+    {
+        m_onBoat = false;
     }
 
     void FixedUpdate()
     {
-        charControl.Move(moveDirection * Time.deltaTime);
+        if (!m_onBoat)
+            charControl.Move(moveDirection * Time.deltaTime);
     }
 
     void JumpPlayer()
