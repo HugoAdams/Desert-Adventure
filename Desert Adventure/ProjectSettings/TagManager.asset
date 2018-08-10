@@ -21,7 +21,7 @@ TagManager:
   - RockButton
   - Obstacle
   - TerrainOnly
-  - PickUpCollision
+  - PlayerOnly
   - 
   - 
   - 

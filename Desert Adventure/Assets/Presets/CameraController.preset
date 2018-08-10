@@ -29,12 +29,16 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: b_auto
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: m_target
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_radius
-    value: 8.5
+    value: 17
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_topAngle

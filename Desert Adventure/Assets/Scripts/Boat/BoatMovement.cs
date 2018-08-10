@@ -139,16 +139,18 @@ public class BoatMovement : MonoBehaviour {
         float maxVel = m_canGoUpHills ? m_maxVelocity : m_shittyMaxVelocity;
         float targetInputStr = Mathf.Max(Mathf.Abs(m_xInput), Mathf.Abs(m_zInput));
 
+        if (!m_grounded && m_airGracePeriod <= 0) // No grounded, no controlleded
+        {
+            // Input strength will decrease over time when not grounded
+            m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime * 0.5f);
+            m_currentVel = m_rbody.velocity;
+            return;
+        }
+
         if (targetInputStr > 0.05f)
             m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime);
         else
             m_inputStrength = Mathf.SmoothDamp(m_inputStrength, targetInputStr, ref m_refInputStrength, m_smoothTime * 0.5f);
-
-        if (!m_grounded && m_airGracePeriod <= 0) // No grounded, no controlleded
-        {
-            m_currentVel = m_rbody.velocity;
-            return;
-        }
 
         float maxSlope = m_canGoUpHills ? m_maxSlopeAngle : m_shittyMaxSlopeAngle;
         float floorAngle = Mathf.Acos(Vector3.Dot(m_groundNormal, Vector3.up)) * Mathf.Rad2Deg;
@@ -167,8 +169,13 @@ public class BoatMovement : MonoBehaviour {
         else
         {
             if (m_canControl || m_canGoUpHills) // Player has control!
-                //m_currentVel = transform.forward * maxVel * m_inputStrength;
-                m_currentVel = Vector3.Cross(transform.right, m_groundNormal) * maxVel * m_inputStrength;
+            {
+                // Test #12,332
+                // Use weighted-average of ground normal, & facing direction
+                float weight = 1.3f;
+                Vector3 dir = (Vector3.Cross(transform.right, m_groundNormal) * weight + transform.forward * (2.0f - weight)) * 0.5f;
+                m_currentVel =  dir * maxVel * m_inputStrength;
+            }
         }
     }
 
@@ -300,5 +307,6 @@ public class BoatMovement : MonoBehaviour {
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
         Gizmos.DrawLine(transform.position, transform.position + m_groundNormal * 5);
+        Gizmos.DrawLine(transform.position, transform.position + m_currentVel);
     }
 }
