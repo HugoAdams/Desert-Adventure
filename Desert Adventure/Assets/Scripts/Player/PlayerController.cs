@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
         m_onBoat = false;
         m_movement = GetComponent<PlayerMovement>();
         m_actions = GetComponent<PlayerActions>();
+
+        // FOR NOW, ALWAYS RESET PLAYER STATS TO DEFAULT
+        m_currentStats.Reset(m_baseStats);
     }
 
     void Update ()

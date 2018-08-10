@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Name: PlayerBaseStats
   m_EditorClassIdentifier: 
   Life: 6
-  BoatBase: 0
+  BoatBase: 1
   BoatMast: 0
   BoatSail: 0
-  BoatTiller: 0
-  CurrentPlayerUI: {fileID: 0}
+  BoatTiller: 1

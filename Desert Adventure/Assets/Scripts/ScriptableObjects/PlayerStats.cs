@@ -10,4 +10,13 @@ public class PlayerStats : ScriptableObject {
     public bool BoatMast;
     public bool BoatSail;
     public bool BoatTiller;
+
+    public void Reset(PlayerStats _defaultStats)
+    {
+        Life = _defaultStats.Life;
+        BoatBase = _defaultStats.BoatBase;
+        BoatMast = _defaultStats.BoatMast;
+        BoatSail = _defaultStats.BoatSail;
+        BoatTiller = _defaultStats.BoatTiller;
+    }
 }

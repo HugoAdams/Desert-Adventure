@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoatPiecePickUp : ItemPickUp {
 
-    enum ShipPiece
+    public enum ShipPiece
     {
         BASE,
         MAST,
@@ -12,10 +12,30 @@ public class BoatPiecePickUp : ItemPickUp {
         TILLER
     }
 
+    public ShipPiece m_boatPiece;
+
     public override void OnPickUp(PlayerController _player)
     {
-        // TODO: Get player's PlayerStats
-        //       Set piece they picked up to be true in PlayerStats
+        // Update player stats, then despawn this object
+        switch (m_boatPiece)
+        {
+            case ShipPiece.BASE:
+                _player.m_currentStats.BoatBase = true;
+                break;
+            case ShipPiece.MAST:
+                _player.m_currentStats.BoatMast = true;
+                break;
+            case ShipPiece.SAIL:
+                _player.m_currentStats.BoatSail = true;
+                break;
+            case ShipPiece.TILLER:
+                _player.m_currentStats.BoatTiller = true;
+                break;
+            default:
+                break;
+        }
+
+        Destroy(gameObject);
 
         EventsController.Instance.TriggerBoatPieceObtained();
     }
