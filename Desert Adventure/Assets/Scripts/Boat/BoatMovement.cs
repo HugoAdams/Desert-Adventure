@@ -76,7 +76,7 @@ public class BoatMovement : MonoBehaviour {
         if (!m_player) // No player to dismount to
             return;
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetButtonDown("BoatMounting"))
         {
             // Dismount!
             m_player.transform.SetParent(null);

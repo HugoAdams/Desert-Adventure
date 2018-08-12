@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: PlayerBaseStats
   m_EditorClassIdentifier: 
   Life: 6
-  BoatBase: 1
+  BoatBase: 0
   BoatMast: 0
   BoatSail: 0
-  BoatTiller: 1
+  BoatTiller: 0
