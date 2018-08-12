@@ -8,7 +8,7 @@ public class EventsController : MonoBehaviour {
     { get; private set; }
 
     public delegate void PlayerLifeChange();
-    public delegate void BoatPieceObtained();
+    public delegate void BoatPieceObtained(BoatPiece _boatPiece);
 
     public event PlayerLifeChange OnPlayerLifeChange;
     public event BoatPieceObtained OnBoatPieceObtained;
@@ -31,9 +31,9 @@ public class EventsController : MonoBehaviour {
             OnPlayerLifeChange();
     }
 
-    public void TriggerBoatPieceObtained()
+    public void TriggerBoatPieceObtained(BoatPiece _boatPiece)
     {
         if (OnBoatPieceObtained != null)
-            OnBoatPieceObtained();
+            OnBoatPieceObtained(_boatPiece);
     }
 }

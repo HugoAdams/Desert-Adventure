@@ -12,6 +12,7 @@ public class PlayerActions : MonoBehaviour {
     public float m_upwardsThrowStrength;
 
     private bool m_holdingObject;
+    private bool m_onBoat;
     private GameObject m_pickup;
 
     private bool m_playerIncapacited;
@@ -25,7 +26,7 @@ public class PlayerActions : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (m_playerIncapacited)
+        if (m_playerIncapacited || m_onBoat)
             return;
 
         if (Input.GetKeyDown(m_pickupKey))
@@ -113,4 +114,7 @@ public class PlayerActions : MonoBehaviour {
     {
         m_playerIncapacited = false;
     }
+
+    public void MountBoat() { m_onBoat = true; }
+    public void DismountBoat() { m_onBoat = false; }
 }
