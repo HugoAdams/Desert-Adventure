@@ -156,7 +156,7 @@ ModelImporter:
     4300002: Mesh_Tail
     4300004: Mesh_Body
     4300006: Mesh_Whip
-    7400000: Take 001
+    7400000: Slide
     9500000: //RootNode
     13700000: Mesh_Body
     13700002: Mesh_Head
@@ -191,7 +191,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Slide
       takeName: Take 001
       firstFrame: 0
       lastFrame: 50

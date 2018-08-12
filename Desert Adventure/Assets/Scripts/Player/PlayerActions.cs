@@ -47,7 +47,7 @@ public class PlayerActions : MonoBehaviour {
             }
             else
             {
-                if(m_characterController.velocity.sqrMagnitude == 0)
+                if(m_characterController.velocity.sqrMagnitude <= 3)
                 {
                     dropObject();
                 }
