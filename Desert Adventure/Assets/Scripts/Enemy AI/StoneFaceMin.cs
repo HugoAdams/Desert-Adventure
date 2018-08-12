@@ -9,13 +9,16 @@ public class StoneFaceMin : EnemyBase
         STANDING,
         FALLING,
         MOVING,
-        ROLLING,
+        ROTATING,
         STANDING_UP,
         NULL
     }
+
     ENEMYSTATE m_state;
     BIGSTATE m_bigState;
     Rigidbody m_rbdy;
+    Animator m_anima;
+    StoneFaceColliders m_colliders;
 
     float m_targetTimer = 5;//seconds
     float m_targetAquiredTime = -1;
@@ -23,7 +26,10 @@ public class StoneFaceMin : EnemyBase
     float fallStartTime = -1;
     float standUpTime = 0;
     float m_lastWanderTime = -1;
-    Animator m_anima;
+    bool m_wanderRotate = false;
+    float m_deathStartTime = -1;
+
+    float m_waitTime = 0;
 
     void Start ()
     {
@@ -36,10 +42,13 @@ public class StoneFaceMin : EnemyBase
         m_moveSpeed = m_maxMoveSpeed;
         m_rbdy = GetComponent<Rigidbody>();
         m_anima = GetComponentInChildren<Animator>();
+        m_colliders = GetComponentInChildren<StoneFaceColliders>();
+        m_currentHealth = m_MaxHealth;
     }
 
     void Update()
     {
+
         switch (m_state)
         {
             case ENEMYSTATE.IDLE:
@@ -51,6 +60,9 @@ public class StoneFaceMin : EnemyBase
             case ENEMYSTATE.ATTACK:
                 Attack();
                 break;
+            case ENEMYSTATE.DEATH:
+                OnDeath();
+                break;
             case ENEMYSTATE.NULL:
                 Debug.Log(name + " in null state");
                 break;
@@ -59,29 +71,60 @@ public class StoneFaceMin : EnemyBase
                 break;
         }
         
+        if(m_state != ENEMYSTATE.DEATH)
+        {
         SetOnGround();
+        OnEnemyHit(400, transform);
+
+        }
         
     }
 
     public override void OnDeath()
     {
-        Debug.Log(name + " has died :<");
+        //m_colliders.DisableAll();
+        if (IsTimerDone(m_deathStartTime, 1.2f))
+        {
+            transform.position = transform.position + (Vector3.down * m_moveSpeed * Time.deltaTime);
+            Debug.Log("falling");
+
+            m_colliders.DisableAll();
+            if (IsTimerDone(m_deathStartTime, 13.0f))
+            {
+                //delete self
+                Destroy(gameObject);
+            }
+        }
     }
     public override void OnEnemyHit(int _damage, Transform _attacker)
     {
         m_currentHealth -= _damage;
-        if(m_currentHealth <= 0)
+        if(m_currentHealth <= 0 && m_state != ENEMYSTATE.DEATH)
         {
-            OnDeath();
+            Debug.Log(name + " has died :<");
+            m_anima.SetTrigger("StartDeath");
+            m_state = ENEMYSTATE.DEATH;
+            m_deathStartTime = Time.time;
         }
     }
 
-    public override void Idle()
+    protected override void Idle()
     {
         //Dont Move
+        if (IsTimerDone(m_lastWanderTime, m_waitTime))
+        {
+            m_state = ENEMYSTATE.WANDER;
+            m_anima.SetBool("isRunning", true);
+        }
+
+        if (Sight())
+        {
+            m_state = ENEMYSTATE.ATTACK;
+            m_targetAquiredTime = Time.time;
+        }
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
         if(m_bigState == BIGSTATE.FALLING)
         {
@@ -128,17 +171,37 @@ public class StoneFaceMin : EnemyBase
     }
 
 
-    public override void Wander()
+    protected override void Wander()
     {
         //PathWander
-        Vector3 oldwander = m_wanderTarget;
-        m_wanderTarget = PathWander(m_lastWanderTime, m_wanderTarget);
-        if (oldwander != m_wanderTarget)
+        if (m_wanderRotate == false)//small optimise
         {
-            m_lastWanderTime = Time.time;
+            Vector3 oldwander = m_wanderTarget;
+            m_wanderTarget = PathWanderBasic(m_wanderTarget);
+
+
+            if (oldwander != m_wanderTarget)
+            {//new target
+                m_wanderRotate = true;
+                m_lastWanderTime = Time.time;
+
+                m_waitTime = Random.Range(0.6f, 3.0f);
+                m_anima.SetBool("isRunning", false);
+                m_state = ENEMYSTATE.IDLE;
+            }
         }
+
+
+        
+        if (m_wanderRotate == true)
+        {
+            m_wanderRotate = RotateToFace(m_wanderTarget);
+        }
+        else
+        {
             PathSteering(PathSeek(m_wanderTarget));
-            LookAt(m_wanderTarget);
+
+        }
         
         
         if(Sight())
@@ -155,7 +218,7 @@ public class StoneFaceMin : EnemyBase
 
         if (Physics.Raycast(ray, out hit, 4.0f, (int)m_groundLayer))
         {
-            transform.position = new Vector3(transform.position.x, hit.point.y+0.2f , transform.position.z);
+            transform.position = new Vector3(transform.position.x, hit.point.y + 0.1f , transform.position.z);
             if(m_bigState == BIGSTATE.STANDING)
             {
                m_rbdy.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -201,6 +264,25 @@ public class StoneFaceMin : EnemyBase
             fallStartTime = -1;
             m_bigState = BIGSTATE.STANDING;
             standUpTime = Time.time;
+        }
+    }
+
+    bool RotateToFace(Vector3 _v)
+    {
+        _v.y = transform.position.y;//should stop rotation on x and z;
+
+        Vector3 targetDir = _v - transform.position;
+        Vector3 newdir = Vector3.RotateTowards(transform.forward, targetDir, Time.deltaTime * 2, 0.0f);
+
+        transform.rotation = Quaternion.LookRotation(newdir);
+        
+        if(Vector3.Angle(transform.forward,targetDir) < 0.5f)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 }

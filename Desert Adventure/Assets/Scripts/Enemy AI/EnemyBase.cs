@@ -9,6 +9,7 @@ public abstract class EnemyBase : MonoBehaviour
         IDLE,
         WANDER,
         ATTACK,
+        DEATH,
         NULL
     }
 
@@ -36,9 +37,9 @@ public abstract class EnemyBase : MonoBehaviour
 
     public abstract void OnDeath();
     public abstract void OnEnemyHit(int _damage, Transform _attacker);
-    public abstract void Idle();
-    public abstract void Attack();
-    public abstract void Wander();
+    protected abstract void Idle();
+    protected abstract void Attack();
+    protected abstract void Wander();
 
     protected bool Sight()
     {
@@ -124,6 +125,42 @@ public abstract class EnemyBase : MonoBehaviour
 
     }
 
+    protected Vector3 PathWanderBasic(Vector3 _lastWanderTarget)
+    {
+        if (Distance2D(_lastWanderTarget, transform.position) < 0.2f)
+        {
+            Vector2 spot = Random.insideUnitCircle * 10;
+            spot += new Vector2(m_startPos.x, m_startPos.y);
+
+            int savecounter = 0;
+            while (true)
+            {
+                if(Distance2D(spot,transform.position) >= 4.5f)
+                {
+                    break;
+                }
+                else
+                {
+                    spot = Random.insideUnitCircle * 10;
+                    spot += new Vector2(m_startPos.x, m_startPos.y);
+                }
+                savecounter++;
+                if(savecounter > 9999)
+                {
+                    Debug.Log("DEBUG: while loop went over 9999");
+                    break;
+                }
+            }
+
+            return new Vector3(spot.x, 0, spot.y);
+
+        }
+        else
+        {
+            return _lastWanderTarget;
+        }
+    }
+
     protected void PathSteering(Vector3 _v3)
     {
         _v3 += PathCollisionAvoid();
@@ -194,6 +231,12 @@ public abstract class EnemyBase : MonoBehaviour
         Vector2 b = new Vector2(_b.x, _b.z);
 
         return Vector2.Distance(a, b);
+    }
+
+    protected float Distance2D(Vector2 _v2, Vector3 _v3)
+    {
+        Vector2 b = new Vector2(_v3.x, _v3.z);
+        return Vector2.Distance(_v2, b);
     }
 
     protected bool IsTimerDone(float _since, float _howlong)

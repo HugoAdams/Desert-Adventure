@@ -73,7 +73,7 @@ public class CactusMin : EnemyBase
         }
     }
 
-    public override void Idle()
+    protected override void Idle()
     {
         //we dont move
         if(IsTimerDone(m_idleTime, 3.0f))
@@ -92,7 +92,7 @@ public class CactusMin : EnemyBase
 
     }
 
-    public override void Attack()
+    protected override void Attack()
     {
         //go go go
         if (m_target != null)
@@ -134,7 +134,7 @@ public class CactusMin : EnemyBase
         }
     }
 
-    public override void Wander()
+    protected override void Wander()
     {//use this for basic movement
         //and returning to start area
         Vector3 oldwander = m_wanderTarget;
