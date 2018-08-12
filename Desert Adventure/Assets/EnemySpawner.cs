@@ -12,28 +12,53 @@ public class EnemySpawner : MonoBehaviour {
     public int m_numOfBigRockEnemies;
     public int m_numOfSpearEnemies;
 
+    public int m_respawnDistanceThreshold;
+
     private int terrainLayerMask = 1 << 9;
 
     private List<GameObject> m_bigRockEnemies = new List<GameObject>();
     private List<GameObject> m_spearEnemies = new List<GameObject>();
 
-    private bool m_playerCloseby;
+    private GameObject player;
 
     // Use this for initialization
     void Start () {
         SpawnEnemies();
+        player = GameObject.Find("Player");
+        StartCoroutine(CheckRespawnEnemies());
     }
 
-    private void Update()
+    IEnumerator CheckRespawnEnemies()
     {
-        if (m_playerCloseby)
-            return;
-
+        while (true)
+        {
+            if ((player.transform.position - this.transform.position).sqrMagnitude > m_respawnDistanceThreshold)
+            {
+                RespawnEnemies();
+            }
+            yield return new WaitForSeconds(5);
+        }
     }
 
     void RespawnEnemies()
     {
+        for (int i = 0; i < m_spearEnemies.Count; ++i)
+        {
+            if (m_spearEnemies[i] == null)
+            {
+                m_spearEnemies[i] = SpawnEnemy(m_spearEnemy);
+                return;
+            }
+        }
 
+        for (int i = 0; i < m_bigRockEnemies.Count; ++i)
+        {
+            if (m_bigRockEnemies[i] == null)
+            {
+                m_bigRockEnemies[i] = SpawnEnemy(m_bigRockEnemy);
+                return;
+            }
+        }
     }
 
     void SpawnEnemies()
@@ -61,10 +86,5 @@ public class EnemySpawner : MonoBehaviour {
         RaycastHit hit;
         Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, terrainLayerMask);
         return hit.distance;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-
     }
 }
