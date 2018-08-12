@@ -31,11 +31,14 @@ public class PlayerController : MonoBehaviour {
 
     void GetOnBoatLogic()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetButtonDown("BoatMounting"))
         {
             // No boat base = can't get on boat!
             if (!m_currentStats.BoatBase)
+            {
+                EffectCanvas.Instance.InformText("MISSING: Boat Hull");
                 return;
+            }
 
             MountBoat();
         }
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour {
     {
         GetComponent<CharacterController>().enabled = false;
         m_movement.MountBoat();
+        m_actions.MountBoat();
         m_onBoat = true;
 
         Transform newBoat = Instantiate(m_boatPrefab, transform.position, transform.rotation);
@@ -55,6 +59,7 @@ public class PlayerController : MonoBehaviour {
     {
         GetComponent<CharacterController>().enabled = true;
         m_movement.DismountBoat();
+        m_actions.DismountBoat();
         m_onBoat = false;
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0); // Stand back up
     }
