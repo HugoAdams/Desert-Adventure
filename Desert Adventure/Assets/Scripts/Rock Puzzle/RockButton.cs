@@ -11,7 +11,7 @@ public class RockButton : MonoBehaviour {
         m_rockPlaced = true;
         GameObject rock = transform.Find("Rock").gameObject;
         rock.SetActive(true);
-        rock.transform.rotation = rotation;
+        //rock.transform.rotation = rotation;
         transform.parent.GetComponent<RockPuzzle>().CheckPuzzleComplete();
     }
 

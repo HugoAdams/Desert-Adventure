@@ -8,12 +8,16 @@ public class RockPuzzle : MonoBehaviour {
 
     public GameObject m_RewardObject;
 
+    private Vector3 m_rewardSpawnLocation;
+
 	// Use this for initialization
 	void Start () {
         foreach (Transform child in transform)
         {
             if (child.name == "RockButton")
                 m_rockButtons.Add(child.gameObject.GetComponent<RockButton>());
+            if (child.name == "SpawnLocation")
+                m_rewardSpawnLocation = child.gameObject.transform.position;
         }
     }
 
@@ -26,6 +30,6 @@ public class RockPuzzle : MonoBehaviour {
                 return;
         }
 
-        Instantiate(m_RewardObject, transform.position, transform.rotation);
+        Instantiate(m_RewardObject, m_rewardSpawnLocation, transform.rotation);
     }
 }
