@@ -44,13 +44,13 @@ public class PlayerUI : MonoBehaviour {
             m_boatBase.ChangeSprite(m_currentViewedStats.BoatBase);
 
         if (m_boatMast)
-            m_boatBase.ChangeSprite(m_currentViewedStats.BoatMast);
+            m_boatMast.ChangeSprite(m_currentViewedStats.BoatMast);
 
         if (m_boatSail)
-            m_boatBase.ChangeSprite(m_currentViewedStats.BoatSail);
+            m_boatSail.ChangeSprite(m_currentViewedStats.BoatSail);
 
         if (m_boatTiller)
-            m_boatBase.ChangeSprite(m_currentViewedStats.BoatTiller);
+            m_boatTiller.ChangeSprite(m_currentViewedStats.BoatTiller);
     }
 
     private void OnEnable()
