@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour {
 
     public KeyCode m_pickupKey;
-    public KeyCode m_throwKey;
 
     public float m_pickUpRangeRadius;
     public float m_forwardThrowStrength;
@@ -17,10 +16,13 @@ public class PlayerActions : MonoBehaviour {
 
     private bool m_playerIncapacited;
 
+    private CharacterController m_characterController;
+
     private void Awake()
     {
         GetComponent<PlayerStatusEffects>().m_onIncapacited += onIncapacited;
         GetComponent<PlayerStatusEffects>().m_onUnIncapacited += onUnIncapacited;
+        m_characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -45,17 +47,30 @@ public class PlayerActions : MonoBehaviour {
             }
             else
             {
-                m_pickup.transform.position = transform.position + (transform.forward * 1.5f);
-                detatchPickup();
+                if(m_characterController.velocity.sqrMagnitude == 0)
+                {
+                    dropObject();
+                }
+                else
+                {
+                    throwObject();
+                }
             }
         }
-        if (m_holdingObject && Input.GetKeyDown(m_throwKey))
-        {
-            detatchPickup();
-            Vector3 throwforce = transform.forward * m_forwardThrowStrength;
-            throwforce.y = m_upwardsThrowStrength;
-            m_pickup.GetComponent<Rigidbody>().AddForce(throwforce);
-        }
+    }
+
+    void dropObject()
+    {
+        m_pickup.transform.position = transform.position + (transform.forward * 1.5f);
+        detatchPickup();
+    }
+
+    void throwObject()
+    {
+        detatchPickup();
+        Vector3 throwforce = transform.forward * m_forwardThrowStrength;
+        throwforce.y = m_upwardsThrowStrength;
+        m_pickup.GetComponent<Rigidbody>().AddForce(throwforce);
     }
 
     void detatchPickup()
