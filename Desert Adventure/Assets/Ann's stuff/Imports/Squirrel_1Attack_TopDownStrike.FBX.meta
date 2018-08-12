@@ -1,0 +1,245 @@
+fileFormatVersion: 2
+guid: f8ec41f0b23bb90459eda67c96149784
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Mesh_Body
+    100002: Mesh_Group_Squirrel_Dummy
+    100004: Mesh_Head
+    100006: Mesh_Tail
+    100008: Mesh_Whip
+    100010: //RootNode
+    100012: Squirrel_Head
+    100014: Squirrel_L3
+    100016: Squirrel_L_Ear
+    100018: Squirrel_LCalf
+    100020: Squirrel_LCollarbone
+    100022: Squirrel_LDigit11
+    100024: Squirrel_LDigit11 1
+    100026: Squirrel_LDigit12
+    100028: Squirrel_LDigit13
+    100030: Squirrel_LDigit21
+    100032: Squirrel_LDigit22
+    100034: Squirrel_LDigit23
+    100036: Squirrel_LFoot
+    100038: Squirrel_LForearm
+    100040: Squirrel_LPalm
+    100042: Squirrel_LPlatform
+    100044: Squirrel_LThigh
+    100046: Squirrel_LUpperarm
+    100048: Squirrel_MASTER
+    100050: Squirrel_Master
+    100052: Squirrel_Neck1
+    100054: Squirrel_Neck2
+    100056: Squirrel_Pelvis
+    100058: Squirrel_R3
+    100060: Squirrel_R_Ear
+    100062: Squirrel_RCalf
+    100064: Squirrel_RCollarbone
+    100066: Squirrel_RDigit11
+    100068: Squirrel_RDigit11 1
+    100070: Squirrel_RDigit12
+    100072: Squirrel_RDigit13
+    100074: Squirrel_RDigit21
+    100076: Squirrel_RDigit22
+    100078: Squirrel_RDigit23
+    100080: Squirrel_RFoot
+    100082: Squirrel_RForearm
+    100084: Squirrel_Ribcage
+    100086: Squirrel_RPalm
+    100088: Squirrel_RPlatform
+    100090: Squirrel_RThigh
+    100092: Squirrel_RUpperarm
+    100094: Squirrel_Spine1
+    100096: Squirrel_Spine2
+    100098: Squirrel_Spine3
+    100100: Squirrel_Spine4
+    100102: Squirrel_Tail1
+    100104: Squirrel_Tail2
+    100106: Squirrel_Tail3
+    100108: Squirrel_Tail4
+    100110: Squirrel_Tail5
+    100112: Squirrel_Tail6
+    100114: Squirrel_Whip1
+    100116: Squirrel_Whip10
+    100118: Squirrel_Whip11
+    100120: Squirrel_Whip12
+    100122: Squirrel_Whip13
+    100124: Squirrel_Whip14
+    100126: Squirrel_Whip15
+    100128: Squirrel_Whip16
+    100130: Squirrel_Whip2
+    100132: Squirrel_Whip3
+    100134: Squirrel_Whip4
+    100136: Squirrel_Whip5
+    100138: Squirrel_Whip6
+    100140: Squirrel_Whip7
+    100142: Squirrel_Whip8
+    100144: Squirrel_Whip9
+    400000: Mesh_Body
+    400002: Mesh_Group_Squirrel_Dummy
+    400004: Mesh_Head
+    400006: Mesh_Tail
+    400008: Mesh_Whip
+    400010: //RootNode
+    400012: Squirrel_Head
+    400014: Squirrel_L3
+    400016: Squirrel_L_Ear
+    400018: Squirrel_LCalf
+    400020: Squirrel_LCollarbone
+    400022: Squirrel_LDigit11
+    400024: Squirrel_LDigit11 1
+    400026: Squirrel_LDigit12
+    400028: Squirrel_LDigit13
+    400030: Squirrel_LDigit21
+    400032: Squirrel_LDigit22
+    400034: Squirrel_LDigit23
+    400036: Squirrel_LFoot
+    400038: Squirrel_LForearm
+    400040: Squirrel_LPalm
+    400042: Squirrel_LPlatform
+    400044: Squirrel_LThigh
+    400046: Squirrel_LUpperarm
+    400048: Squirrel_MASTER
+    400050: Squirrel_Master
+    400052: Squirrel_Neck1
+    400054: Squirrel_Neck2
+    400056: Squirrel_Pelvis
+    400058: Squirrel_R3
+    400060: Squirrel_R_Ear
+    400062: Squirrel_RCalf
+    400064: Squirrel_RCollarbone
+    400066: Squirrel_RDigit11
+    400068: Squirrel_RDigit11 1
+    400070: Squirrel_RDigit12
+    400072: Squirrel_RDigit13
+    400074: Squirrel_RDigit21
+    400076: Squirrel_RDigit22
+    400078: Squirrel_RDigit23
+    400080: Squirrel_RFoot
+    400082: Squirrel_RForearm
+    400084: Squirrel_Ribcage
+    400086: Squirrel_RPalm
+    400088: Squirrel_RPlatform
+    400090: Squirrel_RThigh
+    400092: Squirrel_RUpperarm
+    400094: Squirrel_Spine1
+    400096: Squirrel_Spine2
+    400098: Squirrel_Spine3
+    400100: Squirrel_Spine4
+    400102: Squirrel_Tail1
+    400104: Squirrel_Tail2
+    400106: Squirrel_Tail3
+    400108: Squirrel_Tail4
+    400110: Squirrel_Tail5
+    400112: Squirrel_Tail6
+    400114: Squirrel_Whip1
+    400116: Squirrel_Whip10
+    400118: Squirrel_Whip11
+    400120: Squirrel_Whip12
+    400122: Squirrel_Whip13
+    400124: Squirrel_Whip14
+    400126: Squirrel_Whip15
+    400128: Squirrel_Whip16
+    400130: Squirrel_Whip2
+    400132: Squirrel_Whip3
+    400134: Squirrel_Whip4
+    400136: Squirrel_Whip5
+    400138: Squirrel_Whip6
+    400140: Squirrel_Whip7
+    400142: Squirrel_Whip8
+    400144: Squirrel_Whip9
+    2100000: lambert2
+    2100002: M_Opacity
+    2100004: lambert1
+    4300000: Mesh_Head
+    4300002: Mesh_Tail
+    4300004: Mesh_Body
+    4300006: Mesh_Whip
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Mesh_Body
+    13700002: Mesh_Head
+    13700004: Mesh_Tail
+    13700006: Mesh_Whip
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
