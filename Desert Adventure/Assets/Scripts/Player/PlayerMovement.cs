@@ -27,11 +27,14 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool m_playerStunned, m_onBoat, m_dashRecharging;
 
+    private PlayerStatusEffects m_playerStatusEffects;
+
     void Awake () {
         charControl = GetComponent<CharacterController>();
 
-        GetComponent<PlayerStatusEffects>().m_onStunned += onStunned;
-        GetComponent<PlayerStatusEffects>().m_onUnStunned += onUnStunned;
+        m_playerStatusEffects = GetComponent<PlayerStatusEffects>();
+        m_playerStatusEffects.m_onStunned += onStunned;
+        m_playerStatusEffects.m_onUnStunned += onUnStunned;
 
         m_onBoat = false;
     }
@@ -76,6 +79,7 @@ public class PlayerMovement : MonoBehaviour {
     IEnumerator DashMove()
     {
         m_playerStunned = true;
+        m_playerStatusEffects.onIncapacited();
         float timeStamp = Time.time + m_dashTime;
 
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -91,6 +95,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         StartCoroutine(ResetDash());
         m_playerStunned = false;
+        m_playerStatusEffects.onUnIncapacited();
         yield return null;
     }
 

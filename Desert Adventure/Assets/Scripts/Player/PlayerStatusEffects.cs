@@ -107,4 +107,14 @@ public class PlayerStatusEffects : MonoBehaviour {
         m_isFlattened = false;
         yield return null;
     }
+
+    public void onIncapacited()
+    {
+        m_onIncapacited();
+    }
+
+    public void onUnIncapacited()
+    {
+        m_onUnIncapacited();
+    }
 }
