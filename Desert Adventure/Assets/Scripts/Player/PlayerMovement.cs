@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour {
 
     IEnumerator DashMove()
     {
+        m_playerStunned = true;
         float timeStamp = Time.time + m_dashTime;
 
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -83,14 +84,13 @@ public class PlayerMovement : MonoBehaviour {
             // Rotated move dir by camera dir
             Vector3 NextDir = (Camera.main.transform.rotation * moveDirection).normalized;
             NextDir.y = 0;
-            if (NextDir != Vector3.zero) // Make the player look at the move direction
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextDir), 400 * Time.deltaTime);
             NextDir = NextDir * m_dashSpeed;
             NextDir.y = currentMove.y;
             currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
             yield return null;
         }
         StartCoroutine(ResetDash());
+        m_playerStunned = false;
         yield return null;
     }
 
