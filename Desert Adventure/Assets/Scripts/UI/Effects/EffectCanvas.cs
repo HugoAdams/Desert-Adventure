@@ -10,6 +10,7 @@ public class EffectCanvas : MonoBehaviour {
     public Transform m_informTextPrefab;
     public Transform m_titleTextPrefab;
     public Transform m_helpTextPrefab;
+    public string m_objectiveString;
 
     private void Awake()
     {
@@ -20,6 +21,17 @@ public class EffectCanvas : MonoBehaviour {
         }
 
         Instance = this;
+    }
+
+    private void Start()
+    {
+        if (m_objectiveString != "")
+            Invoke("StartText", 1);
+    }
+
+    void StartText()
+    {
+        TitleText("OBJECTIVE: " + m_objectiveString);
     }
 
     // Kinda like error message for user
@@ -38,16 +50,17 @@ public class EffectCanvas : MonoBehaviour {
         newText.GetComponent<InformText>().InitializeAndStart(_text);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-            InformText("SAD <color=blue> SAD </color> <sprite=4>");
+    // Test keys
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //        InformText("SAD <color=blue> SAD </color> <sprite=4>");
 
-        if (Input.GetKeyDown(KeyCode.O))
-            TitleText("OBJECTIVE: GET SOME SLEEP SOMETIME SOON <sprite=6>");
+    //    if (Input.GetKeyDown(KeyCode.O))
+    //        TitleText("OBJECTIVE: GET SOME SLEEP SOMETIME SOON <sprite=6>");
 
-        if (Input.GetKeyDown(KeyCode.I))
-            HelperText("PRESS <sprite=4> to get on boat");
-    }
+    //    if (Input.GetKeyDown(KeyCode.I))
+    //        HelperText("PRESS <sprite=4> to get on boat");
+    //}
 
 }
