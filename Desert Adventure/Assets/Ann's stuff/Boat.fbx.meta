@@ -18,6 +18,7 @@ ModelImporter:
     400010: Raft_Sail
     400012: Raft_TillerEngine
     2100000: lambert1
+    2100002: lambert6
     2300000: L_RaftFootSlider
     2300002: R_RaftFootSlider
     2300004: Raft_MainTub
