@@ -60,7 +60,7 @@ public class BoatMovement : MonoBehaviour {
         PlayerRotationLogic();
         //PlayerMove();
         //StablizingLogic();
-        SlidingSlopeLogic();
+        //SlidingSlopeLogic();
         DismountLogic();
 
         if (m_airGracePeriod > 0)
@@ -99,7 +99,7 @@ public class BoatMovement : MonoBehaviour {
 
         if (Mathf.Abs(m_xInput) > 0.1f || Mathf.Abs(m_zInput) > 0.1f)
         {
-            Vector3 dir = transform.forward;
+            Vector3 dir = transform.forward + Vector3.up * 0.05f;
             m_rbody.AddForce(dir * m_driveForce * Time.deltaTime, ForceMode.Acceleration);
 
             // Limit velocity Logic
@@ -338,14 +338,7 @@ public class BoatMovement : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(m_boatBase.position, m_boatBase.position - transform.up * m_groundedRayLength);
-        Vector3 newPos = m_boatBase.position + transform.forward * m_rayCastDistApart;
-        Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
-        newPos = m_boatBase.position - transform.forward * m_rayCastDistApart;
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(newPos, newPos - transform.up * m_groundedRayLength);
-        Gizmos.DrawLine(transform.position, transform.position + m_groundNormal * 5);
-        Gizmos.DrawLine(transform.position, transform.position + m_currentVel);
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 5);
     }
 }

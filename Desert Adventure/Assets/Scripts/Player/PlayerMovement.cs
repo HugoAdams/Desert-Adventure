@@ -26,12 +26,16 @@ public class PlayerMovement : MonoBehaviour {
 
     private PlayerStatusEffects m_playerStatusEffects;
 
+    private Animator m_animator;
+
     void Awake () {
         charControl = GetComponent<CharacterController>();
 
         m_playerStatusEffects = GetComponent<PlayerStatusEffects>();
         m_playerStatusEffects.m_onStunned += onStunned;
         m_playerStatusEffects.m_onUnStunned += onUnStunned;
+
+        m_animator = transform.Find("Model").GetComponent<Animator>();
 
         m_onBoat = false;
     }
@@ -134,6 +138,9 @@ public class PlayerMovement : MonoBehaviour {
         NextDir = NextDir * m_walkSpeed;
         NextDir.y = currentMove.y;
         currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
+        Vector2 currentSpeed = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * m_walkSpeed;
+        Debug.Log(currentSpeed.sqrMagnitude);
+        m_animator.SetFloat("MoveSpeed", currentSpeed.sqrMagnitude);
     }
 
     void onStunned()
