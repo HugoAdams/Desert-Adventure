@@ -112,9 +112,15 @@ public class PlayerMovement : MonoBehaviour {
     void JumpPlayer()
     {
         if (!m_playerStunned && !m_isAttacking && charControl.isGrounded && Input.GetButtonDown("Jump"))
+        {
             currentMove.y = m_jumpSpeed; // Apply the jump speed if space bar hit
+            m_animator.SetBool("Jumping", true);
+        }
         else if (charControl.isGrounded)
-            return;
+        {
+            m_animator.SetBool("Jumping", false);
+                     return;
+        }
 
         if (currentMove.y < 0) // If the player is falling, make gravity stronger
             m_gravityScale = m_fallMultiplier;
