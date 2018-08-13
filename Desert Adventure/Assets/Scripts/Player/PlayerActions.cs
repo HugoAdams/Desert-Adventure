@@ -8,6 +8,10 @@ public class PlayerActions : MonoBehaviour {
     public float m_forwardThrowStrength;
     public float m_upwardsThrowStrength;
 
+    public float m_attackLength;
+    public float m_attackComboTimeFrame; // The length of the attack window the player can press attack to do the next attack
+
+    private bool m_attacking;
     private bool m_holdingObject;
     private bool m_onBoat;
     private GameObject m_pickup;
@@ -15,21 +19,36 @@ public class PlayerActions : MonoBehaviour {
     private bool m_playerIncapacited;
 
     private CharacterController m_characterController;
+    private Animator m_charAnimator;
+    private PlayerMovement m_playerMovement;
 
     private void Awake()
     {
         GetComponent<PlayerStatusEffects>().m_onIncapacited += onIncapacited;
         GetComponent<PlayerStatusEffects>().m_onUnIncapacited += onUnIncapacited;
         m_characterController = GetComponent<CharacterController>();
+        m_charAnimator = transform.Find("Model").GetComponent<Animator>();
+        m_playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_playerIncapacited || m_onBoat)
+        if (m_playerIncapacited || m_onBoat || m_attacking)
             return;
 
-        if (Input.GetButtonDown("PickUp"))
+        if (Input.GetButtonDown("Attack"))
+        {
+            if (m_holdingObject)
+            {
+                dropObject();
+            }
+            m_playerMovement.SetIsAttacking(true);
+            m_attacking = true;
+            m_charAnimator.SetTrigger("Attack");
+            StartCoroutine(Attack());
+        }
+        else if (Input.GetButtonDown("PickUp"))
         {
             if (!m_holdingObject)
             {
@@ -45,7 +64,7 @@ public class PlayerActions : MonoBehaviour {
             }
             else
             {
-                if(m_characterController.velocity.sqrMagnitude <= 3)
+                if (m_characterController.velocity.sqrMagnitude <= 10)
                 {
                     dropObject();
                 }
@@ -126,6 +145,18 @@ public class PlayerActions : MonoBehaviour {
     void onUnIncapacited()
     {
         m_playerIncapacited = false;
+    }
+
+    IEnumerator Attack()
+    {
+        float timeframe = Time.time + m_attackLength;
+        while (timeframe > Time.time)
+        {
+            yield return null;
+        }
+        m_playerMovement.SetIsAttacking(false);
+        m_attacking = false;
+        yield return null;
     }
 
     public void MountBoat() { m_onBoat = true; }
