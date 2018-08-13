@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Life: 6
   BoatBase: 1
-  BoatMast: 0
-  BoatSail: 0
+  BoatMast: 1
+  BoatSail: 1
   BoatTiller: 1
