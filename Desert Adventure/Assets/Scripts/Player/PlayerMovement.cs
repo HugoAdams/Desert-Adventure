@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour {
         else if (charControl.isGrounded)
         {
             m_animator.SetBool("Jumping", false);
-            return;
+                     return;
         }
 
         if (currentMove.y < 0) // If the player is falling, make gravity stronger
