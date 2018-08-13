@@ -5,12 +5,19 @@ using UnityEngine;
 public class CactusMin : EnemyBase
 {
     ENEMYSTATE m_state;
+    ENEMYSTATE m_enterDamageState;
+    Animator m_anima;
+    CactusColliders m_colliders;
 
     float m_targetTimer = 5;//seconds
     float m_targetAquiredTime = -1;
     float m_idleTime;
     float m_lastWanderTime = -1;
     float m_moveSpeedLocal;
+    float m_attackTime = 0;
+
+    float m_damageStartTime = 0;
+    float m_deathStartTime = 0;
 
     void Start ()
     {
@@ -21,6 +28,10 @@ public class CactusMin : EnemyBase
 
         m_moveSpeed = 0.6f * m_maxMoveSpeed;
         m_moveSpeedLocal = m_moveSpeed;
+
+        m_anima = GetComponentInChildren<Animator>();
+        m_colliders = GetComponentInChildren<CactusColliders>();
+        m_colliders.m_spearTrigger.enabled = false;
     }
 
     void Update()
@@ -38,6 +49,12 @@ public class CactusMin : EnemyBase
                 m_moveSpeed = m_maxMoveSpeed;
                 Attack();
                 break;
+            case ENEMYSTATE.DAMAGE:
+                DamageStun();
+                break;
+            case ENEMYSTATE.DEATH:
+                OnDeath();
+                break;
             case ENEMYSTATE.NULL:
                 Debug.Log(name + " in null state");
                 break;
@@ -51,25 +68,53 @@ public class CactusMin : EnemyBase
 
     public override void OnDeath()
     {
-        Debug.Log(name + " has died :-( ");
-        Destroy(this);
+        if (IsTimerDone(m_deathStartTime, 1.2f))
+        {
+            m_colliders.DisableAll();
+            if (IsTimerDone(m_deathStartTime, 13.0f))
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public override void OnEnemyHit(int _damage, Transform _attacker)
     {
+        if (m_state == ENEMYSTATE.DAMAGE)
+        {//invincible while in damage
+            return;
+        }
+
         Debug.Log(name + " has taken " + _damage + " damage");
         m_currentHealth -= _damage;
 
-        if(m_currentHealth <= 0)
+        if (m_currentHealth <= 0 && m_state != ENEMYSTATE.DEATH)
+        {//die
+            Debug.Log(name + " has died :-( ");
+            m_anima.SetTrigger("StartDeath");
+            m_state = ENEMYSTATE.DEATH;
+            m_deathStartTime = Time.time;
+        }
+        else
         {
-            //die
-            OnDeath();
+            m_damageStartTime = Time.time;
+            m_enterDamageState = m_state;
+            m_state = ENEMYSTATE.DAMAGE;
+            m_anima.SetTrigger("StartDamage");
         }
 
-        if(true)//not done //check if transform has player controller
+        if(_attacker.GetComponent<PlayerController>())//check if transform has player controller
         {
             m_target = _attacker;
             m_targetAquiredTime = Time.time;
+        }
+    }
+
+    protected override void DamageStun()
+    {
+        if(IsTimerDone(m_damageStartTime, 1.0f))
+        {
+            m_state = m_enterDamageState;
         }
     }
 
@@ -80,7 +125,8 @@ public class CactusMin : EnemyBase
         {
             if(Random.Range(0,90) == 0)
             {
-                m_state = ENEMYSTATE.WANDER;   
+                m_state = ENEMYSTATE.WANDER;
+                m_anima.SetBool("isMoving", true);
             }
         }
 
@@ -99,26 +145,38 @@ public class CactusMin : EnemyBase
         {
             LookAt(m_target);
 
-            if (Vector3.Distance(transform.position, m_target.position) < 0.5f)
+            if (Vector3.Distance(transform.position, m_target.position) < 2.2f)
             {
-                //attck
-               // Rigidbody rbdy = GetComponent<Rigidbody>();
-               // rbdy.AddForce((transform.position - m_target.transform.position) * 1500 * Time.deltaTime, ForceMode.Impulse);
+                if (IsTimerDone(m_attackTime, 1.5f))
+                {
+                    m_attackTime = Time.time;
+                    m_anima.SetTrigger("StartAttack");
+                }
+                else
+                {
+                    if(m_anima.GetBool("isMoving") != false)
+                    {
+                        m_anima.SetBool("isMoving", false);
+                    }
+                }
             }
             else
             {
                 PathSteering(PathSeek(m_target.position));
+
+                if (m_anima.GetBool("isMoving") != true)
+                {
+                    m_anima.SetBool("isMoving", true);
+                }
             }
 
             if(IsTimerDone(m_targetAquiredTime,m_targetTimer))
             {
                 //been time check if you can still see them
-               
                 if (Sight())
                 {
                     m_targetAquiredTime = Time.time;
                 }
-
             }
         }
         else
@@ -130,6 +188,10 @@ public class CactusMin : EnemyBase
             else
             {
                 m_state = ENEMYSTATE.WANDER;
+                if (m_anima.GetBool("isMoving") != true)
+                {
+                    m_anima.SetBool("isMoving", true);
+                }
             }
         }
     }
@@ -146,12 +208,13 @@ public class CactusMin : EnemyBase
             if((Vector3.Distance(transform.position, m_startPos) < 8)&&(Random.Range(0,4) == 0))
             {
                 m_state = ENEMYSTATE.IDLE;
+                m_anima.SetBool("isMoving", false);
                 m_idleTime = Time.time;
             }
         }
         PathSteering(PathSeek(m_wanderTarget));
         
-        LookAt(transform.position + m_curVel);
+        LookAt(m_wanderTarget);
 
         if (Sight())
         {

@@ -38,9 +38,11 @@ public abstract class EnemyBase : MonoBehaviour
 
     public abstract void OnDeath();
     public abstract void OnEnemyHit(int _damage, Transform _attacker);
+    protected abstract void DamageStun();
     protected abstract void Idle();
     protected abstract void Attack();
     protected abstract void Wander();
+    
 
     protected bool Sight()
     {
