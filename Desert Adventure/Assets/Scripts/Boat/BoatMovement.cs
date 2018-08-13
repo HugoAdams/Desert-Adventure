@@ -41,7 +41,7 @@ public class BoatMovement : MonoBehaviour {
     float m_airGracePeriod;
     float m_inputStrength, m_refInputStrength;
     float m_xInput, m_zInput;
-    bool m_grounded;
+    public bool m_grounded;
 
     PlayerController m_player;
 
@@ -75,7 +75,7 @@ public class BoatMovement : MonoBehaviour {
 
     void ForceLogic()
     {
-        if (!m_grounded && m_airGracePeriod > 0)
+        if (!m_grounded && m_airGracePeriod <= 0)
             return;
 
         float maxSlope, driveForce, maxVel;
@@ -100,12 +100,15 @@ public class BoatMovement : MonoBehaviour {
         if (Mathf.Abs(m_xInput) > 0.1f || Mathf.Abs(m_zInput) > 0.1f)
         {
             Vector3 dir = transform.forward + Vector3.up * 0.05f;
-            m_rbody.AddForce(dir * m_driveForce * Time.deltaTime, ForceMode.Acceleration);
+            m_rbody.AddForce(dir * driveForce * Time.deltaTime, ForceMode.Acceleration);
 
             // Limit velocity Logic
-            if (m_rbody.velocity.sqrMagnitude > maxVel * maxVel)
+            Vector3 move = m_rbody.velocity;
+            move.y = 0;
+            if (move.sqrMagnitude > maxVel * maxVel)
             {
-                m_rbody.velocity = m_rbody.velocity.normalized * maxVel;
+                float yMove = m_rbody.velocity.y;
+                m_rbody.velocity = move.normalized * maxVel + Vector3.up * yMove;
             }
         }
     }
@@ -156,6 +159,8 @@ public class BoatMovement : MonoBehaviour {
             return;
 
 
+        float rotateSpeed = m_canGoUpHills ? 145 : 90;
+
         // Base target y-rotation on player input
         if (Mathf.Abs(m_xInput) < 0.05f && Mathf.Abs(m_zInput) < 0.05f) // Insufficent user input to rotate
             return;
@@ -169,7 +174,7 @@ public class BoatMovement : MonoBehaviour {
         // Now rotate towards target angle
         Vector3 newEulers = transform.eulerAngles;
         newEulers.y = angle;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(newEulers), 90 * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(newEulers), rotateSpeed * Time.deltaTime);
     }
 
     void PlayerMove()
@@ -223,20 +228,20 @@ public class BoatMovement : MonoBehaviour {
         RaycastHit hit;
         float count = 1;
 
-        if (Physics.Raycast(m_boatBase.position - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
+        if (Physics.Raycast(m_boatBase.position + m_boatBase.up * 0.08f - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
-            m_grounded = true;
+           // m_grounded = true;
             m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
             // Normal = from of boat
-            if (Physics.Raycast(m_boatBase.position +  transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position + m_boatBase.up * 0.08f +  transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
             {
                 m_groundNormal += hit.normal*2;
                 count += 2;
             }
 
-            if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position + m_boatBase.up * 0.08f, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
             {
                 m_groundNormal += hit.normal;
                 count += 1;
@@ -244,8 +249,8 @@ public class BoatMovement : MonoBehaviour {
 
             m_groundNormal /= count;
         }
-        else
-            m_grounded = false;
+        //else
+        //    m_grounded = false;
 
     }
 
