@@ -40,7 +40,6 @@ public class PlayerActions : MonoBehaviour {
         if (Input.GetButtonDown("Attack"))
         {
             Attack();
-            //StartCoroutine(Attack());
         }
         else if (Input.GetButtonDown("PickUp"))
         {
