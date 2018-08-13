@@ -6,9 +6,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private CharacterController charControl;
 
-    public KeyCode m_jumpKey;
-    public KeyCode m_dashKey;
-
     public float m_walkSpeed;
     public float m_jumpSpeed;
     public float m_gravity;
@@ -70,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (m_dashRecharging || m_playerStunned || !charControl.isGrounded)
             return;
-        if (Input.GetKey(m_dashKey))
+        if (Input.GetButtonDown("Dash"))
         {
             StartCoroutine(DashMove());
         }
@@ -109,14 +106,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void JumpPlayer()
     {
-        if (!m_playerStunned && charControl.isGrounded && Input.GetKeyDown(m_jumpKey))
+        if (!m_playerStunned && charControl.isGrounded && Input.GetButtonDown("Jump"))
             currentMove.y = m_jumpSpeed; // Apply the jump speed if space bar hit
         else if (charControl.isGrounded)
             return;
 
         if (currentMove.y < 0) // If the player is falling, make gravity stronger
             m_gravityScale = m_fallMultiplier;
-        else if (!Input.GetKey(m_jumpKey)) // If the player is not falling and they are not holding the jump key, make the jump smaller by increasing gravity
+        else if (!Input.GetButton("Jump")) // If the player is not falling and they are not holding the jump key, make the jump smaller by increasing gravity
             m_gravityScale = m_lowJumpMultiplier;
         else
             m_gravityScale = 1.0f;

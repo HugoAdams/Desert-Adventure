@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour {
 
-    public KeyCode m_pickupKey;
-
     public float m_pickUpRangeRadius;
     public float m_forwardThrowStrength;
     public float m_upwardsThrowStrength;
@@ -31,7 +29,7 @@ public class PlayerActions : MonoBehaviour {
         if (m_playerIncapacited || m_onBoat)
             return;
 
-        if (Input.GetKeyDown(m_pickupKey))
+        if (Input.GetButtonDown("PickUp"))
         {
             if (!m_holdingObject)
             {
