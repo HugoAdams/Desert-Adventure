@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 
     void MountBoat()
     {
+        Camera.main.GetComponent<CameraController>().SetToBoatMode();
         GetComponent<CharacterController>().enabled = false;
         m_movement.MountBoat();
         m_actions.MountBoat();
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour {
 
     public void DismountBoat()
     {
+        Camera.main.GetComponent<CameraController>().SetToPlayerMode();
         GetComponent<CharacterController>().enabled = true;
         m_movement.DismountBoat();
         m_actions.DismountBoat();

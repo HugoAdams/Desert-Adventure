@@ -87,4 +87,9 @@ public class EnemySpawner : MonoBehaviour {
         Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, terrainLayerMask);
         return hit.distance;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, m_spawnRadius);
+    }
 }
