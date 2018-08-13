@@ -1122,11 +1122,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   b_auto: 0
   m_target: {fileID: 1547164495}
-  m_radius: 17
   m_topAngle: 0
-  m_MaxTurnSpeed: 100
-  m_MaxMoveSpeed: 10
+  m_yAxisSpeed: 100
+  m_xAxisSpeed: 10
   m_timeTillCameraReset: 3
+  m_boatStartY: 8
+  m_playerStartY: 2.5
+  m_boatCameraRadius: 20
+  m_playerCameraRadius: 8
 --- !u!1001 &416044070
 Prefab:
   m_ObjectHideFlags: 0

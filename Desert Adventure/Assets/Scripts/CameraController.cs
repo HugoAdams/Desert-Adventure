@@ -77,11 +77,8 @@ public class CameraController : MonoBehaviour {
 
         if (!m_target)
             return;
-        if(m_target.position != m_targetLastPos)
-        {
-            Focus();
-            m_targetLastPos = m_target.position;
-        }
+
+        Focus();
     }
 
     void ResetCameraLogic()
@@ -135,13 +132,8 @@ public class CameraController : MonoBehaviour {
         x += m_target.position.x;
         yz += m_target.position.z;
 
-        transform.position = Vector3.Lerp(transform.position, new Vector3(x, m_target.position.y + m_YDiff, yz), 10 * Time.deltaTime);
-
-
-        // transform.LookAt(center);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(x, m_target.position.y + m_YDiff, yz), 4 * Time.deltaTime);
         transform.LookAt(m_target);
-
-        //transform.eulerAngles = new Vector3(45, transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
     void VertMove(bool _up)
@@ -175,8 +167,8 @@ public class CameraController : MonoBehaviour {
             m_angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
         }
 
-        m_radius = m_playerCameraRadius;
-        m_YDiff = m_playerStartY;
+        m_radius = m_boatCameraRadius;
+        m_YDiff = m_boatStartY;
     }
 
     public void SetToPlayerMode()
@@ -189,7 +181,7 @@ public class CameraController : MonoBehaviour {
             m_angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
         }
 
-        m_radius = m_boatCameraRadius;
-        m_YDiff = m_boatStartY;
+        m_radius = m_playerCameraRadius;
+        m_YDiff = m_playerStartY;
     }
 }
