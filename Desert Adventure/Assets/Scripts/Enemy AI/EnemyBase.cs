@@ -33,6 +33,9 @@ public abstract class EnemyBase : MonoBehaviour
     protected Vector3 m_startPos;
     protected Vector3 m_wanderTarget;
 
+    public Material m_damageMat;
+    protected Material m_NormalMat;
+
     public int GetCurrentHealth()
     { return m_currentHealth; }
 
@@ -116,7 +119,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (_lastWander == -1 || IsTimerDone(_lastWander, 2.5f))
         {
-            Vector2 spot = (Random.insideUnitCircle * 10) + new Vector2(m_startPos.x, m_startPos.y);
+            Vector2 spot = (Random.insideUnitCircle * 10) + new Vector2(m_startPos.x, m_startPos.z);
             //Debug.Log(spot);
             _lastWander = Time.time;
             return new Vector3(spot.x, 0, spot.y);
