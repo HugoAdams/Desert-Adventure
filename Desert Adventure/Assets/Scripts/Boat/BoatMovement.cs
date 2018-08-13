@@ -184,20 +184,20 @@ public class BoatMovement : MonoBehaviour {
         RaycastHit hit;
         float count = 1;
 
-        if (Physics.Raycast(m_boatBase.position - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
+        if (Physics.Raycast(m_boatBase.position + transform.up * 0.1F - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
             m_grounded = true;
             m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
             // Normal = from of boat
-            if (Physics.Raycast(m_boatBase.position + transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position + transform.up * 0.1F +  transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
             {
                 m_groundNormal += hit.normal*2;
                 count += 2;
             }
 
-            if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position + transform.up * 0.1F, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
             {
                 m_groundNormal += hit.normal;
                 count += 1;

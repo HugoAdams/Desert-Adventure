@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoatParticles : MonoBehaviour {
 
     ParticleSystem[] m_particles;
+    int m_counter;
 
     private void Awake()
     {
@@ -26,11 +27,15 @@ public class BoatParticles : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         // CAN ONLY COLLIDE WITH TERRAIN
-        ToggleParticles(true);
+        m_counter++;
+        if (m_counter == 1)
+            ToggleParticles(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        ToggleParticles(false);
+        m_counter--;
+        if (m_counter < 1)
+            ToggleParticles(false);
     }
 }
