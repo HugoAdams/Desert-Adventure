@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 currentMove = Vector3.zero;
     Vector3 m_refMove;
 
-    private bool m_playerStunned, m_onBoat, m_dashRecharging;
+    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking;
 
     private PlayerStatusEffects m_playerStatusEffects;
 
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void DashPlayer()
     {
-        if (m_dashRecharging || m_playerStunned || !charControl.isGrounded)
+        if (m_dashRecharging || m_playerStunned || !charControl.isGrounded || m_isAttacking)
             return;
         if (Input.GetButtonDown("Dash"))
         {
@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour {
 
     IEnumerator DashMove()
     {
+        m_animator.SetTrigger("DashedLeft");
         m_playerStunned = true;
         m_playerStatusEffects.onIncapacited();
         float timeStamp = Time.time + m_dashTime;
@@ -110,7 +111,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void JumpPlayer()
     {
-        if (!m_playerStunned && charControl.isGrounded && Input.GetButtonDown("Jump"))
+        if (!m_playerStunned && !m_isAttacking && charControl.isGrounded && Input.GetButtonDown("Jump"))
             currentMove.y = m_jumpSpeed; // Apply the jump speed if space bar hit
         else if (charControl.isGrounded)
             return;
@@ -127,18 +128,19 @@ public class PlayerMovement : MonoBehaviour {
 
     void MovePlayer()
     {
-        if (m_playerStunned)
-            return;
-
-        // Rotated move dir by camera dir
-        Vector3 NextDir = (Camera.main.transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
-        NextDir.y = 0;
-        if (NextDir != Vector3.zero) // Make the player look at the move direction
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextDir), 400 * Time.deltaTime);
+        Vector3 NextDir = new Vector3(0, 0, 0);
+        if (!m_playerStunned && !m_isAttacking)
+        {
+            NextDir = (Camera.main.transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
+            NextDir.y = 0;
+            // Rotated move dir by camera dir
+            if (NextDir != Vector3.zero) // Make the player look at the move direction
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextDir), 400 * Time.deltaTime);
+        }
         NextDir = NextDir * m_walkSpeed;
         NextDir.y = currentMove.y;
         currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
-        Vector2 currentSpeed = new Vector2(NextDir.x, NextDir.z);
+        Vector2 currentSpeed = new Vector2(charControl.velocity.x, charControl.velocity.z);
         m_animator.SetFloat("MoveSpeed", currentSpeed.sqrMagnitude);
     }
 
@@ -151,5 +153,10 @@ public class PlayerMovement : MonoBehaviour {
     void onUnStunned()
     {
         m_playerStunned = false;
+    }
+
+    public void SetIsAttacking(bool isAttacking)
+    {
+        m_isAttacking = isAttacking;
     }
 }
