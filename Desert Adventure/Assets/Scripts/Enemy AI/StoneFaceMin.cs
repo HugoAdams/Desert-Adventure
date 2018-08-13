@@ -98,7 +98,7 @@ public class StoneFaceMin : EnemyBase
         if (IsTimerDone(m_deathStartTime, 1.2f))
         {
             transform.position = transform.position + (Vector3.down * m_moveSpeed * Time.deltaTime);
-            Debug.Log("falling");
+            //Debug.Log("falling");
 
             m_colliders.DisableAll();
             if (IsTimerDone(m_deathStartTime, 13.0f))
@@ -110,8 +110,13 @@ public class StoneFaceMin : EnemyBase
     }
     public override void OnEnemyHit(int _damage, Transform _attacker)
     {
-        m_currentHealth -= _damage;
-        if(m_currentHealth <= 0 && m_state != ENEMYSTATE.DEATH)
+        if (m_state == ENEMYSTATE.DAMAGE)
+        {//invincible while in damage
+            return;
+        }
+            m_currentHealth -= _damage;
+
+        if (m_currentHealth <= 0 && m_state != ENEMYSTATE.DEATH)
         {
             Debug.Log(name + " has died :<");
             m_anima.SetTrigger("StartDeath");
@@ -123,12 +128,18 @@ public class StoneFaceMin : EnemyBase
             //has not died play hurt animation
             m_enterDamageState = m_state;
             m_damageStartTime = Time.time;
-            //check if attacking
+            m_state = ENEMYSTATE.DAMAGE;
             m_anima.SetTrigger("StartDamage");
+        }
+
+        if (_attacker.GetComponent<PlayerController>())//check if transform has player controller
+        {
+            m_target = _attacker;
+            m_targetAquiredTime = Time.time;
         }
     }
 
-    void DamageStun()
+    protected override void DamageStun()
     {
         if (IsTimerDone(m_damageStartTime, 1.0f)) 
         {
