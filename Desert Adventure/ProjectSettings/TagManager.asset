@@ -22,8 +22,8 @@ TagManager:
   - Obstacle
   - TerrainOnly
   - PlayerOnly
-  - 
-  - 
+  - EnemyWeakPoint
+  - Attack
   - 
   - 
   - 

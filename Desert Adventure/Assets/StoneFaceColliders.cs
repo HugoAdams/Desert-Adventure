@@ -6,12 +6,21 @@ public class StoneFaceColliders : MonoBehaviour {
 
     public CapsuleCollider bodyCollider = null;
     public CapsuleCollider noseCollider = null;
-    public CapsuleCollider buttCollider = null;
+    public CapsuleCollider buttTrigger = null;
 
     public void DisableAll()
     {
-        bodyCollider.enabled = false;
-        noseCollider.enabled = false;
-        buttCollider.enabled = false;
+        if (bodyCollider != null)
+        {
+            bodyCollider.enabled = false;
+        }
+        if (noseCollider != null)
+        {
+            noseCollider.enabled = false;
+        }
+        if (buttTrigger != null)
+        {
+            buttTrigger.enabled = false;
+        }
     }
 }
