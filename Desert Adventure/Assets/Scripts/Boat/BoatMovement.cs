@@ -70,7 +70,8 @@ public class BoatMovement : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        ForceLogic();
+        if (m_canControl)
+            ForceLogic();
     }
 
     void ForceLogic()
