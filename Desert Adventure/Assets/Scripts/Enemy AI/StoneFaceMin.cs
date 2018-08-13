@@ -53,6 +53,7 @@ public class StoneFaceMin : EnemyBase
         m_rbdy = GetComponent<Rigidbody>();
         m_anima = GetComponentInChildren<Animator>();
         m_colliders = GetComponentInChildren<StoneFaceColliders>();
+        m_colliders.noseCollider.enabled = false;
         m_currentHealth = m_MaxHealth;
     }
 
@@ -77,7 +78,7 @@ public class StoneFaceMin : EnemyBase
                 Debug.Log(name + " in null state");
                 break;
             case ENEMYSTATE.DAMAGE:
-
+                DamageStun();
                 break;
             default:
                 Debug.Log(name + " in ??? state");
@@ -153,26 +154,39 @@ public class StoneFaceMin : EnemyBase
 
     protected override void Attack()
     {
-        if(m_bigState == BIGSTATE.FALLING)
-        {
-            Fall();
-        }
-        else if(m_bigState == BIGSTATE.STANDING_UP)
-        {
-            Stand();
-        }
-
         if(m_target != null)
         {
             if (m_bigState != BIGSTATE.STANDING_UP && m_bigState != BIGSTATE.FALLING)
             {
-                if (Distance2D(transform.position, m_target.position) < 4.2f && IsTimerDone(standUpTime,3))
+                //(Distance2D(transform.position, m_target.position) < 4.2f && IsTimerDone(standUpTime,3))
+                if (Distance2D(transform.position, m_target.position) < 5.0f
+                    && Distance2D(transform.position,m_target.position) > 0)
                 {
-                    Fall();
-                    return;
+                    if (IsTimerDone(standUpTime, 3.5f))
+                    {
+                        m_anima.SetTrigger("StartAttack");
+                        m_colliders.noseCollider.enabled = true; //turns self off in bigblock attack
+                        Invoke("NoseOff", 1.0f);
+                        standUpTime = Time.time;
+                    }
+                    else
+                    {
+                        if(m_anima.GetBool("isRunning") != false)
+                        {
+                            m_anima.SetBool("isRunning", false);
+                        }
+                    }
+                }
+                else
+                {
+                    //move
+                    if (m_anima.GetBool("isRunning") != true)
+                    {
+                        m_anima.SetBool("isRunning", true);
+                    }
+                    PathSteering(PathSeek(m_target.position));//move logic
                 }
 
-                PathSteering(PathSeek(m_target.position));//move logic
                 LookAt(m_target);
             }
 
@@ -314,5 +328,8 @@ public class StoneFaceMin : EnemyBase
         }
     }
 
-
+    void NoseOff()
+    {
+        m_colliders.noseCollider.enabled = false;
+    }
 }
