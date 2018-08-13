@@ -30,13 +30,23 @@ public class StoneFaceMin : EnemyBase
     float m_deathStartTime = -1;
 
     float m_waitTime = 0;
+    float m_damageStartTime = -1;
 
+    ENEMYSTATE m_enterDamageState;
+
+    private void Awake()
+    {
+        m_startPos = transform.position;
+        m_wanderTarget = m_startPos;
+        Debug.Log(m_startPos);
+    }
     void Start ()
     {
         m_state = ENEMYSTATE.WANDER;
         m_bigState = BIGSTATE.STANDING;
         m_target = null;
-        m_startPos = transform.position;
+        //m_startPos = transform.position;
+        //m_wanderTarget = m_startPos;
         m_targetAquiredTime = Time.time;
 
         m_moveSpeed = m_maxMoveSpeed;
@@ -66,6 +76,9 @@ public class StoneFaceMin : EnemyBase
             case ENEMYSTATE.NULL:
                 Debug.Log(name + " in null state");
                 break;
+            case ENEMYSTATE.DAMAGE:
+
+                break;
             default:
                 Debug.Log(name + " in ??? state");
                 break;
@@ -75,7 +88,6 @@ public class StoneFaceMin : EnemyBase
         {
         SetOnGround();
         //OnEnemyHit(400, transform);
-
         }
         
     }
@@ -104,6 +116,22 @@ public class StoneFaceMin : EnemyBase
             m_anima.SetTrigger("StartDeath");
             m_state = ENEMYSTATE.DEATH;
             m_deathStartTime = Time.time;
+        }
+        else
+        {
+            //has not died play hurt animation
+            m_enterDamageState = m_state;
+            m_damageStartTime = Time.time;
+            //check if attacking
+            m_anima.SetTrigger("StartDamage");
+        }
+    }
+
+    void DamageStun()
+    {
+        if (IsTimerDone(m_damageStartTime, 1.0f)) 
+        {
+            m_state = m_enterDamageState;
         }
     }
 
@@ -172,6 +200,7 @@ public class StoneFaceMin : EnemyBase
 
     protected override void Wander()
     {
+        
         //PathWander
         if (m_wanderRotate == false)//small optimise
         {
