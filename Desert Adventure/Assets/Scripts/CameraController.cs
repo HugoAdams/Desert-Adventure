@@ -149,9 +149,9 @@ public class CameraController : MonoBehaviour {
         else
         {
             m_YDiff -= m_xAxisSpeed * Time.deltaTime;
-            if(m_YDiff < 3)
+            if(m_YDiff < 0.5f)
             {
-                m_YDiff = 3;
+                m_YDiff = 0.5f;
             }
         }
         Focus();
