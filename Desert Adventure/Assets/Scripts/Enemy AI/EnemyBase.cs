@@ -132,7 +132,7 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Vector2 spot = Random.insideUnitCircle * 10;
             spot += new Vector2(m_startPos.x, m_startPos.z);
-            Debug.Log(spot);
+            //Debug.Log(spot);
             int savecounter = 0;
             while (true)
             {
@@ -143,7 +143,7 @@ public abstract class EnemyBase : MonoBehaviour
                 else
                 {
                     spot = Random.insideUnitCircle * 10;
-                    spot += new Vector2(m_startPos.x, m_startPos.y);
+                    spot += new Vector2(m_startPos.x, m_startPos.z);
                 }
                 savecounter++;
                 if(savecounter > 9999)
