@@ -39,14 +39,8 @@ public class PlayerActions : MonoBehaviour {
 
         if (Input.GetButtonDown("Attack"))
         {
-            if (m_holdingObject)
-            {
-                dropObject();
-            }
-            m_playerMovement.SetIsAttacking(true);
-            m_attacking = true;
-            m_charAnimator.SetTrigger("Attack");
-            StartCoroutine(Attack());
+            Attack();
+            //StartCoroutine(Attack());
         }
         else if (Input.GetButtonDown("PickUp"))
         {
@@ -147,13 +141,65 @@ public class PlayerActions : MonoBehaviour {
         m_playerIncapacited = false;
     }
 
-    IEnumerator Attack()
+    void Attack()
     {
-        float timeframe = Time.time + m_attackLength;
+        if (m_holdingObject)
+        {
+            dropObject();
+        }
+        m_playerMovement.SetIsAttacking(true);
+        m_attacking = true;
+        m_charAnimator.SetTrigger("Attack");
+        StartCoroutine(AttackEnum());
+    }
+
+    IEnumerator AttackEnum()
+    {
+        bool m_attackLinedUp = false;
+        float timeframe = Time.time + 0.833f;
+        yield return null;
         while (timeframe > Time.time)
         {
+            if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
+            {
+                m_charAnimator.SetBool("Attack2", true);
+                m_attackLinedUp = true;
+            }
             yield return null;
         }
+
+        if(m_attackLinedUp)
+        {
+            m_attackLinedUp = false;
+            timeframe = Time.time + 1.0f;
+            yield return null;
+            m_charAnimator.SetBool("Attack2", false);
+            while (timeframe > Time.time)
+            {
+                if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
+                {
+                    m_attackLinedUp = true;
+                    m_charAnimator.SetBool("Attack3", true);
+                }
+                yield return null;
+            }
+        }
+
+        if (m_attackLinedUp)
+        {
+            timeframe = Time.time + 1.0f;
+            yield return null;
+            m_charAnimator.SetBool("Attack3", false);
+            while (timeframe > Time.time)
+            {
+                if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
+                {
+                    m_attackLinedUp = true;
+                }
+                yield return null;
+            }
+        }
+
         m_playerMovement.SetIsAttacking(false);
         m_attacking = false;
         yield return null;
