@@ -8,6 +8,6 @@ PhysicMaterial:
   m_Name: Sand PhyMat
   dynamicFriction: 0.1
   staticFriction: 0.1
-  bounciness: 0.3
+  bounciness: 0.15
   frictionCombine: 1
   bounceCombine: 3
