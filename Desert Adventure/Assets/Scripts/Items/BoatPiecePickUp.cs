@@ -50,7 +50,8 @@ public class BoatPiecePickUp : ItemPickUp {
     private void OnTriggerEnter(Collider other)
     {
         // ASSUMING THE OTHER IS PLAYER, ONLY PLAYER CAN BE HIT
-        PlayerController currentStats = other.GetComponent<PlayerController>();
+        // player has player only collider on child
+        PlayerController currentStats = other.GetComponentInParent<PlayerController>();
         OnPickUp(currentStats);
     }
 }
