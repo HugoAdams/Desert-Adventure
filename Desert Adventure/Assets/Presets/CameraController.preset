@@ -30,29 +30,41 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: b_auto
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_target
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_radius
-    value: 17
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
     propertyPath: m_topAngle
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_MaxTurnSpeed
+    propertyPath: m_yAxisSpeed
     value: 100
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: m_MaxMoveSpeed
+    propertyPath: m_xAxisSpeed
     value: 10
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_timeTillCameraReset
     value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_boatStartY
+    value: 8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_playerStartY
+    value: 2.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_boatCameraRadius
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_playerCameraRadius
+    value: 8
     objectReference: {fileID: 0}

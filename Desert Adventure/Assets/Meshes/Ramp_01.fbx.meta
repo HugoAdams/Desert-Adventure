@@ -4,12 +4,22 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Ramp_01_PieceOne
+    100004: Ramp_01_PieceTwo
     400000: //RootNode
+    400002: Ramp_01_PieceOne
+    400004: Ramp_01_PieceTwo
     2100000: lambert1
     2300000: //RootNode
+    2300002: Ramp_01_PieceOne
+    2300004: Ramp_01_PieceTwo
     3300000: //RootNode
+    3300002: Ramp_01_PieceOne
+    3300004: Ramp_01_PieceTwo
     4300000: pCube27
     4300002: Ramp_01
+    4300004: Ramp_01_PieceOne
+    4300006: Ramp_01_PieceTwo
   externalObjects: {}
   materials:
     importMaterials: 1
