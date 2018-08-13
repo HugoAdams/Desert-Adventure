@@ -165,7 +165,7 @@ public class StoneFaceMin : EnemyBase
                     if (IsTimerDone(standUpTime, 3.5f))
                     {
                         m_anima.SetTrigger("StartAttack");
-                        m_colliders.noseCollider.enabled = true; //turns self off in bigblock attack
+                        m_colliders.noseCollider.enabled = true; 
                         Invoke("NoseOff", 1.0f);
                         standUpTime = Time.time;
                     }
