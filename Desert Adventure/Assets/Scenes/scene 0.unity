@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 10
   m_maxMoveSpeed: 5
+  m_moveSpeed: 5
   m_halfVisionCone: 80
   m_visionRadius: 8
   m_drawVisionGizmo: 0

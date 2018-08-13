@@ -38,7 +38,7 @@ public class StoneFaceMin : EnemyBase
     {
         m_startPos = transform.position;
         m_wanderTarget = m_startPos;
-        Debug.Log(m_startPos);
+        //Debug.Log(m_startPos);
     }
     void Start ()
     {
@@ -242,9 +242,9 @@ public class StoneFaceMin : EnemyBase
     void SetOnGround()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Ray ray = new Ray(transform.position + (Vector3.up * 2), Vector3.down);
 
-        if (Physics.Raycast(ray, out hit, 4.0f, (int)m_groundLayer))
+        if (Physics.Raycast(ray, out hit, 6.0f, (int)m_groundLayer))
         {
             transform.position = new Vector3(transform.position.x, hit.point.y + 0.1f , transform.position.z);
             if(m_bigState == BIGSTATE.STANDING)

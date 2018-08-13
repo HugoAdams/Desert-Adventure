@@ -74,7 +74,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (m_drawVisionGizmo)
         {
-            GUI.Label(new Rect(25, 25, 200, 40), "Angle Between Objects: " + m_Angle);
+            //GUI.Label(new Rect(25, 25, 200, 40), "Angle Between Objects: " + m_Angle);
         }
     }
 
@@ -90,6 +90,8 @@ public abstract class EnemyBase : MonoBehaviour
 
             Vector3 right = Quaternion.Euler(0, -m_halfVisionCone, 0) * transform.forward;
             Gizmos.DrawLine(transform.position, transform.position + (right.normalized * m_visionRadius));
+
+            Gizmos.DrawWireSphere(m_startPos, 10);
         }
     }
     #endregion
@@ -100,7 +102,10 @@ public abstract class EnemyBase : MonoBehaviour
         float speed = m_moveSpeed * Time.deltaTime;
         float force = m_maxForce * Time.deltaTime;
 
-        Vector3 desVel = Vector3.Normalize(_target - transform.position) * speed;
+        Vector3 _tar = ToV3(ToV2(_target));
+        Vector3 _pos = ToV3(ToV2(transform.position));
+        //Vector3 desVel = Vector3.Normalize(_target - transform.position) * speed;
+        Vector3 desVel = Vector3.Normalize(_tar - _pos) * speed;
         Vector3 steering = desVel - m_curVel;
         return steering;
     }
@@ -132,7 +137,7 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Vector2 spot = Random.insideUnitCircle * 10;
             spot += new Vector2(m_startPos.x, m_startPos.z);
-            //Debug.Log(spot);
+            
             int savecounter = 0;
             while (true)
             {
@@ -238,6 +243,16 @@ public abstract class EnemyBase : MonoBehaviour
     {
         Vector2 b = new Vector2(_v3.x, _v3.z);
         return Vector2.Distance(_v2, b);
+    }
+
+    protected Vector3 ToV3(Vector2 _v2)
+    {
+        return new Vector3(_v2.x, 0, _v2.y);
+    }
+
+    protected Vector2 ToV2(Vector3 _v3)
+    {
+        return new Vector2(_v3.x, _v3.z);
     }
 
     protected bool IsTimerDone(float _since, float _howlong)
