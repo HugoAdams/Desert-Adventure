@@ -310,6 +310,11 @@ Prefab:
       propertyPath: m_attackComboTimeFrame
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114099310084486910, guid: 6e1398ef493e96b46a1617b30e0cfbf1,
+        type: 2}
+      propertyPath: m_jumpSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e1398ef493e96b46a1617b30e0cfbf1, type: 2}
   m_IsPrefabParent: 0
