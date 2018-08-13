@@ -13,6 +13,8 @@ public class BoatMovement : MonoBehaviour {
     public float m_maxVelocity = 10;
     public float m_gravityAccel = 15;
     public float m_smoothTime = 0.5f;
+    public float m_driveForce = 1500.0f;
+    public float m_shittyDriveForce = 1000.0f;
 
     [Header("Rotation variables")]
     public float m_rotationSmoothTime = 0.2f;
@@ -56,19 +58,56 @@ public class BoatMovement : MonoBehaviour {
         UpdateIfGrounded();
         UpdatePlayerInput();
         PlayerRotationLogic();
-        PlayerMove();
+        //PlayerMove();
         //StablizingLogic();
         SlidingSlopeLogic();
         DismountLogic();
 
-        // Apply gravity
-        if (!m_grounded)
-            m_currentVel += Vector3.down * m_gravityAccel * Time.deltaTime;
-
         if (m_airGracePeriod > 0)
             m_airGracePeriod -= Time.deltaTime;
 
-        m_rbody.velocity = m_currentVel;
+    }
+
+    private void FixedUpdate()
+    {
+        ForceLogic();
+    }
+
+    void ForceLogic()
+    {
+        if (!m_grounded && m_airGracePeriod > 0)
+            return;
+
+        float maxSlope, driveForce, maxVel;
+
+        if (m_canGoUpHills)
+        {
+            maxSlope = m_maxSlopeAngle;
+            driveForce = m_driveForce;
+            maxVel = m_maxVelocity;
+        }
+        else
+        {
+            maxSlope = m_shittyMaxSlopeAngle;
+            driveForce = m_shittyDriveForce;
+            maxVel = m_shittyMaxVelocity;
+        }
+
+        float floorAngle = Mathf.Acos(Mathf.Abs(Vector3.Dot(m_groundNormal, Vector3.up))) * Mathf.Rad2Deg;
+        if (floorAngle > maxSlope)
+            return;
+
+        if (Mathf.Abs(m_xInput) > 0.1f || Mathf.Abs(m_zInput) > 0.1f)
+        {
+            Vector3 dir = transform.forward;
+            m_rbody.AddForce(dir * m_driveForce * Time.deltaTime, ForceMode.Acceleration);
+
+            // Limit velocity Logic
+            if (m_rbody.velocity.sqrMagnitude > maxVel * maxVel)
+            {
+                m_rbody.velocity = m_rbody.velocity.normalized * maxVel;
+            }
+        }
     }
 
     void DismountLogic()
@@ -184,20 +223,20 @@ public class BoatMovement : MonoBehaviour {
         RaycastHit hit;
         float count = 1;
 
-        if (Physics.Raycast(m_boatBase.position + transform.up * 0.1F - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
+        if (Physics.Raycast(m_boatBase.position - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
             m_grounded = true;
             m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
             // Normal = from of boat
-            if (Physics.Raycast(m_boatBase.position + transform.up * 0.1F +  transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position +  transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
             {
                 m_groundNormal += hit.normal*2;
                 count += 2;
             }
 
-            if (Physics.Raycast(m_boatBase.position + transform.up * 0.1F, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
+            if (Physics.Raycast(m_boatBase.position, -transform.up, out hit, m_groundedRayLength * 4, m_terrainMask))
             {
                 m_groundNormal += hit.normal;
                 count += 1;

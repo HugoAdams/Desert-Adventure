@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventsController : MonoBehaviour {
 
@@ -23,6 +24,12 @@ public class EventsController : MonoBehaviour {
 
         // Set singleton
         Instance = this;
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("shit"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void TriggerPlayerLifeChange()
