@@ -191,6 +191,7 @@ public class PlayerActions : MonoBehaviour {
             m_attackLinedUp = false;
             timeframe = Time.time + 1.0f;
             hitboxTime = Time.time + 0.25f;
+            turnOffHitBox = timeframe - 0.4f;
             yield return null;
             m_charAnimator.SetBool("Attack2", false);
             while (timeframe > Time.time)
@@ -219,6 +220,7 @@ public class PlayerActions : MonoBehaviour {
             hitboxOn = false;
             timeframe = Time.time + 1.0f;
             hitboxTime = Time.time + 0.25f;
+            turnOffHitBox = timeframe - 0.4f;
             yield return null;
             m_charAnimator.SetBool("Attack3", false);
             while (timeframe > Time.time)
