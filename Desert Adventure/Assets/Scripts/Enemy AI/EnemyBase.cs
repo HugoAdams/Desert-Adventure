@@ -10,7 +10,8 @@ public abstract class EnemyBase : MonoBehaviour
         WANDER,
         ATTACK,
         DEATH,
-        NULL
+        NULL,
+        DAMAGE
     }
 
     float  m_Angle = 0;
@@ -130,8 +131,8 @@ public abstract class EnemyBase : MonoBehaviour
         if (Distance2D(_lastWanderTarget, transform.position) < 0.2f)
         {
             Vector2 spot = Random.insideUnitCircle * 10;
-            spot += new Vector2(m_startPos.x, m_startPos.y);
-
+            spot += new Vector2(m_startPos.x, m_startPos.z);
+            //Debug.Log(spot);
             int savecounter = 0;
             while (true)
             {
@@ -142,7 +143,7 @@ public abstract class EnemyBase : MonoBehaviour
                 else
                 {
                     spot = Random.insideUnitCircle * 10;
-                    spot += new Vector2(m_startPos.x, m_startPos.y);
+                    spot += new Vector2(m_startPos.x, m_startPos.z);
                 }
                 savecounter++;
                 if(savecounter > 9999)
