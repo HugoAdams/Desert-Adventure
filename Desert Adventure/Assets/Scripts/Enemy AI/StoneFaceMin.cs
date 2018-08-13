@@ -74,7 +74,7 @@ public class StoneFaceMin : EnemyBase
         if(m_state != ENEMYSTATE.DEATH)
         {
         SetOnGround();
-        OnEnemyHit(400, transform);
+        //OnEnemyHit(400, transform);
 
         }
         
@@ -82,7 +82,6 @@ public class StoneFaceMin : EnemyBase
 
     public override void OnDeath()
     {
-        //m_colliders.DisableAll();
         if (IsTimerDone(m_deathStartTime, 1.2f))
         {
             transform.position = transform.position + (Vector3.down * m_moveSpeed * Time.deltaTime);
@@ -285,4 +284,6 @@ public class StoneFaceMin : EnemyBase
             return true;
         }
     }
+
+
 }

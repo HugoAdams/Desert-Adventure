@@ -92,7 +92,6 @@ public class PlayerStatusEffects : MonoBehaviour {
     IEnumerator Flattened()
     {
         m_isFlattened = true;
-        m_model.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
         m_model.localScale = new Vector3(1.0f, 0.01f, 1.0f);
         float m_flattenedTimeStamp = Time.time;
         while ((m_flattenedTimeStamp + m_flattenedRecoveryTime) >= Time.time)
@@ -102,7 +101,6 @@ public class PlayerStatusEffects : MonoBehaviour {
             yield return null;
         }
 
-        m_model.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         m_model.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         m_isFlattened = false;
         yield return null;
