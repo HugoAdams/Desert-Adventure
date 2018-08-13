@@ -8,9 +8,6 @@ public class PlayerActions : MonoBehaviour {
     public float m_forwardThrowStrength;
     public float m_upwardsThrowStrength;
 
-    public float m_attackLength;
-    public float m_attackComboTimeFrame; // The length of the attack window the player can press attack to do the next attack
-
     private bool m_attacking;
     private bool m_holdingObject;
     private bool m_onBoat;
@@ -22,6 +19,12 @@ public class PlayerActions : MonoBehaviour {
     private Animator m_charAnimator;
     private PlayerMovement m_playerMovement;
 
+    private List<GameObject> m_attackHitboxes;
+
+    private BoxCollider m_attack1BC;
+    private BoxCollider m_attack2BC;
+    private SphereCollider m_attackSC;
+
     private void Awake()
     {
         GetComponent<PlayerStatusEffects>().m_onIncapacited += onIncapacited;
@@ -29,6 +32,10 @@ public class PlayerActions : MonoBehaviour {
         m_characterController = GetComponent<CharacterController>();
         m_charAnimator = transform.Find("Model").GetComponent<Animator>();
         m_playerMovement = GetComponent<PlayerMovement>();
+        GameObject attackhitboxes = transform.Find("AttackHitboxes").gameObject;
+        m_attack1BC = attackhitboxes.transform.GetChild(0).GetComponent<BoxCollider>();
+        m_attack2BC = attackhitboxes.transform.GetChild(1).GetComponent<BoxCollider>();
+        m_attackSC = attackhitboxes.transform.GetChild(2).GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -155,7 +162,10 @@ public class PlayerActions : MonoBehaviour {
     IEnumerator AttackEnum()
     {
         bool m_attackLinedUp = false;
+        bool hitboxOn = false;
         float timeframe = Time.time + 0.833f;
+        float hitboxTime = Time.time + 0.2f;
+        float turnOffHitBox = timeframe - 0.2f;
         yield return null;
         while (timeframe > Time.time)
         {
@@ -164,13 +174,24 @@ public class PlayerActions : MonoBehaviour {
                 m_charAnimator.SetBool("Attack2", true);
                 m_attackLinedUp = true;
             }
+            if(!hitboxOn && hitboxTime <= Time.time)
+            {
+                hitboxOn = true;
+                m_attack1BC.enabled = true;
+            }
+            if (hitboxOn && turnOffHitBox <= Time.time)
+            {
+                hitboxOn = false;
+                m_attack1BC.enabled = false;
+            }
             yield return null;
         }
-
-        if(m_attackLinedUp)
+        if (m_attackLinedUp)
         {
             m_attackLinedUp = false;
             timeframe = Time.time + 1.0f;
+            hitboxTime = Time.time + 0.25f;
+            turnOffHitBox = timeframe - 0.4f;
             yield return null;
             m_charAnimator.SetBool("Attack2", false);
             while (timeframe > Time.time)
@@ -180,13 +201,26 @@ public class PlayerActions : MonoBehaviour {
                     m_attackLinedUp = true;
                     m_charAnimator.SetBool("Attack3", true);
                 }
+                if (!hitboxOn && hitboxTime <= Time.time)
+                {
+                    hitboxOn = true;
+                    m_attack2BC.enabled = true;
+                }
+                if (hitboxOn && turnOffHitBox <= Time.time)
+                {
+                    hitboxOn = false;
+                    m_attack2BC.enabled = false;
+                }
                 yield return null;
             }
         }
 
         if (m_attackLinedUp)
         {
+            hitboxOn = false;
             timeframe = Time.time + 1.0f;
+            hitboxTime = Time.time + 0.25f;
+            turnOffHitBox = timeframe - 0.4f;
             yield return null;
             m_charAnimator.SetBool("Attack3", false);
             while (timeframe > Time.time)
@@ -194,6 +228,16 @@ public class PlayerActions : MonoBehaviour {
                 if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
                 {
                     m_attackLinedUp = true;
+                }
+                if (!hitboxOn && hitboxTime <= Time.time)
+                {
+                    hitboxOn = true;
+                    m_attackSC.enabled = true;
+                }
+                if (hitboxOn && turnOffHitBox <= Time.time)
+                {
+                    hitboxOn = false;
+                    m_attackSC.enabled = false;
                 }
                 yield return null;
             }

@@ -1,42 +1,31 @@
 fileFormatVersion: 2
-guid: a26f959340946c84abad88348e701cc1
+guid: 51a4a594a203ae24980ef2e377ce780f
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: L_RaftFootSlider
-    100004: R_RaftFootSlider
-    100006: Raft_MainTub
-    100008: Raft_Mast
-    100010: Raft_Sail
-    100012: Raft_TillerEngine
+    100002: Ramp_02_PieceFour
+    100004: Ramp_02_PieceOne
+    100006: Ramp_02_PieceThree
+    100008: Ramp_02_PieceTwo
     400000: //RootNode
-    400002: L_RaftFootSlider
-    400004: R_RaftFootSlider
-    400006: Raft_MainTub
-    400008: Raft_Mast
-    400010: Raft_Sail
-    400012: Raft_TillerEngine
+    400002: Ramp_02_PieceFour
+    400004: Ramp_02_PieceOne
+    400006: Ramp_02_PieceThree
+    400008: Ramp_02_PieceTwo
     2100000: lambert1
-    2100002: lambert6
-    2300000: L_RaftFootSlider
-    2300002: R_RaftFootSlider
-    2300004: Raft_MainTub
-    2300006: Raft_Mast
-    2300008: Raft_Sail
-    2300010: Raft_TillerEngine
-    3300000: L_RaftFootSlider
-    3300002: R_RaftFootSlider
-    3300004: Raft_MainTub
-    3300006: Raft_Mast
-    3300008: Raft_Sail
-    3300010: Raft_TillerEngine
-    4300000: Raft_MainTub
-    4300002: R_RaftFootSlider
-    4300004: L_RaftFootSlider
-    4300006: Raft_Mast
-    4300008: Raft_TillerEngine
-    4300010: Raft_Sail
+    2300000: Ramp_02_PieceFour
+    2300002: Ramp_02_PieceOne
+    2300004: Ramp_02_PieceThree
+    2300006: Ramp_02_PieceTwo
+    3300000: Ramp_02_PieceFour
+    3300002: Ramp_02_PieceOne
+    3300004: Ramp_02_PieceThree
+    3300006: Ramp_02_PieceTwo
+    4300000: Ramp_02_PieceOne
+    4300002: Ramp_02_PieceTwo
+    4300004: Ramp_02_PieceThree
+    4300006: Ramp_02_PieceFour
   externalObjects: {}
   materials:
     importMaterials: 1

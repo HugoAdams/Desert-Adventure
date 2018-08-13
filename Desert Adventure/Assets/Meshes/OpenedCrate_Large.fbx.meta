@@ -1,42 +1,21 @@
 fileFormatVersion: 2
-guid: a26f959340946c84abad88348e701cc1
+guid: f82c6b62a3430a94ca493fbb383aa09c
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: L_RaftFootSlider
-    100004: R_RaftFootSlider
-    100006: Raft_MainTub
-    100008: Raft_Mast
-    100010: Raft_Sail
-    100012: Raft_TillerEngine
-    400000: //RootNode
-    400002: L_RaftFootSlider
-    400004: R_RaftFootSlider
-    400006: Raft_MainTub
-    400008: Raft_Mast
-    400010: Raft_Sail
-    400012: Raft_TillerEngine
+    100000: OpenedCrate_Box_Large
+    100002: OpenedCrate_Filling_Large
+    100004: //RootNode
+    400000: OpenedCrate_Box_Large
+    400002: OpenedCrate_Filling_Large
+    400004: //RootNode
     2100000: lambert1
-    2100002: lambert6
-    2300000: L_RaftFootSlider
-    2300002: R_RaftFootSlider
-    2300004: Raft_MainTub
-    2300006: Raft_Mast
-    2300008: Raft_Sail
-    2300010: Raft_TillerEngine
-    3300000: L_RaftFootSlider
-    3300002: R_RaftFootSlider
-    3300004: Raft_MainTub
-    3300006: Raft_Mast
-    3300008: Raft_Sail
-    3300010: Raft_TillerEngine
-    4300000: Raft_MainTub
-    4300002: R_RaftFootSlider
-    4300004: L_RaftFootSlider
-    4300006: Raft_Mast
-    4300008: Raft_TillerEngine
-    4300010: Raft_Sail
+    2300000: OpenedCrate_Box_Large
+    2300002: OpenedCrate_Filling_Large
+    3300000: OpenedCrate_Box_Large
+    3300002: OpenedCrate_Filling_Large
+    4300000: OpenedCrate_Filling_Large
+    4300002: OpenedCrate_Box_Large
   externalObjects: {}
   materials:
     importMaterials: 1
