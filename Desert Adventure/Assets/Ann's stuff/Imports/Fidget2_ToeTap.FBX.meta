@@ -71,6 +71,11 @@ ModelImporter:
     100130: Squirrel_Whip7
     100132: Squirrel_Whip8
     100134: Squirrel_Whip9
+    100136: Mesh_Body
+    100138: Mesh_Group_Squirrel_Dummy
+    100140: Mesh_Head
+    100142: Mesh_Tail
+    100144: Mesh_Whip
     400000: //RootNode
     400002: Squirrel_Head
     400004: Squirrel_L3
@@ -139,8 +144,24 @@ ModelImporter:
     400130: Squirrel_Whip7
     400132: Squirrel_Whip8
     400134: Squirrel_Whip9
-    7400000: Take 001
+    400136: Mesh_Body
+    400138: Mesh_Group_Squirrel_Dummy
+    400140: Mesh_Head
+    400142: Mesh_Tail
+    400144: Mesh_Whip
+    2100000: lambert2
+    2100002: M_Opacity
+    2100004: lambert1
+    4300000: Mesh_Head
+    4300002: Mesh_Tail
+    4300004: Mesh_Body
+    4300006: Mesh_Whip
+    7400000: Fidget2_ToeTap
     9500000: //RootNode
+    13700000: Mesh_Body
+    13700002: Mesh_Head
+    13700004: Mesh_Tail
+    13700006: Mesh_Whip
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -168,7 +189,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Fidget2_ToeTap
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
