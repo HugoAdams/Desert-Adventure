@@ -138,8 +138,7 @@ public class PlayerMovement : MonoBehaviour {
         NextDir = NextDir * m_walkSpeed;
         NextDir.y = currentMove.y;
         currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
-        Vector2 currentSpeed = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * m_walkSpeed;
-        Debug.Log(currentSpeed.sqrMagnitude);
+        Vector2 currentSpeed = new Vector2(NextDir.x, NextDir.z);
         m_animator.SetFloat("MoveSpeed", currentSpeed.sqrMagnitude);
     }
 
