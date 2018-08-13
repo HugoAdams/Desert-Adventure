@@ -62,7 +62,16 @@ public class PlayerUI : MonoBehaviour {
                 StartCoroutine(DelayedHelperText("Your boat has been upgraded!"));
         }
 
+        // If got all pieces, tell new objective
+        if (m_currentViewedStats.BoatBase && m_currentViewedStats.BoatMast && m_currentViewedStats.BoatSail && m_currentViewedStats.BoatTiller)
+            Invoke("NewObjectiveText", 4.0f);
+
         UpdateBoatUI();
+    }
+
+    void NewObjectiveText()
+    {
+        EffectCanvas.Instance.TitleText("NEW OBJECTIVE: Reach the outlook tower");
     }
 
     IEnumerator DelayedHelperText(string _text, float _delayTime = 1)
