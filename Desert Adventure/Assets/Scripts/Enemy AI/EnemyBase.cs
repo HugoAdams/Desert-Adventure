@@ -34,7 +34,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected Vector3 m_wanderTarget;
 
     public Material m_damageMat;
-    protected Material m_NormalMat;
+    protected Material m_normalMat;
 
     public int GetCurrentHealth()
     { return m_currentHealth; }

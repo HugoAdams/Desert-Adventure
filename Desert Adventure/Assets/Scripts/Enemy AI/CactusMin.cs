@@ -8,6 +8,7 @@ public class CactusMin : EnemyBase
     ENEMYSTATE m_enterDamageState;
     Animator m_anima;
     CactusColliders m_colliders;
+    Renderer m_renderer;
 
     float m_targetTimer = 5;//seconds
     float m_targetAquiredTime = -1;
@@ -32,10 +33,19 @@ public class CactusMin : EnemyBase
         m_anima = GetComponentInChildren<Animator>();
         m_colliders = GetComponentInChildren<CactusColliders>();
         m_colliders.m_spearTrigger.enabled = false;
+
+        m_renderer = GetComponentInChildren<Renderer>();
+        m_normalMat = m_renderer.material;
+        m_currentHealth = m_MaxHealth;
     }
 
     void Update()
     {
+        /*if(Input.GetKeyDown(KeyCode.Semicolon))
+        {
+            OnEnemyHit(1, null);
+        }*/
+
         switch (m_state)
         {
             case ENEMYSTATE.IDLE:
@@ -82,6 +92,7 @@ public class CactusMin : EnemyBase
     {
         if (m_state == ENEMYSTATE.DAMAGE)
         {//invincible while in damage
+            //Debug.Log("nope");
             return;
         }
 
@@ -103,18 +114,32 @@ public class CactusMin : EnemyBase
             m_anima.SetTrigger("StartDamage");
         }
 
-        if(_attacker.GetComponent<PlayerController>())//check if transform has player controller
+        if (_attacker != null)
         {
-            m_target = _attacker;
-            m_targetAquiredTime = Time.time;
+            if (_attacker.GetComponent<PlayerController>())//check if transform has player controller
+            {
+                m_target = _attacker;
+                m_targetAquiredTime = Time.time;
+            }
         }
     }
 
     protected override void DamageStun()
     {
-        if(IsTimerDone(m_damageStartTime, 1.0f))
+        int t = Mathf.RoundToInt((Time.time - m_damageStartTime) * 10);
+        if(t % 2 == 0)
+        {
+            m_renderer.material = m_damageMat;
+        }
+        else
+        {
+            m_renderer.material = m_normalMat;
+        }
+
+        if(IsTimerDone(m_damageStartTime, 2.0f))
         {
             m_state = m_enterDamageState;
+            m_renderer.material = m_normalMat;
         }
     }
 
