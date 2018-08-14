@@ -301,11 +301,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   b_auto: 1
   m_target: {fileID: 0}
-  m_radius: 8.5
   m_topAngle: 0
-  m_MaxTurnSpeed: 100
-  m_MaxMoveSpeed: 10
+  m_yAxisSpeed: 100
+  m_xAxisSpeed: 10
   m_timeTillCameraReset: 3
+  m_boatStartY: 13
+  m_playerStartY: 8
+  m_boatCameraRadius: 14
+  m_playerCameraRadius: 7
 --- !u!1001 &139562359
 Prefab:
   m_ObjectHideFlags: 0
@@ -488,6 +491,22 @@ Prefab:
       value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: bd51cb9d82e26f2429280df474140b07, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
+    - target: {fileID: 400002, guid: bd51cb9d82e26f2429280df474140b07, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: bd51cb9d82e26f2429280df474140b07, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: bd51cb9d82e26f2429280df474140b07, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
+    - target: {fileID: 2300002, guid: bd51cb9d82e26f2429280df474140b07, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
@@ -1683,6 +1702,22 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 51a4a594a203ae24980ef2e377ce780f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
+    - target: {fileID: 2300006, guid: 51a4a594a203ae24980ef2e377ce780f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
+    - target: {fileID: 2300004, guid: 51a4a594a203ae24980ef2e377ce780f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
+    - target: {fileID: 2300000, guid: 51a4a594a203ae24980ef2e377ce780f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 35be309c517b43b4eb1e4486e475de59, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 51a4a594a203ae24980ef2e377ce780f, type: 3}
   m_IsPrefabParent: 0
