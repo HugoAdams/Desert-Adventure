@@ -201,7 +201,7 @@ public class PlayerMovement : MonoBehaviour {
             NextDir.y = 0;
             // Rotated move dir by camera dir
             if (NextDir != Vector3.zero) // Make the player look at the move direction
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextDir), 400 * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(NextDir), 800 * Time.deltaTime);
         }
         NextDir = NextDir * m_walkSpeed;
         NextDir.y = currentMove.y;
