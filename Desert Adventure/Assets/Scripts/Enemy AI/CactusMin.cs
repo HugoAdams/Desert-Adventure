@@ -176,6 +176,7 @@ public class CactusMin : EnemyBase
                 {
                     m_attackTime = Time.time;
                     m_anima.SetTrigger("StartAttack");
+                    Invoke("JumpBack", 1.2f);
                 }
                 else
                 {
@@ -259,15 +260,26 @@ public class CactusMin : EnemyBase
         }
     }
 
-
-
-    private void OnCollisionEnter(Collision coll)
+    /*private void OnCollisionEnter(Collision coll)
     {
         if(coll.transform.tag == "Player")
         {
             Debug.Log("hit");
             Rigidbody rbdy = GetComponent<Rigidbody>();
             rbdy.AddForce((transform.position - coll.transform.position) * 2200 * Time.deltaTime, ForceMode.Impulse);
+        }
+    }*/
+
+    void JumpBack()
+    {//to be called after an attack
+        if (m_target && m_state != ENEMYSTATE.DAMAGE && m_state != ENEMYSTATE.DEATH)
+        {
+            Rigidbody rbdy = GetComponent<Rigidbody>();
+            Vector3 dir = -transform.forward;
+            dir += Vector3.up * 0.30f;
+            //rbdy.AddForce((transform.position - m_target.transform.position).normalized * 2000 * Time.deltaTime, ForceMode.Impulse);
+            rbdy.AddForce(dir.normalized * 1600 * Time.deltaTime, ForceMode.Impulse);
+
         }
     }
 }
