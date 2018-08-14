@@ -6,23 +6,31 @@ public class PlayerMovement : MonoBehaviour {
 
     private CharacterController charControl;
 
+    [Header("Movement vairables")]
     public float m_walkSpeed;
     public float m_jumpSpeed;
     public float m_gravity;
     private float m_gravityScale;
     public float m_smoothMoveTime;
 
+    [Header("Dash variables")]
     public float m_dashSpeed;
     public float m_dashTime;
     public float m_dashRechargeTime;
 
+    [Header("Jump variables")]
     public float m_fallMultiplier = 2.5f; // Make gravity stronger when the player is falling
     public float m_lowJumpMultiplier = 2.0f; // Used to make the jump smaller if the player only taps the key
+
+    [Header("Sliding variables")]
+    public float m_startSlidingAngle = 45;
+    public float m_stopSlidingAngle = 25;
+    LayerMask m_groundLayer;
 
     private Vector3 currentMove = Vector3.zero;
     Vector3 m_refMove;
 
-    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking;
+    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking, m_sliding;
 
     private PlayerStatusEffects m_playerStatusEffects;
 
@@ -36,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
         m_playerStatusEffects.m_onUnStunned += onUnStunned;
 
         m_animator = transform.Find("Model").GetComponent<Animator>();
+        m_groundLayer = 1 << LayerMask.NameToLayer("Terrain");
 
         m_onBoat = false;
     }
@@ -43,11 +52,62 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!m_onBoat) // Can't do shiz if on boat
+        if (m_onBoat) // Can't do shiz if on boat
+            return;
+
+        if (!m_sliding)
         {
             MovePlayer();
             JumpPlayer();
             DashPlayer();
+            CheckSlideLogic();
+        }
+        else
+        {
+            SlidePlayer();
+        }
+    }
+
+    void CheckSlideLogic()
+    {
+        if (!charControl.isGrounded)
+            return;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, m_groundLayer))
+        {
+            Vector3 normal = hit.normal;
+            float floorAngle = Mathf.Acos(Mathf.Abs(Vector3.Dot(normal, Vector3.up))) * Mathf.Rad2Deg;
+
+            if (floorAngle > m_startSlidingAngle)
+                m_sliding = true;
+        }
+    }
+
+    void SlidePlayer()
+    {
+        if (!charControl.isGrounded)
+        {
+            m_sliding = false;
+            return;
+        }
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, m_groundLayer))
+        {
+            Vector3 normal = hit.normal;
+            float floorAngle = Mathf.Acos(Mathf.Abs(Vector3.Dot(normal, Vector3.up))) * Mathf.Rad2Deg;
+
+            if (floorAngle <= m_stopSlidingAngle)
+            {
+                m_sliding = false;
+                return;
+            }
+            else
+            {
+                // Slide!
+
+            }
         }
     }
 
