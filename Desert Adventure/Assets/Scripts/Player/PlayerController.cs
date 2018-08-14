@@ -12,11 +12,14 @@ public class PlayerController : MonoBehaviour {
     PlayerActions m_actions;
     Vector3 m_startPos;
 
+    Animator m_anim;
+
     private void Awake()
     {
         m_onBoat = false;
         m_movement = GetComponent<PlayerMovement>();
         m_actions = GetComponent<PlayerActions>();
+        m_anim = transform.Find("Model").GetComponent<Animator>();
 
         // FOR NOW, ALWAYS RESET PLAYER STATS TO DEFAULT
         m_currentStats.Reset(m_baseStats);
@@ -53,6 +56,9 @@ public class PlayerController : MonoBehaviour {
         m_movement.MountBoat();
         m_actions.MountBoat();
         m_onBoat = true;
+        m_anim.SetBool("Pickup", false);
+        m_anim.SetBool("Jumping", false);
+        m_anim.SetBool("InBoat", true);
 
         Transform newBoat = Instantiate(m_boatPrefab, transform.position, transform.rotation);
         newBoat.GetComponent<BoatMovement>().Initialize(m_currentStats, this);
@@ -65,6 +71,7 @@ public class PlayerController : MonoBehaviour {
         m_movement.DismountBoat();
         m_actions.DismountBoat();
         m_onBoat = false;
+        m_anim.SetBool("InBoat", false);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0); // Stand back up
     }
 
