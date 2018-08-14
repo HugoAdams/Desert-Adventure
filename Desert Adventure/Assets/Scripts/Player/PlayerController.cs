@@ -64,11 +64,11 @@ public class PlayerController : MonoBehaviour {
         newBoat.GetComponent<BoatMovement>().Initialize(m_currentStats, this);
     }
 
-    public void DismountBoat()
+    public void DismountBoat(Vector3 _velocity)
     {
         Camera.main.GetComponent<CameraController>().SetToPlayerMode();
         GetComponent<CharacterController>().enabled = true;
-        m_movement.DismountBoat();
+        m_movement.DismountBoat(_velocity);
         m_actions.DismountBoat();
         m_onBoat = false;
         m_anim.SetBool("InBoat", false);

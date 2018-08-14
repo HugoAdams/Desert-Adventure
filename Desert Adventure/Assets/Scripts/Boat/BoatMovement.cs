@@ -15,6 +15,7 @@ public class BoatMovement : MonoBehaviour {
     public float m_smoothTime = 0.5f;
     public float m_driveForce = 1500.0f;
     public float m_shittyDriveForce = 1000.0f;
+    public float m_airTimeTorque = 300.0f;
 
     [Header("Rotation variables")]
     public float m_rotationSmoothTime = 0.2f;
@@ -55,7 +56,7 @@ public class BoatMovement : MonoBehaviour {
 
     private void Update()
     {
-        UpdateIfGrounded();
+        CheckGroundLogic();
         UpdatePlayerInput();
         PlayerRotationLogic();
         //PlayerMove();
@@ -71,7 +72,25 @@ public class BoatMovement : MonoBehaviour {
     private void FixedUpdate()
     {
         if (m_canControl)
+        {
             ForceLogic();
+            AirControlLogic();
+        }
+    }
+
+    void AirControlLogic()
+    {
+        if (m_grounded || m_airGracePeriod > 0)
+            return;
+
+        // Rotate around depending on input
+        Vector3 torque = new Vector3(m_zInput, 0, -m_xInput).normalized * m_airTimeTorque * Time.fixedDeltaTime;
+        m_rbody.AddRelativeTorque(torque, ForceMode.Acceleration);
+
+        if (m_rbody.angularVelocity.sqrMagnitude > 9)
+        {
+            m_rbody.angularVelocity = m_rbody.angularVelocity.normalized * 3;
+        }
     }
 
     void ForceLogic()
@@ -123,7 +142,7 @@ public class BoatMovement : MonoBehaviour {
         {
             // Dismount!
             m_player.transform.SetParent(null);
-            m_player.DismountBoat();
+            m_player.DismountBoat(m_rbody.velocity * 0.5f + Vector3.up * 14);
             Destroy(gameObject);
         }
     }
@@ -224,15 +243,16 @@ public class BoatMovement : MonoBehaviour {
         }
     }
 
-    void UpdateIfGrounded()
+    void CheckGroundLogic()
     {
         RaycastHit hit;
         float count = 1;
 
+        if (m_grounded)
+            m_airGracePeriod = 0.3f;
+
         if (Physics.Raycast(m_boatBase.position + m_boatBase.up * 0.08f - transform.forward * m_rayCastDistApart, -transform.up, out hit, m_groundedRayLength, m_terrainMask))
         {
-           // m_grounded = true;
-            m_airGracePeriod = 0.3f;
             m_groundNormal = hit.normal;
 
             // Normal = from of boat
@@ -250,9 +270,6 @@ public class BoatMovement : MonoBehaviour {
 
             m_groundNormal /= count;
         }
-        //else
-        //    m_grounded = false;
-
     }
 
     void SlidingSlopeLogic()

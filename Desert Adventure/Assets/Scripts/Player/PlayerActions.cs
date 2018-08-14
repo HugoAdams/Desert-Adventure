@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour {
 
+    public float m_attackMoveDelay1 = 0.3f;
+    public float m_attackMoveDelay2 = 0.3f;
+    public float m_attackMoveDelay3 = 0.8f;
+
     public float m_pickUpRangeRadius;
     public float m_forwardThrowStrength;
     public float m_upwardsThrowStrength;
@@ -170,7 +174,7 @@ public class PlayerActions : MonoBehaviour {
         {
             dropObject();
         }
-        m_playerMovement.SetIsAttacking(true);
+        m_playerMovement.SetIsAttacking(true, m_attackMoveDelay1);
         m_attacking = true;
         m_charAnimator.SetTrigger("Attack");
         StartCoroutine(AttackEnum());
@@ -205,6 +209,7 @@ public class PlayerActions : MonoBehaviour {
         }
         if (m_attackLinedUp)
         {
+            m_playerMovement.SetIsAttacking(true, m_attackMoveDelay2);
             m_attackLinedUp = false;
             timeframe = Time.time + 1.0f;
             hitboxTime = Time.time + 0.25f;
@@ -233,8 +238,9 @@ public class PlayerActions : MonoBehaviour {
 
         if (m_attackLinedUp)
         {
+            m_playerMovement.SetIsAttacking(true, m_attackMoveDelay3);
             hitboxOn = false;
-            timeframe = Time.time + 1.0f;
+            timeframe = Time.time + 1.5f;
             hitboxTime = Time.time + 0.25f;
             turnOffHitBox = timeframe - 0.4f;
             yield return null;

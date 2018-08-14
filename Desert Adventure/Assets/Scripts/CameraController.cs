@@ -40,6 +40,7 @@ public class CameraController : MonoBehaviour {
 
         // Assuming starting with player
         SetToPlayerMode();
+        ResetBehindPlayer();
     }
 	
 	// Update is called once per frame
@@ -159,29 +160,23 @@ public class CameraController : MonoBehaviour {
 
     public void SetToBoatMode()
     {
-        // Start behind player
-        if (m_target)
-        {
-            Vector3 backDir = -m_target.forward;
-            backDir.y = 0;
-            m_angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
-        }
-
         m_radius = m_boatCameraRadius;
         m_YDiff = m_boatStartY;
     }
 
     public void SetToPlayerMode()
     {
-        // Start behind player
+        m_radius = m_playerCameraRadius;
+        m_YDiff = m_playerStartY;
+    }
+
+    void ResetBehindPlayer()
+    {
         if (m_target)
         {
             Vector3 backDir = -m_target.forward;
             backDir.y = 0;
             m_angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
         }
-
-        m_radius = m_playerCameraRadius;
-        m_YDiff = m_playerStartY;
     }
 }

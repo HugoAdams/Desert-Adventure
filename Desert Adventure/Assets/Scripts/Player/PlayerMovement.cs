@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
     public float m_gravity;
     private float m_gravityScale;
     public float m_smoothMoveTime;
+    public float m_attackMoveSpeed = 20;
 
     [Header("Dash variables")]
     public float m_dashSpeed;
@@ -125,9 +126,10 @@ public class PlayerMovement : MonoBehaviour {
         m_onBoat = true;
     }
 
-    public void DismountBoat()
+    public void DismountBoat(Vector3 _velocity)
     {
         m_onBoat = false;
+        currentMove = _velocity;
     }
 
     void FixedUpdate()
@@ -203,8 +205,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void MovePlayer()
     {
+        if (m_isAttacking)
+        {
+            currentMove = Vector3.SmoothDamp(currentMove, Vector3.zero, ref m_refMove, m_smoothMoveTime * 0.8f); 
+            return;
+        }
+
         Vector3 NextDir = new Vector3(0, 0, 0);
-        if (!m_playerStunned && !m_isAttacking)
+        if (!m_playerStunned)
         {
             NextDir = (Camera.main.transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
             NextDir.y = 0;
@@ -214,7 +222,8 @@ public class PlayerMovement : MonoBehaviour {
         }
         NextDir = NextDir * m_walkSpeed;
         NextDir.y = currentMove.y;
-        currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
+        float smoothAmount = charControl.isGrounded ? m_smoothMoveTime : m_smoothMoveTime * 10.0f;
+        currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, smoothAmount); // Add movement to the move direction vector
         Vector2 currentSpeed = new Vector2(charControl.velocity.x, charControl.velocity.z);
         m_animator.SetFloat("MoveSpeed", currentSpeed.sqrMagnitude);
     }
@@ -230,8 +239,22 @@ public class PlayerMovement : MonoBehaviour {
         m_playerStunned = false;
     }
 
-    public void SetIsAttacking(bool isAttacking)
+    public void SetIsAttacking(bool isAttacking, float _delayMove = 0)
     {
         m_isAttacking = isAttacking;
+
+        if (isAttacking)
+        {
+            StartCoroutine(ApplyAttackMovespeed(_delayMove));
+        }
+    }
+
+    IEnumerator ApplyAttackMovespeed(float _delay)
+    {
+        if (_delay > 0)
+            yield return new WaitForSeconds(_delay);
+
+        Vector3 faceDir = new Vector3(transform.forward.x, 0, transform.forward.z).normalized;
+        currentMove = faceDir * m_attackMoveSpeed;
     }
 }

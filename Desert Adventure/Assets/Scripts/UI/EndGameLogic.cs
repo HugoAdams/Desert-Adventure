@@ -27,7 +27,7 @@ public class EndGameLogic : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump"))
         {
-            // TODO CHANGE SCENES BACK TO MAIN MENU
+            SceneManager.LoadScene(0);
         }
     }
 
