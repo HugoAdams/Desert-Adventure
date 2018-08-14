@@ -8,9 +8,11 @@ public class SpearAttack : MonoBehaviour {
     {
         if (other.transform.CompareTag("Player"))
         {
-            Vector3 attackDirection = (other.transform.position - GetComponent<BoxCollider>().transform.position);
+            Debug.Log("called");
+            Vector3 attackDirection = (other.transform.position - GetComponent<CapsuleCollider>().transform.position);
             attackDirection.Normalize();
             other.gameObject.GetComponent<PlayerStatusEffects>().SpearedAttack(attackDirection);
+            other.transform.GetComponent<PlayerController>().OnPlayerHit(1);
         }
     }
 }
