@@ -199,7 +199,7 @@ public class StoneFaceMin : EnemyBase
                     {
                         m_anima.SetTrigger("StartAttack");
                         m_colliders.noseCollider.enabled = true; 
-                        Invoke("NoseOff", 1.0f);
+                        Invoke("NoseOff", 2.0f);
                         standUpTime = Time.time;
                     }
                     else
@@ -220,7 +220,10 @@ public class StoneFaceMin : EnemyBase
                     PathSteering(PathSeek(m_target.position));//move logic
                 }
 
-                LookAt(m_target);
+                if (m_colliders.noseCollider.enabled == false)
+                {
+                    LookAt(m_target);
+                }
             }
 
 
@@ -240,6 +243,10 @@ public class StoneFaceMin : EnemyBase
             if(Sight() == false)
             {
                 m_state = ENEMYSTATE.WANDER;
+                if (m_anima.GetBool("isRunning") != true)
+                {
+                    m_anima.SetBool("isRunning", true);
+                }
             }
         }
     }
@@ -364,5 +371,6 @@ public class StoneFaceMin : EnemyBase
     void NoseOff()
     {
         m_colliders.noseCollider.enabled = false;
+        Sight();
     }
 }
