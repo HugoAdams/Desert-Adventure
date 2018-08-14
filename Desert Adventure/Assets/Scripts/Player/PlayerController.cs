@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     bool m_onBoat;
     PlayerMovement m_movement;
     PlayerActions m_actions;
+    Vector3 m_startPos;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 
         // FOR NOW, ALWAYS RESET PLAYER STATS TO DEFAULT
         m_currentStats.Reset(m_baseStats);
+        m_startPos = transform.position;
     }
 
     void Update ()
@@ -74,7 +76,16 @@ public class PlayerController : MonoBehaviour {
         {
             m_currentStats.Life = 0;
             Debug.Log("Player has died");
+            OnDeath();
+            return;
         }
+        EventsController.Instance.TriggerPlayerLifeChange();
+    }
+
+    private void OnDeath()
+    {
+        m_currentStats.Life = m_baseStats.Life;
+        transform.position = m_startPos;
         EventsController.Instance.TriggerPlayerLifeChange();
     }
 }
