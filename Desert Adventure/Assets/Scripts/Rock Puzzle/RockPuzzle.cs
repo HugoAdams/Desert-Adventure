@@ -8,6 +8,9 @@ public class RockPuzzle : MonoBehaviour {
 
     public GameObject m_RewardObject;
 
+    public float m_spawnYOffset;
+    public float m_riseSpeed;
+
     private Vector3 m_rewardSpawnLocation;
 
     private GameObject m_nextPuzzle;
@@ -31,23 +34,22 @@ public class RockPuzzle : MonoBehaviour {
             if (!button.RockIsPlaced())
                 return;
         }
-        m_rewardSpawnLocation.y -= 5.0f;
+        m_rewardSpawnLocation.y -= m_spawnYOffset;
         m_nextPuzzle = Instantiate(m_RewardObject, m_rewardSpawnLocation, transform.rotation);
-        //m_rewardSpawnLocation.y += 20.0f;
         StartCoroutine(raisePuzzle());
     }
 
     // Raises the newly spawned puzzle out of the ground until it hits its spawn height
     IEnumerator raisePuzzle()
     {
-       float desiredHeight = m_rewardSpawnLocation.y + 5.0f;
+       float desiredHeight = m_rewardSpawnLocation.y + m_spawnYOffset;
        Vector3 finalPosition = m_rewardSpawnLocation;
        finalPosition.y = desiredHeight;
        Transform puzzleTransform = m_nextPuzzle.transform;
        while (puzzleTransform.position.y < desiredHeight)
        {
            puzzleTransform.position = new Vector3(finalPosition.x + Random.Range(-0.05f, 0.05f), puzzleTransform.position.y + Random.Range(-0.05f, 0.05f), finalPosition.z + Random.Range(-0.05f, 0.05f));
-           puzzleTransform.Translate(Vector3.up * Time.deltaTime * 0.8f, Space.World);
+           puzzleTransform.Translate(Vector3.up * Time.deltaTime * m_riseSpeed, Space.World);
            yield return null;
        }
        puzzleTransform.position = finalPosition;
