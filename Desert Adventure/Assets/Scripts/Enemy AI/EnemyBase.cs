@@ -11,7 +11,8 @@ public abstract class EnemyBase : MonoBehaviour
         ATTACK,
         DEATH,
         NULL,
-        DAMAGE
+        DAMAGE,
+        SPECIAL
     }
 
     float  m_Angle = 0;

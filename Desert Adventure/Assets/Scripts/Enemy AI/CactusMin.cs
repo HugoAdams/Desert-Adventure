@@ -20,6 +20,9 @@ public class CactusMin : EnemyBase
     float m_damageStartTime = 0;
     float m_deathStartTime = 0;
 
+    Transform m_specialTarget;
+    bool m_specialArrived = false;
+
     void Start ()
     {
         m_state = ENEMYSTATE.WANDER;
@@ -64,6 +67,9 @@ public class CactusMin : EnemyBase
                 break;
             case ENEMYSTATE.DEATH:
                 OnDeath();
+                break;
+            case ENEMYSTATE.SPECIAL:
+                SpecRunTo();
                 break;
             case ENEMYSTATE.NULL:
                 Debug.Log(name + " in null state");
@@ -262,15 +268,59 @@ public class CactusMin : EnemyBase
         }
     }
 
-    /*private void OnCollisionEnter(Collision coll)
+    #region special moves
+    void SpecRunTo()
     {
-        if(coll.transform.tag == "Player")
+        if (m_specialArrived == false)
         {
-            Debug.Log("hit");
-            Rigidbody rbdy = GetComponent<Rigidbody>();
-            rbdy.AddForce((transform.position - coll.transform.position) * 2200 * Time.deltaTime, ForceMode.Impulse);
+            LookAt(m_specialTarget);
+            PathSteering(PathSeek(m_specialTarget.position));
+            if(Distance2D(transform.position, m_specialTarget.position) < 1.5f)
+            {
+                m_specialArrived = true;
+                SpecGrab();
+            }
         }
-    }*/
+        else
+        {
+            LookAt(m_startPos);
+            PathSteering(PathSeek(m_startPos));
+            if(Distance2D(transform.position, m_startPos) < 0.3f)
+            {
+                m_state = ENEMYSTATE.WANDER;
+                m_maxMoveSpeed = 8;
+                m_moveSpeed = 8;
+            }
+        }
+    }
+
+    void SpecGrab()
+    {
+        m_maxMoveSpeed = 0.1f;
+        m_moveSpeed = m_maxMoveSpeed;
+        m_specialTarget.parent = transform;
+        m_specialTarget.gameObject.SetActive(false);
+        Invoke("SpecSpeedUp", 2.5f);
+    }
+
+    public void SpecRunToTransform(Transform _t)
+    {
+        m_maxMoveSpeed = 20;
+        m_moveSpeed = m_maxMoveSpeed;
+        m_state = ENEMYSTATE.SPECIAL;
+        if (m_anima.GetBool("isMoving") != true)
+        {
+            m_anima.SetBool("isMoving", true);
+        }
+        m_specialTarget = _t;
+    }
+
+    void SpecSpeedUp()
+    {
+        m_maxMoveSpeed = 20;
+        m_moveSpeed = m_maxMoveSpeed;
+    }
+    #endregion
 
     void JumpBack()
     {//to be called after an attack
