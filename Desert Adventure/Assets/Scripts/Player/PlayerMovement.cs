@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
     public float m_startSlidingAngle = 45;
     public float m_stopSlidingAngle = 25;
     LayerMask m_groundLayer;
+    float m_slideStrength;
 
     private Vector3 currentMove = Vector3.zero;
     Vector3 m_refMove;
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             Vector3 normal = hit.normal;
             float floorAngle = Mathf.Acos(Mathf.Abs(Vector3.Dot(normal, Vector3.up))) * Mathf.Rad2Deg;
+            Debug.Log(floorAngle);
 
             if (floorAngle > m_startSlidingAngle)
                 m_sliding = true;
@@ -92,6 +94,8 @@ public class PlayerMovement : MonoBehaviour {
             return;
         }
 
+        m_slideStrength = Mathf.Clamp01(m_slideStrength + Time.deltaTime);
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 5, m_groundLayer))
         {
@@ -101,12 +105,17 @@ public class PlayerMovement : MonoBehaviour {
             if (floorAngle <= m_stopSlidingAngle)
             {
                 m_sliding = false;
+                m_slideStrength = 0;
                 return;
             }
             else
             {
                 // Slide!
-
+                Vector3 slideVel = Vector3.zero;
+                slideVel.x += (1f - normal.y) * normal.x * (1f - 0.0f);
+                slideVel.z += (1f - normal.y) * normal.z * (1f - 0.0f);
+                slideVel = slideVel.normalized * m_walkSpeed * m_slideStrength;
+                currentMove = new Vector3(slideVel.x, currentMove.y, slideVel.z);
             }
         }
     }
