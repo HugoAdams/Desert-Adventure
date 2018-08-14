@@ -712,7 +712,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.8258915
+      value: 27.54
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -751,7 +751,7 @@ Prefab:
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_respawnDistanceThreshold
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
@@ -761,6 +761,20 @@ Prefab:
     - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_Name
       value: CactusSpawner 2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
+        type: 2}
+      propertyPath: m_spearEnemy
+      value: 
+      objectReference: {fileID: 1230423713939564, guid: 73dc22d69fdb1754e9412e82bfb412c4,
+        type: 2}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
@@ -1813,6 +1827,53 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1001 &815243272
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 223.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 23.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 141.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838927776016916, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114952068612486890, guid: ba7bae01b4d4c6c419c6846affa81934,
+        type: 2}
+      propertyPath: m_target
+      value: 
+      objectReference: {fileID: 1547164495}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ba7bae01b4d4c6c419c6846affa81934, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &838483894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,15 +2185,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 359.6
+      value: 377.8
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.8258915
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 343.6
+      value: 385.4
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2162,21 +2223,35 @@ Prefab:
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_numOfSpearEnemies
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_respawnDistanceThreshold
-      value: 200
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_spawnRadius
-      value: 42
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_Name
       value: CactusSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
+        type: 2}
+      propertyPath: m_spearEnemy
+      value: 
+      objectReference: {fileID: 1230423713939564, guid: 73dc22d69fdb1754e9412e82bfb412c4,
+        type: 2}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
@@ -3027,7 +3102,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.8258915
+      value: 75.5
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3066,7 +3141,7 @@ Prefab:
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_respawnDistanceThreshold
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
@@ -3083,6 +3158,14 @@ Prefab:
       value: 
       objectReference: {fileID: 1340796335537148, guid: f856bd4b54ee8d44ba597c9d5185a4d2,
         type: 2}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
   m_IsPrefabParent: 0
@@ -3249,12 +3332,12 @@ Prefab:
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_respawnDistanceThreshold
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_spawnRadius
-      value: 106
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_Name
@@ -3266,6 +3349,14 @@ Prefab:
       value: 
       objectReference: {fileID: 1340796335537148, guid: f856bd4b54ee8d44ba597c9d5185a4d2,
         type: 2}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
   m_IsPrefabParent: 0
@@ -3378,15 +3469,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 445.6
+      value: 445.1
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.8258915
+      value: 39.4
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 348.6
+      value: 368.2
       objectReference: {fileID: 0}
     - target: {fileID: 4444319553158122, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3416,21 +3507,35 @@ Prefab:
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_numOfSpearEnemies
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_respawnDistanceThreshold
-      value: 200
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
         type: 2}
       propertyPath: m_spawnRadius
-      value: 42
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
       propertyPath: m_Name
       value: CactusSpawner 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114216251846275552, guid: 3d73c493fbbb41148a74c91ae166269d,
+        type: 2}
+      propertyPath: m_spearEnemy
+      value: 
+      objectReference: {fileID: 1230423713939564, guid: 73dc22d69fdb1754e9412e82bfb412c4,
+        type: 2}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156591767004788, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d73c493fbbb41148a74c91ae166269d, type: 2}
