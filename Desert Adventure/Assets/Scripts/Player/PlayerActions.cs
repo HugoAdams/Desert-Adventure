@@ -153,7 +153,7 @@ public class PlayerActions : MonoBehaviour {
         return closestPickup;
     }
 
-    void onIncapacited()
+    public void onIncapacited()
     {
         m_playerIncapacited = true;
         if(m_holdingObject)
@@ -163,7 +163,7 @@ public class PlayerActions : MonoBehaviour {
         }
     }
 
-    void onUnIncapacited()
+    public void onUnIncapacited()
     {
         m_playerIncapacited = false;
     }

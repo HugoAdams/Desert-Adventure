@@ -29,6 +29,8 @@ public class PlayerStatusEffects : MonoBehaviour {
 
     private CharacterController m_characterController;
 
+    private bool m_isDead;
+
     private void Awake()
     {
         m_model = transform.Find("Model");
@@ -37,6 +39,9 @@ public class PlayerStatusEffects : MonoBehaviour {
 
     public void FlattenedAttack()
     {
+        if (m_isDead)
+            return;
+
         if (!m_isFlattened)
         {
             StartCoroutine(Flattened());
@@ -45,8 +50,25 @@ public class PlayerStatusEffects : MonoBehaviour {
         };
     }
 
+
+    public void OnDeath()
+    {
+        m_onStunned();
+        m_onIncapacited();
+        m_isDead = true;
+    }
+
+    public void OnRespawn()
+    {
+        m_onUnStunned();
+        m_onUnIncapacited();
+        m_isDead = false;
+    }
+
     public void SpearedAttack(Vector3 attackDirection)
     {
+        if (m_isDead)
+            return;
         StartCoroutine(Incapacited(m_spearedIncapacitedTime));
         StartCoroutine(Stunned(m_spearedStunTime));
         StartCoroutine(KnockBack(m_spearedStunTime, attackDirection));
@@ -75,7 +97,8 @@ public class PlayerStatusEffects : MonoBehaviour {
     {
         m_onStunned();
         yield return new WaitForSeconds(stunnedTime);
-        m_onUnStunned();
+        if (!m_isDead)
+            m_onUnStunned();
         yield return null;
     }
 
@@ -84,7 +107,8 @@ public class PlayerStatusEffects : MonoBehaviour {
     {
         m_onIncapacited();
         yield return new WaitForSeconds(incapacitedTime);
-        m_onUnIncapacited();
+        if (!m_isDead)
+            m_onUnIncapacited();
         yield return null;
     }
 
