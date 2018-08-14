@@ -25,6 +25,13 @@ public class PlayerActions : MonoBehaviour {
     private BoxCollider m_attack2BC;
     private SphereCollider m_attackSC;
 
+    private Transform m_pickUpTransform; // The location where the pickup appears when the player is holding it.
+
+    public float m_pickUpWalkSpeed;
+    private float m_runSpeed;
+    public float m_pickJumpSpeed;
+    private float m_jumpSpeed;
+
     private void Awake()
     {
         GetComponent<PlayerStatusEffects>().m_onIncapacited += onIncapacited;
@@ -36,6 +43,9 @@ public class PlayerActions : MonoBehaviour {
         m_attack1BC = attackhitboxes.transform.GetChild(0).GetComponent<BoxCollider>();
         m_attack2BC = attackhitboxes.transform.GetChild(1).GetComponent<BoxCollider>();
         m_attackSC = attackhitboxes.transform.GetChild(2).GetComponent<SphereCollider>();
+        m_pickUpTransform = transform.Find("PickUpLocation");
+        m_runSpeed = m_playerMovement.m_walkSpeed;
+        m_jumpSpeed = m_playerMovement.m_jumpSpeed;
     }
 
     // Update is called once per frame
@@ -55,16 +65,23 @@ public class PlayerActions : MonoBehaviour {
                 m_pickup = GetClosestPickup();
                 if (m_pickup != null)
                 {
-                    m_pickup.transform.rotation = new Quaternion(0, m_pickup.transform.rotation.y, 0, 1);
+                    m_charAnimator.SetTrigger("StartPickUp");
+                    m_charAnimator.SetBool("PickUp", true);
                     m_pickup.transform.SetParent(transform);
-                    m_pickup.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+                    m_pickup.transform.rotation = transform.localRotation;
+                    m_pickup.transform.position = m_pickUpTransform.position;
                     DisableRagdoll(m_pickup.GetComponent<Rigidbody>());
                     m_holdingObject = true;
+                    m_playerMovement.m_walkSpeed = m_pickUpWalkSpeed;
+                    m_playerMovement.m_jumpSpeed = m_pickJumpSpeed;
                 }
             }
             else
             {
-                if (m_characterController.velocity.sqrMagnitude <= 40)
+                m_charAnimator.SetBool("PickUp", false);
+                m_playerMovement.m_walkSpeed = m_runSpeed;
+                m_playerMovement.m_jumpSpeed = m_jumpSpeed;
+                if (m_characterController.velocity.sqrMagnitude <= 30)
                 {
                     dropObject();
                 }
