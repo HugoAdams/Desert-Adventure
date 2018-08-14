@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             Vector3 normal = hit.normal;
             float floorAngle = Mathf.Acos(Mathf.Abs(Vector3.Dot(normal, Vector3.up))) * Mathf.Rad2Deg;
-            Debug.Log(floorAngle);
+            //Debug.Log(floorAngle);
 
             if (floorAngle > m_startSlidingAngle)
                 m_sliding = true;

@@ -301,10 +301,7 @@ public class StoneFaceMin : EnemyBase
         if (Physics.Raycast(ray, out hit, 6.0f, (int)m_groundLayer))
         {
             transform.position = new Vector3(transform.position.x, hit.point.y + 0.1f , transform.position.z);
-            if(m_bigState == BIGSTATE.STANDING)
-            {
-               m_rbdy.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-            }
+
         }
     }
 
