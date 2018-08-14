@@ -24,8 +24,8 @@ public class PlayerHealthBar : MonoBehaviour {
 
     public void UpdateLife(int _newLife)
     {
-        m_imageList.Clear();
         ClearCurrentImages();
+        m_imageList.Clear();
 
         Vector3 m_currentPosition = m_imageStartPoint.position;
         for (int i = 0; i < m_maxLife; i++)
