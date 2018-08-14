@@ -170,13 +170,15 @@ public class CactusMin : EnemyBase
         {
             LookAt(m_target);
 
-            if (Vector3.Distance(transform.position, m_target.position) < 2.2f)
+            if (Vector3.Distance(transform.position, m_target.position) < 2.7f)
             {
                 if (IsTimerDone(m_attackTime, 1.5f))
                 {
                     m_attackTime = Time.time;
+                    m_colliders.m_spearTrigger.enabled = true;
                     m_anima.SetTrigger("StartAttack");
                     Invoke("JumpBack", 1.2f);
+
                 }
                 else
                 {
@@ -272,6 +274,8 @@ public class CactusMin : EnemyBase
 
     void JumpBack()
     {//to be called after an attack
+
+        m_colliders.m_spearTrigger.enabled = false;
         if (m_target && m_state != ENEMYSTATE.DAMAGE && m_state != ENEMYSTATE.DEATH)
         {
             Rigidbody rbdy = GetComponent<Rigidbody>();

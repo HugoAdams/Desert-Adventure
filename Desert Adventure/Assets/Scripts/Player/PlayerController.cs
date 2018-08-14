@@ -65,4 +65,16 @@ public class PlayerController : MonoBehaviour {
         m_onBoat = false;
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0); // Stand back up
     }
+
+    public void OnPlayerHit(int _damage)
+    {
+        Debug.Log("player has taken " + _damage + " damage");
+        m_currentStats.Life -= _damage;
+        if(m_currentStats.Life <= 0)
+        {
+            m_currentStats.Life = 0;
+            Debug.Log("Player has died");
+        }
+        EventsController.Instance.TriggerPlayerLifeChange();
+    }
 }

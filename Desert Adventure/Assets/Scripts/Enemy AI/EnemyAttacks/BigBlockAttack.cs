@@ -9,7 +9,8 @@ public class BigBlockAttack : MonoBehaviour {
     {
         if (other.transform.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerStatusEffects>().FlattenedAttack();
+            other.transform.GetComponent<PlayerStatusEffects>().FlattenedAttack();
+            other.transform.GetComponent<PlayerController>().OnPlayerHit(2);
         }
     }
 }
