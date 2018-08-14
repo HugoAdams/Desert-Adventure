@@ -210,7 +210,6 @@ public class PlayerActions : MonoBehaviour {
             hitboxTime = Time.time + 0.25f;
             turnOffHitBox = timeframe - 0.4f;
             yield return null;
-            m_charAnimator.SetBool("Attack2", false);
             while (timeframe > Time.time)
             {
                 if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
@@ -239,7 +238,6 @@ public class PlayerActions : MonoBehaviour {
             hitboxTime = Time.time + 0.25f;
             turnOffHitBox = timeframe - 0.4f;
             yield return null;
-            m_charAnimator.SetBool("Attack3", false);
             while (timeframe > Time.time)
             {
                 if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
@@ -260,6 +258,8 @@ public class PlayerActions : MonoBehaviour {
             }
         }
 
+        m_charAnimator.SetBool("Attack2", false);
+        m_charAnimator.SetBool("Attack3", false);
         m_playerMovement.SetIsAttacking(false);
         m_attacking = false;
         yield return null;
