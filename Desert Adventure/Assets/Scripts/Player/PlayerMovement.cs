@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 currentMove = Vector3.zero;
     Vector3 m_refMove;
 
-    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking, m_sliding;
+    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking, m_sliding, m_jumping;
 
     private PlayerStatusEffects m_playerStatusEffects;
 
@@ -186,10 +186,12 @@ public class PlayerMovement : MonoBehaviour {
         {
             currentMove.y = m_jumpSpeed; // Apply the jump speed if space bar hit
             m_animator.SetBool("Jumping", true);
+            m_jumping = true;
         }
         else if (charControl.isGrounded)
         {
             m_animator.SetBool("Jumping", false);
+            m_jumping = false;
                      return;
         }
 
@@ -222,7 +224,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         NextDir = NextDir * m_walkSpeed;
         NextDir.y = currentMove.y;
-        float smoothAmount = charControl.isGrounded ? m_smoothMoveTime : m_smoothMoveTime * 10.0f;
+        float smoothAmount = (m_jumping || charControl.isGrounded) ? m_smoothMoveTime : m_smoothMoveTime * 10.0f;
         currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, smoothAmount); // Add movement to the move direction vector
         Vector2 currentSpeed = new Vector2(charControl.velocity.x, charControl.velocity.z);
         m_animator.SetFloat("MoveSpeed", currentSpeed.sqrMagnitude);
