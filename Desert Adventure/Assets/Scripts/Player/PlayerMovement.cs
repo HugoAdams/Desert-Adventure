@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private Animator m_animator;
 
+    [HideInInspector]
+    public bool m_specialDontMove = false;
+
     void Awake () {
         charControl = GetComponent<CharacterController>();
 
@@ -54,7 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (m_onBoat) // Can't do shiz if on boat
+        if (m_onBoat || m_specialDontMove) // Can't do shiz if on boat
             return;
 
         if (!m_sliding)
@@ -159,12 +162,15 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         while (timeStamp > Time.time)
         {
-            // Rotated move dir by camera dir
-            Vector3 NextDir = (Camera.main.transform.rotation * moveDirection).normalized;
-            NextDir.y = 0;
-            NextDir = NextDir * m_dashSpeed;
-            NextDir.y = currentMove.y;
-            currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
+            if (charControl.isGrounded)
+            {
+                // Rotated move dir by camera dir
+                Vector3 NextDir = (Camera.main.transform.rotation * moveDirection).normalized;
+                NextDir.y = 0;
+                NextDir = NextDir * m_dashSpeed;
+                NextDir.y = currentMove.y;
+                currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
+            }
             yield return null;
         }
         StartCoroutine(ResetDash());
