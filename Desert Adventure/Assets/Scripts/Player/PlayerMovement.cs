@@ -29,6 +29,12 @@ public class PlayerMovement : MonoBehaviour {
     LayerMask m_groundLayer;
     float m_slideStrength;
 
+    [Header("Walking Audio")]
+    public float m_timeBetweenAudioSteps = 0.4f;
+    public float m_speedThreshold = 0.5f;
+    float m_currentAudioStepTime;
+    AudioSource m_stepAudio;
+
     private Vector3 currentMove = Vector3.zero;
     Vector3 m_refMove;
 
@@ -50,6 +56,7 @@ public class PlayerMovement : MonoBehaviour {
         m_flyingSandParticles = transform.Find("FlyingSand").GetComponent<ParticleSystem>();
         m_animator = transform.Find("Model").GetComponent<Animator>();
         m_groundLayer = 1 << LayerMask.NameToLayer("Terrain");
+        m_stepAudio = GetComponent<AudioSource>();
 
         m_onBoat = false;
     }
@@ -68,10 +75,29 @@ public class PlayerMovement : MonoBehaviour {
             JumpPlayer();
             DashPlayer();
             CheckSlideLogic();
+            StepAudioLogic();
         }
         else
         {
             SlidePlayer();
+        }
+    }
+
+    void StepAudioLogic()
+    {
+        float mag = new Vector3(currentMove.x, 0, currentMove.z).sqrMagnitude;
+
+        if (!charControl.isGrounded || mag < m_speedThreshold)
+        {
+            m_currentAudioStepTime = Time.time;
+        }
+        else
+        {
+            if (Time.time - m_currentAudioStepTime > m_timeBetweenAudioSteps && mag > m_speedThreshold)
+            {
+                m_stepAudio.PlayOneShot(m_stepAudio.clip);
+                m_currentAudioStepTime = Time.time;
+            }
         }
     }
 
