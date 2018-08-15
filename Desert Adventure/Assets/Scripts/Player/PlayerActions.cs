@@ -30,6 +30,7 @@ public class PlayerActions : MonoBehaviour {
     private SphereCollider m_attackSC;
     private ParticleSystem m_attack1PE;
     private ParticleSystem m_attack2PE;
+    private List<ParticleSystem> m_attack3Particles = new List<ParticleSystem>();
 
     private Transform m_pickUpTransform; // The location where the pickup appears when the player is holding it.
 
@@ -52,6 +53,11 @@ public class PlayerActions : MonoBehaviour {
         m_attackSC = attackhitboxes.transform.GetChild(2).GetComponent<SphereCollider>();
         m_attack1PE = transform.Find("AttackParticles").GetChild(0).GetComponent<ParticleSystem>();
         m_attack2PE = transform.Find("AttackParticles").GetChild(1).GetComponent<ParticleSystem>();
+        Transform attack3Trasnfrom = transform.Find("AttackParticles").GetChild(2);
+        foreach (Transform child in attack3Trasnfrom)
+        {
+            m_attack3Particles.Add(child.gameObject.GetComponent<ParticleSystem>());
+        }
 
         m_pickUpTransform = transform.Find("PickUpLocation");
         m_runSpeed = m_playerMovement.m_walkSpeed;
@@ -249,8 +255,8 @@ public class PlayerActions : MonoBehaviour {
             m_playerMovement.SetIsAttacking(true, m_attackMoveDelay3);
             hitboxOn = false;
             timeframe = Time.time + 1.5f;
-            hitboxTime = Time.time + 0.25f;
-            turnOffHitBox = timeframe - 0.4f;
+            hitboxTime = Time.time + 0.4f;
+            turnOffHitBox = timeframe - 0.2f;
             yield return null;
             while (timeframe > Time.time)
             {
@@ -260,6 +266,10 @@ public class PlayerActions : MonoBehaviour {
                 }
                 if (!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
                 {
+                    foreach(ParticleSystem p in m_attack3Particles)
+                    {
+                        p.Play();
+                    }
                     hitboxOn = true;
                     m_attackSC.enabled = true;
                 }
