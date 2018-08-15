@@ -73,12 +73,14 @@ public class PlayerController : MonoBehaviour {
         m_anim.SetBool("Jumping", false);
         m_anim.SetBool("InBoat", true);
 
+        SoundEffectsPlayer.Instance.PlaySound("Pop");
         Transform newBoat = Instantiate(m_boatPrefab, transform.position, transform.rotation);
         newBoat.GetComponent<BoatMovement>().Initialize(m_currentStats, this);
     }
 
     public void DismountBoat(Vector3 _velocity)
     {
+        SoundEffectsPlayer.Instance.PlaySound("Pop");
         Camera.main.GetComponent<CameraController>().SetToPlayerMode();
         GetComponent<CharacterController>().enabled = true;
         m_movement.DismountBoat(_velocity);
