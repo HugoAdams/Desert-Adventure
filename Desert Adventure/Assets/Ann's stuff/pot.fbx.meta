@@ -4,11 +4,24 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Pot
+    100004: Pot1
+    100006: Pot2
+    100008: transform1
+    100010: transform2
     400000: //RootNode
+    400002: Pot
+    400004: Pot1
+    400006: Pot2
+    400008: transform1
+    400010: transform2
     2100000: lambert3
     2300000: //RootNode
+    2300002: Pot2
     3300000: //RootNode
+    3300002: Pot2
     4300000: Pot
+    4300002: Pot2
   externalObjects: {}
   materials:
     importMaterials: 1
