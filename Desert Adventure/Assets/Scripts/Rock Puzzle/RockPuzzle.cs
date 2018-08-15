@@ -42,6 +42,8 @@ public class RockPuzzle : MonoBehaviour {
     // Raises the newly spawned puzzle out of the ground until it hits its spawn height
     IEnumerator raisePuzzle()
     {
+       Transform dustParticles = m_nextPuzzle.transform.Find("Particle System");
+       dustParticles.SetParent(null);
        float desiredHeight = m_rewardSpawnLocation.y + m_spawnYOffset;
        Vector3 finalPosition = m_rewardSpawnLocation;
        finalPosition.y = desiredHeight;
@@ -53,6 +55,7 @@ public class RockPuzzle : MonoBehaviour {
            yield return null;
        }
        puzzleTransform.position = finalPosition;
+       Destroy(dustParticles.gameObject);
        yield return null;
     }
 }
