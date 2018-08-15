@@ -33,7 +33,7 @@ public class CagePuzzle : MonoBehaviour {
     void CheckEnded()
     {
         bool check = true;
-        for (int i = 0; i < m_enemies.Capacity; i++)
+        for (int i = 0; i < m_enemies.Count; i++)
         {
             if (m_enemies[i].GetCurrentHealth() > 0)
             {

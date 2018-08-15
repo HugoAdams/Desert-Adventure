@@ -55,6 +55,7 @@ public class SpecialScene : MonoBehaviour {
         Camera.main.GetComponent<CameraController>().m_target = m_player;
         Debug.Log("returned");
 
+        EffectCanvas.Instance.TitleText("OBJECTIVE: " + "Recollect your 4 ship pieces");
         Destroy(gameObject);
         //done
     }
