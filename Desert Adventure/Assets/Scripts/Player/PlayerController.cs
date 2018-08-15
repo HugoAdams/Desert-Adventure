@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour {
 
     Animator m_anim;
 
+    [HideInInspector]
+    public bool m_specialDontMove = false;
+
     private void Awake()
     {
         m_onBoat = false;
@@ -32,6 +35,10 @@ public class PlayerController : MonoBehaviour {
 
     void Update ()
     {
+        if(m_specialDontMove == true)
+        {
+            return;
+        }
         if (!m_onBoat)
         {
             GetOnBoatLogic();
@@ -113,5 +120,15 @@ public class PlayerController : MonoBehaviour {
         EventsController.Instance.TriggerPlayerLifeChange();
         m_dead = false;
         yield return null;
+    }
+
+    public void LoseAllBoatParts()
+    {
+        Debug.Log("dropped");
+        m_currentStats.BoatBase = false;
+        m_currentStats.BoatMast = false;
+        m_currentStats.BoatSail = false;
+        m_currentStats.BoatTiller = false;
+        EventsController.Instance.TriggerBoatPieceObtained(BoatPiece.TILLER);
     }
 }

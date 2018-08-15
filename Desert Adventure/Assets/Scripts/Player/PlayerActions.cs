@@ -18,6 +18,8 @@ public class PlayerActions : MonoBehaviour {
     private GameObject m_pickup;
 
     private bool m_playerIncapacited;
+    [HideInInspector]
+    public bool m_specialDontMove = false;
 
     private CharacterController m_characterController;
     private Animator m_charAnimator;
@@ -67,7 +69,7 @@ public class PlayerActions : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (m_playerIncapacited || m_onBoat || m_attacking)
+        if (m_playerIncapacited || m_onBoat || m_attacking || m_specialDontMove)
             return;
 
         if (Input.GetButtonDown("Attack"))

@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour {
     private Animator m_animator;
     private ParticleSystem m_flyingSandParticles;
 
+    [HideInInspector]
+    public bool m_specialDontMove = false;
+
     void Awake () {
         charControl = GetComponent<CharacterController>();
 
@@ -54,7 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (m_onBoat) // Can't do shiz if on boat
+        if (m_onBoat || m_specialDontMove) // Can't do shiz if on boat
             return;
 
         CheckIfGrounded();
