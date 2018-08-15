@@ -35,6 +35,14 @@ public class StartScreen : MonoBehaviour {
                 m_menuStarted = true;
                 StartCoroutine(StartMenuAnimation());
             }
+
+            for (int i = 0; i < m_spinningPieces.Length; i++)
+            {
+                float rotateDir = i % 2 == 0 ? -1 : 1;
+                Vector3 rotate = new Vector3(0, 0, rotateDir * 45);
+
+                m_spinningPieces[i].Rotate(rotate * Time.deltaTime);
+            }
         }
     }
 
@@ -42,7 +50,7 @@ public class StartScreen : MonoBehaviour {
     {
         while (m_fadeScreen.color.a > 0)
         {
-            m_fadeScreen.color = new Color(m_fadeScreen.color.r, m_fadeScreen.color.g, m_fadeScreen.color.b, m_fadeScreen.color.a - Time.deltaTime * 0.5f);
+            m_fadeScreen.color = new Color(m_fadeScreen.color.r, m_fadeScreen.color.g, m_fadeScreen.color.b, m_fadeScreen.color.a - Time.deltaTime * 0.3f);
             yield return null;
         }
     }
@@ -53,7 +61,7 @@ public class StartScreen : MonoBehaviour {
 
         // Rotate all pieces to correct position
         float rotateSpeed = 90;
-        float openGateSpeed = (1920.0f / Screen.width) * 200;
+        float openGateSpeed = (Screen.width / 1920.0f) * 160;
         float openGateTime = 2f;
 
         bool doneRotating = false;
