@@ -64,10 +64,16 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (m_onBoat || m_specialDontMove) // Can't do shiz if on boat
+        if (m_onBoat) // Can't do shiz if on boat
             return;
 
         CheckIfGrounded();
+
+        if (m_specialDontMove)
+        {
+            MovePlayer();
+            return;
+        }
 
         if (!m_sliding)
         {
@@ -176,6 +182,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         m_flyingSandParticles.Play();
         m_onBoat = false;
+
         if(_velocity.sqrMagnitude > 300.0f)
             currentMove = _velocity;
     }
@@ -266,7 +273,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         Vector3 NextDir = new Vector3(0, 0, 0);
-        if (!m_playerStunned)
+        if (m_playerStunned == false && m_specialDontMove == false) 
         {
             NextDir = (Camera.main.transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))).normalized;
             NextDir.y = 0;

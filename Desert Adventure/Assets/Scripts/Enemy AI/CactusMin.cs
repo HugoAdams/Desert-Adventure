@@ -319,7 +319,7 @@ public class CactusMin : EnemyBase
         m_moveSpeed = m_maxMoveSpeed;
         m_specialTarget.parent = transform;
         m_specialTarget.gameObject.SetActive(false);
-        Invoke("SpecSpeedUp", 2.5f);
+        Invoke("SpecSpeedUp", 1.1f);
     }
 
     public void SpecRunToTransform(Transform _t)
