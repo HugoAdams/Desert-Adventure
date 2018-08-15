@@ -7,8 +7,9 @@ public class PlayerController : MonoBehaviour {
     public PlayerStats m_baseStats, m_currentStats;
     public Transform m_boatPrefab;
     public float m_respawnTime;
+    public float m_invunTime;
 
-    bool m_onBoat, m_dead;
+    bool m_onBoat, m_dead, m_invun;
     PlayerMovement m_movement;
     PlayerActions m_actions;
     PlayerStatusEffects m_statusEffects;
@@ -92,12 +93,14 @@ public class PlayerController : MonoBehaviour {
 
     public void OnPlayerHit(int _damage)
     {
-        if(m_dead)
+        if(m_dead || m_invun)
             return;
 
         Debug.Log("player has taken " + _damage + " damage");
         m_currentStats.Life -= _damage;
-        if(m_currentStats.Life <= 0)
+        m_invun = true;
+        Invoke("StopInvunerability", m_invunTime);
+        if (m_currentStats.Life <= 0)
         {
             m_dead = true;
             m_currentStats.Life = 0;
@@ -108,6 +111,11 @@ public class PlayerController : MonoBehaviour {
         }
         m_anim.SetTrigger("OnHit");
         EventsController.Instance.TriggerPlayerLifeChange();
+    }
+
+    void StopInvunerability()
+    {
+        m_invun = false;
     }
 
     private IEnumerator OnDeath()
