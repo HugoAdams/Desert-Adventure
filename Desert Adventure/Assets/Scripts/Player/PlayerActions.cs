@@ -28,6 +28,8 @@ public class PlayerActions : MonoBehaviour {
     private BoxCollider m_attack1BC;
     private BoxCollider m_attack2BC;
     private SphereCollider m_attackSC;
+    private ParticleSystem m_attack1PE;
+    private ParticleSystem m_attack2PE;
 
     private Transform m_pickUpTransform; // The location where the pickup appears when the player is holding it.
 
@@ -44,9 +46,13 @@ public class PlayerActions : MonoBehaviour {
         m_charAnimator = transform.Find("Model").GetComponent<Animator>();
         m_playerMovement = GetComponent<PlayerMovement>();
         GameObject attackhitboxes = transform.Find("AttackHitboxes").gameObject;
+
         m_attack1BC = attackhitboxes.transform.GetChild(0).GetComponent<BoxCollider>();
         m_attack2BC = attackhitboxes.transform.GetChild(1).GetComponent<BoxCollider>();
         m_attackSC = attackhitboxes.transform.GetChild(2).GetComponent<SphereCollider>();
+        m_attack1PE = transform.Find("AttackParticles").GetChild(0).GetComponent<ParticleSystem>();
+        m_attack2PE = transform.Find("AttackParticles").GetChild(1).GetComponent<ParticleSystem>();
+
         m_pickUpTransform = transform.Find("PickUpLocation");
         m_runSpeed = m_playerMovement.m_walkSpeed;
         m_jumpSpeed = m_playerMovement.m_jumpSpeed;
@@ -185,7 +191,7 @@ public class PlayerActions : MonoBehaviour {
         bool m_attackLinedUp = false;
         bool hitboxOn = false;
         float timeframe = Time.time + 0.833f;
-        float hitboxTime = Time.time + 0.2f;
+        float hitboxTime = Time.time + 0.4f;
         float turnOffHitBox = timeframe - 0.2f;
         yield return null;
         while (timeframe > Time.time)
@@ -195,9 +201,10 @@ public class PlayerActions : MonoBehaviour {
                 m_charAnimator.SetBool("Attack2", true);
                 m_attackLinedUp = true;
             }
-            if(!hitboxOn && hitboxTime <= Time.time)
+            if(!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
             {
                 hitboxOn = true;
+                m_attack1PE.Play();
                 m_attack1BC.enabled = true;
             }
             if (hitboxOn && turnOffHitBox <= Time.time)
@@ -212,8 +219,8 @@ public class PlayerActions : MonoBehaviour {
             m_playerMovement.SetIsAttacking(true, m_attackMoveDelay2);
             m_attackLinedUp = false;
             timeframe = Time.time + 1.0f;
-            hitboxTime = Time.time + 0.25f;
-            turnOffHitBox = timeframe - 0.4f;
+            hitboxTime = Time.time + 0.4f;
+            turnOffHitBox = timeframe - 0.2f;
             yield return null;
             while (timeframe > Time.time)
             {
@@ -222,9 +229,10 @@ public class PlayerActions : MonoBehaviour {
                     m_attackLinedUp = true;
                     m_charAnimator.SetBool("Attack3", true);
                 }
-                if (!hitboxOn && hitboxTime <= Time.time)
+                if (!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
                 {
                     hitboxOn = true;
+                    m_attack2PE.Play();
                     m_attack2BC.enabled = true;
                 }
                 if (hitboxOn && turnOffHitBox <= Time.time)
@@ -250,7 +258,7 @@ public class PlayerActions : MonoBehaviour {
                 {
                     m_attackLinedUp = true;
                 }
-                if (!hitboxOn && hitboxTime <= Time.time)
+                if (!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
                 {
                     hitboxOn = true;
                     m_attackSC.enabled = true;
