@@ -35,6 +35,9 @@ public class StoneFaceMin : EnemyBase
 
     ENEMYSTATE m_enterDamageState;
 
+    Transform particleSystemTransform;
+    ParticleSystem deathParticles;
+
     private void Awake()
     {
         m_startPos = transform.position;
@@ -59,6 +62,9 @@ public class StoneFaceMin : EnemyBase
 
         m_renderer = GetComponentInChildren<Renderer>();
         m_normalMat = m_renderer.material;
+
+        particleSystemTransform = transform.Find("DeathParticles");
+        deathParticles = particleSystemTransform.GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -121,6 +127,7 @@ public class StoneFaceMin : EnemyBase
             m_colliders.DisableAll();
             if (IsTimerDone(m_deathStartTime, 13.0f))
             {
+                Destroy(particleSystemTransform.gameObject);
                 //delete self
                 Destroy(gameObject);
             }
@@ -140,6 +147,7 @@ public class StoneFaceMin : EnemyBase
             m_anima.SetTrigger("StartDeath");
             m_state = ENEMYSTATE.DEATH;
             m_deathStartTime = Time.time;
+            deathParticles.Play();
         }
         else
         {
