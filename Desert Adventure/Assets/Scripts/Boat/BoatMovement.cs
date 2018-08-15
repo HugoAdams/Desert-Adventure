@@ -46,6 +46,9 @@ public class BoatMovement : MonoBehaviour {
 
     PlayerController m_player;
 
+    [HideInInspector]
+    public bool m_specialDismountBoat = false;
+
     private void Awake()
     {
         m_rbody = GetComponent<Rigidbody>();
@@ -138,9 +141,10 @@ public class BoatMovement : MonoBehaviour {
         if (!m_player) // No player to dismount to
             return;
 
-        if (Input.GetButtonDown("BoatMounting"))
+        if (Input.GetButtonDown("BoatMounting") || m_specialDismountBoat == true)
         {
             // Dismount!
+            m_specialDismountBoat = false;
             m_player.transform.SetParent(null);
             m_player.DismountBoat(m_rbody.velocity * 0.5f + Vector3.up * 14);
             Destroy(gameObject);
