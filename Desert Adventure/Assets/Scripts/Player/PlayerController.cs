@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     PlayerActions m_actions;
     PlayerStatusEffects m_statusEffects;
     Vector3 m_startPos;
+    CharacterController m_charcontroller;
 
     Animator m_anim;
 
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         m_actions = GetComponent<PlayerActions>();
         m_statusEffects = GetComponent<PlayerStatusEffects>();
         m_anim = transform.Find("Model").GetComponent<Animator>();
-
+        m_charcontroller = GetComponent<CharacterController>();
         // FOR NOW, ALWAYS RESET PLAYER STATS TO DEFAULT
         m_currentStats.Reset(m_baseStats);
         m_startPos = transform.position;
@@ -54,12 +55,14 @@ public class PlayerController : MonoBehaviour {
 
     void MountBoat()
     {
+        if (!m_charcontroller.isGrounded)
+            return;
         Camera.main.GetComponent<CameraController>().SetToBoatMode();
         GetComponent<CharacterController>().enabled = false;
         m_movement.MountBoat();
         m_actions.MountBoat();
         m_onBoat = true;
-        m_anim.SetBool("Pickup", false);
+        m_anim.SetBool("PickUp", false);
         m_anim.SetBool("Jumping", false);
         m_anim.SetBool("InBoat", true);
 
