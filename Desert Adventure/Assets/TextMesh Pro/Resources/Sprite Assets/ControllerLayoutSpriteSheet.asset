@@ -1,0 +1,332 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
+  m_Name: ControllerLayoutSpriteSheet
+  m_EditorClassIdentifier: 
+  hashCode: -608723648
+  material: {fileID: 21126479673834766}
+  materialHashCode: 0
+  spriteSheet: {fileID: 2800000, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  spriteInfoList:
+  - id: 0
+    x: 45.78567
+    y: 1449.4614
+    width: 773.966
+    height: 545.03766
+    xOffset: 38.3
+    yOffset: 372
+    xAdvance: 773.966
+    scale: 3
+    name: ControllerFull
+    hashCode: -1860027633
+    unicode: 0
+    pivot: {x: -386.983, y: 272.51883}
+    sprite: {fileID: 21300000, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 1
+    x: 45.78567
+    y: 823.51483
+    width: 773.966
+    height: 544.41046
+    xOffset: -386.983
+    yOffset: 272.20523
+    xAdvance: 773.966
+    scale: 1
+    name: ControllerBase
+    hashCode: -1859870871
+    unicode: 0
+    pivot: {x: -386.983, y: 272.20523}
+    sprite: {fileID: 21300002, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 2
+    x: 848.6029
+    y: 714.3819
+    width: 30.732847
+    height: 37.632057
+    xOffset: -15.366424
+    yOffset: 18.816029
+    xAdvance: 30.732847
+    scale: 1
+    name: ControllerLayoutSpriteSheet_5
+    hashCode: -1475090230
+    unicode: 0
+    pivot: {x: -15.366424, y: 18.816029}
+    sprite: {fileID: 21300010, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 3
+    x: 614.6569
+    y: 703.0923
+    width: 60.838493
+    height: 60.838493
+    xOffset: -30.419247
+    yOffset: 30.419247
+    xAdvance: 60.838493
+    scale: 1
+    name: ControllerButtonY
+    hashCode: -642507277
+    unicode: 0
+    pivot: {x: -30.419247, y: 30.419247}
+    sprite: {fileID: 21300008, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 4
+    x: 795.29083
+    y: 664.2058
+    width: 31.360048
+    height: 35.750454
+    xOffset: -15.680024
+    yOffset: 17.875227
+    xAdvance: 31.360048
+    scale: 1
+    name: ControllerLayoutSpriteSheet_8
+    hashCode: -1475090233
+    unicode: 0
+    pivot: {x: -15.680024, y: 17.875227}
+    sprite: {fileID: 21300016, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 5
+    x: 905.67816
+    y: 663.5786
+    width: 27.596842
+    height: 37.632057
+    xOffset: -13.798421
+    yOffset: 18.816029
+    xAdvance: 27.596842
+    scale: 1
+    name: ControllerLayoutSpriteSheet_9
+    hashCode: -1475090234
+    unicode: 0
+    pivot: {x: -13.798421, y: 18.816029}
+    sprite: {fileID: 21300018, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 6
+    x: 449.7031
+    y: 651.0346
+    width: 68.9921
+    height: 68.9921
+    xOffset: -34.49605
+    yOffset: 34.49605
+    xAdvance: 68.9921
+    scale: 1
+    name: ControllerXButton
+    hashCode: -1218822734
+    unicode: 0
+    pivot: {x: -34.49605, y: 34.49605}
+    sprite: {fileID: 21300006, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 7
+    x: 561.34485
+    y: 651.0346
+    width: 61.465694
+    height: 62.092896
+    xOffset: -30.732847
+    yOffset: 31.046448
+    xAdvance: 61.465694
+    scale: 1
+    name: ControllerButtonX
+    hashCode: -642507278
+    unicode: 0
+    pivot: {x: -30.732847, y: 31.046448}
+    sprite: {fileID: 21300012, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 8
+    x: 668.59625
+    y: 651.0346
+    width: 62.092896
+    height: 62.092896
+    xOffset: -31.046448
+    yOffset: 31.046448
+    xAdvance: 62.092896
+    scale: 1
+    name: ControllerButtonB
+    hashCode: -642507288
+    unicode: 0
+    pivot: {x: -31.046448, y: 31.046448}
+    sprite: {fileID: 21300014, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 9
+    x: 259.6612
+    y: 618.42017
+    width: 138.61142
+    height: 138.61142
+    xOffset: -69.30571
+    yOffset: 69.30571
+    xAdvance: 138.61142
+    scale: 1
+    name: ControllerDPad
+    hashCode: -1859930163
+    unicode: 0
+    pivot: {x: -69.30571, y: 69.30571}
+    sprite: {fileID: 21300004, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 10
+    x: 847.3485
+    y: 612.14813
+    width: 31.98725
+    height: 37.632057
+    xOffset: -15.993625
+    yOffset: 18.816029
+    xAdvance: 31.98725
+    scale: 1
+    name: ControllerLayoutSpriteSheet_11
+    hashCode: -1433337153
+    unicode: 0
+    pivot: {x: -15.993625, y: 18.816029}
+    sprite: {fileID: 21300022, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 11
+    x: 614.6569
+    y: 598.9769
+    width: 60.838493
+    height: 61.465694
+    xOffset: 1.5
+    yOffset: 47.11
+    xAdvance: 60.838493
+    scale: 1
+    name: ControllerButtonA
+    hashCode: -642507285
+    unicode: 0
+    pivot: {x: -30.419247, y: 30.732847}
+    sprite: {fileID: 21300020, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 12
+    x: 353.74133
+    y: 550.05524
+    width: 38.88646
+    height: 38.88646
+    xOffset: -19.44323
+    yOffset: 19.44323
+    xAdvance: 38.88646
+    scale: 1
+    name: ControllerWindows
+    hashCode: 47777315
+    unicode: 0
+    pivot: {x: -19.44323, y: 19.44323}
+    sprite: {fileID: 21300024, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 13
+    x: 415.20703
+    y: 550.05524
+    width: 39.51366
+    height: 38.88646
+    xOffset: -19.75683
+    yOffset: 19.44323
+    xAdvance: 39.51366
+    scale: 1
+    name: ControllerMenu
+    hashCode: -1860261137
+    unicode: 0
+    pivot: {x: -19.75683, y: 19.44323}
+    sprite: {fileID: 21300026, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 14
+    x: 614.6569
+    y: 511.796
+    width: 62.092896
+    height: 61.465694
+    xOffset: -31.046448
+    yOffset: 30.732847
+    xAdvance: 62.092896
+    scale: 1
+    name: ControllerButtonBase
+    hashCode: -40327297
+    unicode: 0
+    pivot: {x: -31.046448, y: 30.732847}
+    sprite: {fileID: 21300028, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 15
+    x: 40.768063
+    y: 330.5349
+    width: 144.25623
+    height: 143.62901
+    xOffset: -72.12811
+    yOffset: 71.81451
+    xAdvance: 144.25623
+    scale: 1
+    name: ControllerButtonAnalogBase
+    hashCode: -1178602379
+    unicode: 0
+    pivot: {x: -72.12811, y: 71.81451}
+    sprite: {fileID: 21300030, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 16
+    x: 281.61322
+    y: 258.4068
+    width: 147.39223
+    height: 143.62901
+    xOffset: -73.69611
+    yOffset: 71.81451
+    xAdvance: 147.39223
+    scale: 1
+    name: ControllerAnalogRight
+    hashCode: -1258926890
+    unicode: 0
+    pivot: {x: -73.69611, y: 71.81451}
+    sprite: {fileID: 21300032, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 17
+    x: 521.8312
+    y: 255.898
+    width: 146.13782
+    height: 144.88342
+    xOffset: -73.06891
+    yOffset: 72.44171
+    xAdvance: 146.13782
+    scale: 1
+    name: ControllerAnalogLeft
+    hashCode: -818127091
+    unicode: 0
+    pivot: {x: -73.06891, y: 72.44171}
+    sprite: {fileID: 21300034, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 18
+    x: 524.9672
+    y: 51.430477
+    width: 144.25623
+    height: 146.76503
+    xOffset: -72.12811
+    yOffset: 73.382515
+    xAdvance: 144.25623
+    scale: 1
+    name: ControllerAnalogUp
+    hashCode: -1310145229
+    unicode: 0
+    pivot: {x: -72.12811, y: 73.382515}
+    sprite: {fileID: 21300038, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  - id: 19
+    x: 281.61322
+    y: 46.412872
+    width: 143.62901
+    height: 149.27383
+    xOffset: -71.81451
+    yOffset: 74.63692
+    xAdvance: 143.62901
+    scale: 1
+    name: ControllerAnalogDown
+    hashCode: -818412636
+    unicode: 0
+    pivot: {x: -71.81451, y: 74.63692}
+    sprite: {fileID: 21300036, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+  fallbackSpriteAssets: []
+--- !u!21 &21126479673834766
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: TextMeshPro/Sprite
+  m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: ad8d0deec81677c498603bcee93e5c17, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
