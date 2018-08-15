@@ -204,7 +204,7 @@ public class PlayerActions : MonoBehaviour {
         yield return null;
         while (timeframe > Time.time)
         {
-            if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
+            if (m_characterController.isGrounded && !m_attackLinedUp && Input.GetButtonDown("Attack"))
             {
                 m_charAnimator.SetBool("Attack2", true);
                 m_attackLinedUp = true;
