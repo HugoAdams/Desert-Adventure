@@ -103,6 +103,16 @@ public class StoneFaceMin : EnemyBase
 
     public override void OnDeath()
     {
+        int t = Mathf.RoundToInt((Time.time - m_damageStartTime) * 10);
+        if (t % 2 == 0)
+        {
+            m_renderer.material = m_damageMat;
+        }
+        else
+        {
+            m_renderer.material = m_normalMat;
+        }
+
         if (IsTimerDone(m_deathStartTime, 1.2f))
         {
             transform.position = transform.position + (Vector3.down * m_moveSpeed * Time.deltaTime);
