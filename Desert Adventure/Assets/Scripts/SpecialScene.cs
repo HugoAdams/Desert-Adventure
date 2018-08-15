@@ -14,9 +14,9 @@ public class SpecialScene : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
-        foreach(Transform item in ItemList)
+        for (int i = 0; i < ItemList.Capacity; i++)
         {
-            item.gameObject.SetActive(false);
+            ItemList[i].gameObject.SetActive(false);
         }
     }
 
@@ -85,7 +85,7 @@ public class SpecialScene : MonoBehaviour {
             {
                 m_player = other.GetComponent<PlayerMovement>();
             }
-            PlayerMove(false);
+            PlayerDontMove(true);
             DropBoatParts();
 
             //turn off this triggerbox
@@ -99,7 +99,7 @@ public class SpecialScene : MonoBehaviour {
 
     }
 
-    void PlayerMove(bool _move)
+    void PlayerDontMove(bool _move)
     {
         if(m_player == null)
         {
@@ -114,9 +114,9 @@ public class SpecialScene : MonoBehaviour {
     {
         m_player.GetComponent<PlayerController>().LoseAllBoatParts();
 
-        foreach (Transform item in ItemList)
+        for(int i=0; i< ItemList.Capacity; i++)
         {
-            item.gameObject.SetActive(true);
+            ItemList[i].gameObject.SetActive(true);
         }
     }
 }
