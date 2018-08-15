@@ -77,7 +77,7 @@ public class BoatMovement : MonoBehaviour {
         if (m_canControl)
         {
             ForceLogic();
-            //AirControlLogic();
+            AirControlLogic();
         }
     }
 
