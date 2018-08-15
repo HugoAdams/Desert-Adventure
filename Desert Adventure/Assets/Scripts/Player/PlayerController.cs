@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
         m_movement.MountBoat();
         m_actions.MountBoat();
         m_onBoat = true;
-        m_anim.SetBool("Pickup", false);
+        m_anim.SetBool("PickUp", false);
         m_anim.SetBool("Jumping", false);
         m_anim.SetBool("InBoat", true);
 
