@@ -207,6 +207,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (!m_playerStunned && !m_isAttacking && charControl.isGrounded && Input.GetButtonDown("Jump"))
         {
+            SoundEffectsPlayer.Instance.PlaySound("Jump");
             currentMove.y = m_jumpSpeed; // Apply the jump speed if space bar hit
             m_animator.SetBool("Jumping", true);
             m_jumping = true;
