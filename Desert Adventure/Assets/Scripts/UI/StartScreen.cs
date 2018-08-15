@@ -16,6 +16,11 @@ public class StartScreen : MonoBehaviour {
     public RectTransform[] m_leftGroup;
     public RectTransform[] m_rightGroup;
 
+    public CactiMove[] m_frontCacti;
+    public CactiMove[] m_backCacti;
+    public float m_timeBetweenSwitch = 1.5f;
+    float m_nextSwitchTime;
+    bool m_frontTurn;
 
     bool m_menuStarted;
 
@@ -44,6 +49,24 @@ public class StartScreen : MonoBehaviour {
                 m_spinningPieces[i].Rotate(rotate * Time.deltaTime);
             }
         }
+
+        // Cacti move logic
+        if (Time.time >= m_nextSwitchTime)
+        {
+            m_nextSwitchTime = Time.time + m_timeBetweenSwitch;
+
+            foreach (CactiMove cm in m_frontCacti)
+            {
+                cm.ChangeTarget(m_frontTurn);
+            }
+
+            foreach (CactiMove cm in m_backCacti)
+            {
+                cm.ChangeTarget(!m_frontTurn);
+            }
+
+            m_frontTurn = !m_frontTurn;
+        }
     }
 
     IEnumerator FadeOut()
@@ -61,7 +84,7 @@ public class StartScreen : MonoBehaviour {
 
         // Rotate all pieces to correct position
         float rotateSpeed = 90;
-        float openGateSpeed = (Screen.width / 1920.0f) * 160;
+        float openGateSpeed = (Screen.width / 1920.0f) * 170;
         float openGateTime = 2f;
 
         bool doneRotating = false;
