@@ -159,12 +159,15 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         while (timeStamp > Time.time)
         {
-            // Rotated move dir by camera dir
-            Vector3 NextDir = (Camera.main.transform.rotation * moveDirection).normalized;
-            NextDir.y = 0;
-            NextDir = NextDir * m_dashSpeed;
-            NextDir.y = currentMove.y;
-            currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
+            if (charControl.isGrounded)
+            {
+                // Rotated move dir by camera dir
+                Vector3 NextDir = (Camera.main.transform.rotation * moveDirection).normalized;
+                NextDir.y = 0;
+                NextDir = NextDir * m_dashSpeed;
+                NextDir.y = currentMove.y;
+                currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
+            }
             yield return null;
         }
         StartCoroutine(ResetDash());
