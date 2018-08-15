@@ -129,7 +129,8 @@ public class PlayerMovement : MonoBehaviour {
     public void DismountBoat(Vector3 _velocity)
     {
         m_onBoat = false;
-        currentMove = _velocity;
+        if(_velocity.sqrMagnitude > 300.0f)
+            currentMove = _velocity;
     }
 
     void FixedUpdate()
