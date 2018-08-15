@@ -79,13 +79,29 @@ public class CactusMin : EnemyBase
                 break;
         }
 
-        SetOnGround();
+        if (m_state != ENEMYSTATE.DEATH)
+        {
+            SetOnGround();
+        }
     }
 
     public override void OnDeath()
     {
+        int t = Mathf.RoundToInt((Time.time - m_deathStartTime) * 10);
+        if (t % 2 == 0)
+        {
+            m_renderer.material = m_damageMat;
+        }
+        else
+        {
+            m_renderer.material = m_normalMat;
+        }
+
+
+
         if (IsTimerDone(m_deathStartTime, 1.2f))
         {
+            transform.position = transform.position + (Vector3.down * 1.55f * Time.deltaTime);
             m_colliders.DisableAll();
             if (IsTimerDone(m_deathStartTime, 13.0f))
             {
@@ -111,6 +127,8 @@ public class CactusMin : EnemyBase
             m_anima.SetTrigger("StartDeath");
             m_state = ENEMYSTATE.DEATH;
             m_deathStartTime = Time.time;
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().useGravity = false;
         }
         else
         {
@@ -118,6 +136,7 @@ public class CactusMin : EnemyBase
             m_enterDamageState = m_state;
             m_state = ENEMYSTATE.DAMAGE;
             m_anima.SetTrigger("StartDamage");
+
         }
 
         if (_attacker != null)

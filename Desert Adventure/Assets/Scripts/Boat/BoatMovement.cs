@@ -152,15 +152,25 @@ public class BoatMovement : MonoBehaviour {
         // Try rotate towards stable x-rotation
         if (!m_grounded)
         {
-            Vector3 xStable = transform.eulerAngles;
-            xStable.x = 0;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(xStable), 90 * Time.deltaTime);
+            if (Mathf.Abs(transform.eulerAngles.x) > 30.0f)
+            {
+                Vector3 torque = new Vector3(-transform.eulerAngles.x, 0 ,0).normalized * m_airTimeTorque;
+                m_rbody.AddTorque(torque);
+                //Debug.Log("TRYING!");
+            }
         }
 
         // Always try to stablize z-rotation
-        Vector3 zStable = transform.eulerAngles;
-        zStable.z = 0;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(zStable), 240 * Time.deltaTime);
+        if (Mathf.Abs(transform.eulerAngles.z) > 30.0f)
+        {
+            Vector3 torque = new Vector3(transform.eulerAngles.z, 0, 0).normalized * m_airTimeTorque;
+            m_rbody.AddTorque(torque);
+        }
+
+        if (m_rbody.angularVelocity.sqrMagnitude > 9)
+        {
+            m_rbody.angularVelocity = m_rbody.angularVelocity.normalized * 3;
+        }
     }
 
     void UpdatePlayerInput()
