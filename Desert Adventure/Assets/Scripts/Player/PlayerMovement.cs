@@ -32,11 +32,11 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 currentMove = Vector3.zero;
     Vector3 m_refMove;
 
-    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking, m_sliding, m_jumping;
+    private bool m_playerStunned, m_onBoat, m_dashRecharging, m_isAttacking, m_sliding, m_jumping, m_Grounded;
 
     private PlayerStatusEffects m_playerStatusEffects;
-
     private Animator m_animator;
+    private ParticleSystem m_flyingSandParticles;
 
     [HideInInspector]
     public bool m_specialDontMove = false;
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour {
         m_playerStatusEffects = GetComponent<PlayerStatusEffects>();
         m_playerStatusEffects.m_onStunned += onStunned;
         m_playerStatusEffects.m_onUnStunned += onUnStunned;
-
+        m_flyingSandParticles = transform.Find("FlyingSand").GetComponent<ParticleSystem>();
         m_animator = transform.Find("Model").GetComponent<Animator>();
         m_groundLayer = 1 << LayerMask.NameToLayer("Terrain");
 
@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour {
         if (m_onBoat || m_specialDontMove) // Can't do shiz if on boat
             return;
 
+        CheckIfGrounded();
+
         if (!m_sliding)
         {
             MovePlayer();
@@ -70,6 +72,20 @@ public class PlayerMovement : MonoBehaviour {
         else
         {
             SlidePlayer();
+        }
+    }
+
+    void CheckIfGrounded()
+    {
+        if(m_Grounded && !charControl.isGrounded)
+        {
+            m_flyingSandParticles.Pause();
+            m_Grounded = false;
+        }
+        else if(!m_Grounded && charControl.isGrounded)
+        {
+            m_flyingSandParticles.Play();
+            m_Grounded = true;
         }
     }
 
@@ -191,6 +207,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (!m_playerStunned && !m_isAttacking && charControl.isGrounded && Input.GetButtonDown("Jump"))
         {
+            SoundEffectsPlayer.Instance.PlaySound("Jump");
             currentMove.y = m_jumpSpeed; // Apply the jump speed if space bar hit
             m_animator.SetBool("Jumping", true);
             m_jumping = true;

@@ -211,6 +211,7 @@ public class PlayerActions : MonoBehaviour {
             }
             if(!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
             {
+                SoundEffectsPlayer.Instance.PlaySound("Attack1");
                 hitboxOn = true;
                 m_attack1PE.Play();
                 m_attack1BC.enabled = true;
@@ -239,6 +240,7 @@ public class PlayerActions : MonoBehaviour {
                 }
                 if (!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
                 {
+                    SoundEffectsPlayer.Instance.PlaySound("Attack2");
                     hitboxOn = true;
                     m_attack2PE.Play();
                     m_attack2BC.enabled = true;
@@ -268,7 +270,8 @@ public class PlayerActions : MonoBehaviour {
                 }
                 if (!hitboxOn && hitboxTime <= Time.time && turnOffHitBox > Time.time)
                 {
-                    foreach(ParticleSystem p in m_attack3Particles)
+                    SoundEffectsPlayer.Instance.PlaySound("Attack3");
+                    foreach (ParticleSystem p in m_attack3Particles)
                     {
                         p.Play();
                     }
