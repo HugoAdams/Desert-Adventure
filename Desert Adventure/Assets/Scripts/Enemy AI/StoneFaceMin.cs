@@ -63,9 +63,9 @@ public class StoneFaceMin : EnemyBase
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Semicolon))
+       /* if (Input.GetKeyDown(KeyCode.Semicolon))
         {
-            OnEnemyHit(1, null);
+            OnEnemyHit(1000, null);
         }*/
 
         switch (m_state)
@@ -115,7 +115,7 @@ public class StoneFaceMin : EnemyBase
 
         if (IsTimerDone(m_deathStartTime, 1.2f))
         {
-            transform.position = transform.position + (Vector3.down * m_moveSpeed * Time.deltaTime);
+            transform.position = transform.position + (Vector3.down * 2.5f * Time.deltaTime);
             //Debug.Log("falling");
 
             m_colliders.DisableAll();

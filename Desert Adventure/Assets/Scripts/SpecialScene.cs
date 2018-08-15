@@ -46,4 +46,18 @@ public class SpecialScene : MonoBehaviour {
             startTimeToEnd = Time.time;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponentInParent<BoatMovement>() || other.GetComponent<PlayerMovement>())
+        {
+            //turn off this triggerbox
+            GetComponent<BoxCollider>().enabled = false;
+            //turnoff all other colliders
+            transform.GetChild(0).gameObject.SetActive(false);
+
+            //at the end of the scene turn off boat
+        }
+
+    }
 }
