@@ -169,10 +169,12 @@ public class PlayerMovement : MonoBehaviour {
     public void MountBoat()
     {
         m_onBoat = true;
+        m_flyingSandParticles.Stop();
     }
 
     public void DismountBoat(Vector3 _velocity)
     {
+        m_flyingSandParticles.Play();
         m_onBoat = false;
         if(_velocity.sqrMagnitude > 300.0f)
             currentMove = _velocity;
