@@ -19,6 +19,8 @@ public class SpecialScene : MonoBehaviour {
     bool m_started = false;
     public ParticleSystem m_splosion;
     GameObject psgo;
+
+    AudioSource m_audio;
     // Use this for initialization
     private void Start()
     {
@@ -32,11 +34,12 @@ public class SpecialScene : MonoBehaviour {
         m_campos = new Vector3(350, 14.9f, 215.12f);
         m_camrot = new Vector3(30.47f, 22.44f, 0);
 
-        
+        m_audio = GetComponent<AudioSource>();
     }
 
     void SpecialStart()
     {
+        m_audio.Play();
         psgo = Instantiate(m_splosion.gameObject);
         psgo.transform.position = transform.position;
         psgo.transform.localScale = new Vector3(4,4,4);
@@ -151,6 +154,16 @@ public class SpecialScene : MonoBehaviour {
         m_player.GetComponent<PlayerActions>().m_specialDontMove = _move;
         m_player.GetComponent<PlayerController>().m_specialDontMove = _move;
         Camera.main.GetComponent<CameraController>().m_specialDontMove = _move;
+
+        if (_move == true)
+        {
+            m_player.Find("Model").GetComponent<Animator>().SetTrigger("OnDeath");
+        }
+        else
+        {
+            m_player.Find("Model").GetComponent<Animator>().SetTrigger("OnRespawn");
+        }
+        
     }
 
     void DropBoatParts()
