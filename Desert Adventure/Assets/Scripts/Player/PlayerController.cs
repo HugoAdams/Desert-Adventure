@@ -141,4 +141,19 @@ public class PlayerController : MonoBehaviour {
         m_currentStats.BoatTiller = false;
         EventsController.Instance.TriggerBoatPieceObtained(BoatPiece.TILLER);
     }
+
+    public void addHealth(int health)
+    {
+        if (m_currentStats.Life == m_baseStats.Life)
+            return;
+
+        if (m_currentStats.Life < m_baseStats.Life)
+        {
+        if ((m_currentStats.Life + health) > m_baseStats.Life)
+            m_currentStats.Life = m_baseStats.Life;
+        else
+            m_currentStats.Life += health;
+        }
+        EventsController.Instance.TriggerPlayerLifeChange();
+    }
 }
