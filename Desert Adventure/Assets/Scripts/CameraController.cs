@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour {
     {
         m_targetLastPos = transform.position;
         m_baseTopAngle = 5;
-        m_groundMask = LayerMask.NameToLayer("Terrain");
+        m_groundMask = 1 << LayerMask.NameToLayer("Terrain");
         // Assuming starting with player
         SetToPlayerMode();
         ResetBehindPlayer();
@@ -105,20 +105,7 @@ public class CameraController : MonoBehaviour {
         backDir.y = 0;
         float angle = Mathf.Atan2(backDir.z, backDir.x) * Mathf.Rad2Deg;
         m_angle = Mathf.MoveTowardsAngle(m_angle, angle, rotateAmount * Time.deltaTime);
-        //OffGroundLogic();
         Focus();
-    }
-
-    void OffGroundLogic()
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, m_minDistanceOffGround, m_groundMask))
-        {
-            float offset = m_minDistanceOffGround - Mathf.Abs(transform.position.y - hit.point.y);
-            m_YDiff += offset;
-            Debug.Log("HERE");
-        }
     }
 
     void Rotate(bool _left)
@@ -146,7 +133,7 @@ public class CameraController : MonoBehaviour {
 
     void ClampLogic()
     {
-        m_YDiff = Mathf.Clamp(m_YDiff, 0.5f, 15);
+        m_YDiff = Mathf.Clamp(m_YDiff, 1, 15);
         if (m_angle > 360)
             m_angle -= 360;
         else if (m_angle < 0)
@@ -163,7 +150,6 @@ public class CameraController : MonoBehaviour {
         yz += m_target.position.z;
 
         Vector3 toPos = new Vector3(x, m_target.position.y + m_YDiff, yz);
-        toPos = Quaternion.AngleAxis(-m_target.eulerAngles.x, Vector3.right) * toPos;
         transform.position = Vector3.Lerp(transform.position, toPos, 2 * Time.deltaTime);
         transform.LookAt(m_target);
     }
