@@ -12,7 +12,7 @@ public class TurtleMin : EnemyBase {
     float m_bounceTime = -1;
     float m_height = 0;
     public bool walkaround = true;
-    public float wanderRadius = 8;
+    //public float wanderRadius = 8;
 
     // Use this for initialization
     void Start () {
@@ -25,7 +25,7 @@ public class TurtleMin : EnemyBase {
         {
             m_state = ENEMYSTATE.WANDER;
         }
-        m_wanderCircle = wanderRadius;
+        //m_wanderCircle = wanderRadius;
         m_bounceTime = Time.time;
         m_startPos = transform.position;
         m_wanderTarget = m_startPos;
