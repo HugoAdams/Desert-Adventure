@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour {
 
     [HideInInspector]
     public bool m_specialDontMove = false;
-
+    float m_idleTimeTracker;
+ 
     private void Awake()
     {
         m_onBoat = false;
@@ -44,8 +45,39 @@ public class PlayerController : MonoBehaviour {
         if (!m_onBoat)
         {
             GetOnBoatLogic();
+            CheckforIdleFidgets();
         }
 	}
+
+    void CheckforIdleFidgets()
+    {
+        // Cycle over all buttons, check if any are down
+        for (int i = 0; i < 20; i++)
+        {
+            if (Input.GetKeyDown("joystick 1 button " + i))
+            {
+                m_idleTimeTracker = Time.time;
+                return;
+            }
+        }
+
+        // Check if the analog stick is down
+        if ((Mathf.Abs(Input.GetAxis("Horizontal")) > 0) || (Mathf.Abs(Input.GetAxis("Vertical")) > 0))
+        {
+            m_idleTimeTracker = Time.time;
+            return;
+        }
+
+        if(Time.time > m_idleTimeTracker + 6.0f)
+        {
+            if(Random.Range(0,2) == 0)
+                m_anim.SetTrigger("FidgetIdle1");
+            else
+                m_anim.SetTrigger("FidgetIdle2");
+
+            m_idleTimeTracker = Time.time;
+        }
+    }
 
     void GetOnBoatLogic()
     {
