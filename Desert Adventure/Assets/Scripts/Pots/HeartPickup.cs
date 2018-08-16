@@ -32,6 +32,7 @@ public class HeartPickup : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        SoundEffectsPlayer.Instance.PlaySound("HeartPickup");
         other.GetComponent<PlayerController>().addHealth(1);
     }
 }

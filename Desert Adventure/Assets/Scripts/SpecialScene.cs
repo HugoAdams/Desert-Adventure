@@ -29,6 +29,7 @@ public class SpecialScene : MonoBehaviour {
         ItemList[3].GetChild(2).gameObject.SetActive(false);
 
         m_campos = new Vector3(358.3f, 29.9f, 199.2f);
+        m_campos = new Vector3(350, 14.9f, 215.12f);
         m_camrot = new Vector3(30.47f, 22.44f, 0);
 
         

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CagePuzzle : MonoBehaviour {
 
-    public List<EnemyBase> m_enemies;
+    public List<CactusMin> m_enemies;
 
     public Transform m_cageDoor;
     bool beat = false;
@@ -12,6 +12,12 @@ public class CagePuzzle : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        /*if(Input.GetKeyDown(KeyCode.H))
+        {
+            Debug.Log("H");
+            beat = true;
+            falltime = Time.time;
+        }*/
         if(beat == false)
         {
             CheckEnded();
@@ -35,6 +41,10 @@ public class CagePuzzle : MonoBehaviour {
         bool check = true;
         for (int i = 0; i < m_enemies.Count; i++)
         {
+            if(m_enemies[i] == null)
+            {
+                continue;
+            }
             if (m_enemies[i].GetCurrentHealth() > 0)
             {
                 check = false;
@@ -43,5 +53,9 @@ public class CagePuzzle : MonoBehaviour {
         }
 
         beat = check;
+        if(beat == true)
+        {
+            falltime = Time.time;
+        }
     }
 }
