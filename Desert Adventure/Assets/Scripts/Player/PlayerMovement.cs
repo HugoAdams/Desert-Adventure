@@ -184,7 +184,7 @@ public class PlayerMovement : MonoBehaviour {
         m_onBoat = false;
 
         if(_velocity.sqrMagnitude > 300.0f)
-            currentMove = _velocity;
+            currentMove = _velocity * 0.3f;
     }
 
     void FixedUpdate()
