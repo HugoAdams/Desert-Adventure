@@ -36,6 +36,6 @@ public class SoundEffectsPlayer : MonoBehaviour {
     public void PlaySound(string _name)
     {
         m_source.clip = m_soundDict[_name];
-        m_source.Play();
+        m_source.PlayOneShot(m_source.clip);
     }
 }
