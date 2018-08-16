@@ -43,7 +43,6 @@ public class TurtleMin : EnemyBase {
                 SwitchToWander();
                 break;
             case ENEMYSTATE.IDLE:
-                Debug.Log("Idel");
                 Idle();
                 break;
             case ENEMYSTATE.WANDER:
@@ -148,12 +147,10 @@ public class TurtleMin : EnemyBase {
 
         if(m_wanderRotate == true)
         {
-            Debug.Log("rotting");
             m_wanderRotate = RotateToFace(m_wanderTarget);
         }
         else
         {
-            Debug.Log("wandering");
             PathSteering(PathSeek(m_wanderTarget));
         }
     }

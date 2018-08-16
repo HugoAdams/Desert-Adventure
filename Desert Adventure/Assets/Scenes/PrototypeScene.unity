@@ -4702,7 +4702,15 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 176.92401
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114462544265403552, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114942934381840474, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114995407682373696, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114134457095299794, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114800727193908360, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114420546373515466, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114092857317773614, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
+    - {fileID: 114936347388437372, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c3c61cd4299533048a21b3fa6dcf1d52, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &315613376 stripped
@@ -5772,6 +5780,7 @@ MonoBehaviour:
   m_playerStartY: 3.5
   m_boatCameraRadius: 20
   m_playerCameraRadius: 8
+  m_minDistanceOffGround: 1
   m_specialDontMove: 0
 --- !u!114 &404327562
 MonoBehaviour:

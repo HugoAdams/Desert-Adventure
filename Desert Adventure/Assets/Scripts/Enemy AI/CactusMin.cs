@@ -138,6 +138,7 @@ public class CactusMin : EnemyBase
             m_state = ENEMYSTATE.DAMAGE;
             m_colliders.m_spearTrigger.enabled = false;
             m_anima.SetTrigger("StartDamage");
+            Quack();
 
         }
 
@@ -334,14 +335,7 @@ public class CactusMin : EnemyBase
         m_moveSpeed = m_maxMoveSpeed;
         m_specialTarget.parent = transform;
         m_specialTarget.gameObject.SetActive(false);
-        if(Random.Range(0, 2) == 0)
-        {
-            SoundEffectsPlayer.Instance.PlaySound("Quack1");
-        }
-        else
-        {
-            SoundEffectsPlayer.Instance.PlaySound("Quack2");
-        }
+        Quack();
         Invoke("SpecSpeedUp", 1.1f);
     }
 
@@ -378,5 +372,17 @@ public class CactusMin : EnemyBase
 
         }
         m_attacking = false;
+    }
+
+    void Quack()
+    {
+        if (Random.Range(0, 2) == 0)
+        {
+            SoundEffectsPlayer.Instance.PlaySound("Quack1");
+        }
+        else
+        {
+            SoundEffectsPlayer.Instance.PlaySound("Quack2");
+        }
     }
 }
