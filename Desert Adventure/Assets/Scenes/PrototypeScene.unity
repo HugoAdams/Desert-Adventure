@@ -5769,7 +5769,7 @@ MonoBehaviour:
   m_xAxisSpeed: 10
   m_timeTillCameraReset: 3
   m_boatStartY: 8
-  m_playerStartY: 2.5
+  m_playerStartY: 3.5
   m_boatCameraRadius: 20
   m_playerCameraRadius: 8
   m_specialDontMove: 0
