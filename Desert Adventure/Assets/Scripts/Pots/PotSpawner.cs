@@ -62,7 +62,7 @@ public class PotSpawner : MonoBehaviour {
     {
         Vector2 random2dPosition = Random.insideUnitCircle * m_spawnRadius;
         Vector3 randomPosition = new Vector3(transform.position.x + random2dPosition.x, transform.position.y, transform.position.z + random2dPosition.y);
-        randomPosition.y = transform.position.y - ReturnGroundLevel(randomPosition);
+        randomPosition.y = transform.position.y - ReturnGroundLevel(randomPosition) + 0.5f;
         return Instantiate(enemy, randomPosition, transform.rotation);
     }
 
