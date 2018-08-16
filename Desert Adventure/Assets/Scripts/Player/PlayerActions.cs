@@ -99,7 +99,8 @@ public class PlayerActions : MonoBehaviour {
                 m_charAnimator.SetBool("PickUp", false);
                 m_playerMovement.m_walkSpeed = m_runSpeed;
                 m_playerMovement.m_jumpSpeed = m_jumpSpeed;
-                if (m_characterController.velocity.sqrMagnitude <= 30)
+                
+                if ((Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.8f) && (Mathf.Abs(Input.GetAxisRaw("Vertical")) < 0.8f))
                 {
                     dropObject();
                 }
