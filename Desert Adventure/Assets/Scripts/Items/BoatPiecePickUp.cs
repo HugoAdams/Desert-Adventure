@@ -21,19 +21,19 @@ public class BoatPiecePickUp : ItemPickUp {
         {
             case BoatPiece.BASE:
                 _player.m_currentStats.BoatBase = true;
-                EffectCanvas.Instance.TitleText("OBTAINED: BOAT HULL <sprite=3>");
+                EffectCanvas.Instance.TitleText("BOAT HULL");
                 break;
             case BoatPiece.MAST:
                 _player.m_currentStats.BoatMast = true;
-                EffectCanvas.Instance.TitleText("OBTAINED: BOAT MAST <sprite=4>");
+                EffectCanvas.Instance.TitleText("BOAT MAST");
                 break;
             case BoatPiece.SAIL:
                 _player.m_currentStats.BoatSail = true;
-                EffectCanvas.Instance.TitleText("OBTAINED: BOAT SAIL <sprite=5>");
+                EffectCanvas.Instance.TitleText("BOAT SAIL");
                 break;
             case BoatPiece.TILLER:
                 _player.m_currentStats.BoatTiller = true;
-                EffectCanvas.Instance.TitleText("OBTAINED: BOAT TILLER <sprite=6>");
+                EffectCanvas.Instance.TitleText("BOAT TILLER");
                 break;
             default:
                 break;
