@@ -105,10 +105,12 @@ public class PlayerController : MonoBehaviour {
 
         Debug.Log("player has taken " + _damage + " damage");
         m_currentStats.Life -= _damage;
+        SoundEffectsPlayer.Instance.PlaySound("PlayerGotHit");
         m_invun = true;
         Invoke("StopInvunerability", m_invunTime);
         if (m_currentStats.Life <= 0)
         {
+            SoundEffectsPlayer.Instance.PlaySound("PlayerDeath");
             m_dead = true;
             m_currentStats.Life = 0;
             Debug.Log("Player has died");
