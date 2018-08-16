@@ -35,11 +35,13 @@ public class StoneFaceMin : EnemyBase
 
     ENEMYSTATE m_enterDamageState;
 
+    AudioSource m_rockHitSource;
     Transform particleSystemTransform;
     ParticleSystem deathParticles;
 
     private void Awake()
     {
+        m_rockHitSource = GetComponent<AudioSource>();
         m_startPos = transform.position;
         m_wanderTarget = m_startPos;
         //Debug.Log(m_startPos);
@@ -65,6 +67,11 @@ public class StoneFaceMin : EnemyBase
 
         particleSystemTransform = transform.Find("DeathParticles");
         deathParticles = particleSystemTransform.GetComponent<ParticleSystem>();
+    }
+
+    void PlayAttackSound()
+    {
+        m_rockHitSource.Play();
     }
 
     void Update()
@@ -139,7 +146,9 @@ public class StoneFaceMin : EnemyBase
         {//invincible while in damage
             return;
         }
-            m_currentHealth -= _damage;
+
+        m_currentHealth -= _damage;
+        SoundEffectsPlayer.Instance.PlaySound("PlayerHit");
 
         if (m_currentHealth <= 0 && m_state != ENEMYSTATE.DEATH)
         {
@@ -216,7 +225,8 @@ public class StoneFaceMin : EnemyBase
                     if (IsTimerDone(standUpTime, 3.5f))
                     {
                         m_anima.SetTrigger("StartAttack");
-                        m_colliders.noseCollider.enabled = true; 
+                        m_colliders.noseCollider.enabled = true;
+                        Invoke("PlayAttackSound", 0.8f);
                         Invoke("NoseOff", 2.0f);
                         standUpTime = Time.time;
                     }
@@ -364,24 +374,7 @@ public class StoneFaceMin : EnemyBase
         }
     }
 
-    bool RotateToFace(Vector3 _v)
-    {
-        _v.y = transform.position.y;//should stop rotation on x and z;
 
-        Vector3 targetDir = _v - transform.position;
-        Vector3 newdir = Vector3.RotateTowards(transform.forward, targetDir, Time.deltaTime * 2, 0.0f);
-
-        transform.rotation = Quaternion.LookRotation(newdir);
-        
-        if(Vector3.Angle(transform.forward,targetDir) < 0.5f)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
 
     void NoseOff()
     {

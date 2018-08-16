@@ -118,6 +118,7 @@ public class CactusMin : EnemyBase
             return;
         }
 
+        SoundEffectsPlayer.Instance.PlaySound("PlayerHit");
         Debug.Log(name + " has taken " + _damage + " damage");
         m_currentHealth -= _damage;
 
