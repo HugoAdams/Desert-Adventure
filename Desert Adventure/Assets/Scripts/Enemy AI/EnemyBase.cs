@@ -32,7 +32,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected Transform m_target;
     protected Vector3 m_curVel;//currentVelocity
     public float m_maxForce = 2;
-    protected Vector3 m_startPos;
+    protected Vector3 m_startPos = null;
     protected Vector3 m_wanderTarget;
 
     public Material m_damageMat;
@@ -100,7 +100,14 @@ public abstract class EnemyBase : MonoBehaviour
             Vector3 right = Quaternion.Euler(0, -m_halfVisionCone, 0) * transform.forward;
             Gizmos.DrawLine(transform.position, transform.position + (right.normalized * m_visionRadius));
 
-            Gizmos.DrawWireSphere(m_startPos, m_wanderCircle);
+            if (m_startPos == null)
+            {
+                Gizmos.DrawWireSphere(transform.position, m_wanderCircle);
+            }
+            else
+            {
+                Gizmos.DrawWireSphere(m_startPos, m_wanderCircle);
+            }
         }
     }
     #endregion

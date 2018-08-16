@@ -11,11 +11,21 @@ public class TurtleMin : EnemyBase {
 
     float m_bounceTime = -1;
     float m_height = 0;
+    public bool walkaround = true;
+    public float wanderRadius = 8;
 
     // Use this for initialization
     void Start () {
-        m_state = ENEMYSTATE.WANDER;
-        m_wanderCircle = 30;
+
+        if (walkaround)
+        {
+            m_state = ENEMYSTATE.IDLE;
+        }
+        else
+        {
+            m_state = ENEMYSTATE.WANDER;
+        }
+        m_wanderCircle = wanderRadius;
         m_bounceTime = Time.time;
         m_startPos = transform.position;
         m_wanderTarget = m_startPos;
@@ -110,6 +120,10 @@ public class TurtleMin : EnemyBase {
 
     protected override void Idle()
     {
+        if(walkaround == true)
+        {
+            return;
+        }
         if (IsTimerDone(m_lastWanderTime, m_waitTime))
         {
             m_state = ENEMYSTATE.WANDER;
