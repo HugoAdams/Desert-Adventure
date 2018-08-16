@@ -154,5 +154,11 @@ public class TurtleMin : EnemyBase {
             PathSteering(PathSeek(m_wanderTarget));
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // hit by player
+        SoundEffectsPlayer.Instance.PlaySound("Guitar");
+    }
+
 }
