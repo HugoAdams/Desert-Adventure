@@ -12,7 +12,6 @@ public class StoneButt : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-
         body.OnEnemyHit(3, other.transform);
     }
 

@@ -146,7 +146,9 @@ public class StoneFaceMin : EnemyBase
         {//invincible while in damage
             return;
         }
-            m_currentHealth -= _damage;
+
+        m_currentHealth -= _damage;
+        SoundEffectsPlayer.Instance.PlaySound("PlayerHit");
 
         if (m_currentHealth <= 0 && m_state != ENEMYSTATE.DEATH)
         {
