@@ -76,6 +76,7 @@ ModelImporter:
     100140: Mesh_Head
     100142: Mesh_Tail
     100144: Mesh_Whip
+    100146: Whip
     400000: //RootNode
     400002: Squirrel_Head
     400004: Squirrel_L3
@@ -149,9 +150,11 @@ ModelImporter:
     400140: Mesh_Head
     400142: Mesh_Tail
     400144: Mesh_Whip
+    400146: Whip
     2100000: lambert2
     2100002: M_Opacity
     2100004: lambert1
+    2100006: 01 - Default
     4300000: Mesh_Head
     4300002: Mesh_Tail
     4300004: Mesh_Body
