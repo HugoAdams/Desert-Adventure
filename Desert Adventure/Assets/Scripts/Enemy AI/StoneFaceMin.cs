@@ -35,11 +35,13 @@ public class StoneFaceMin : EnemyBase
 
     ENEMYSTATE m_enterDamageState;
 
+    AudioSource m_rockHitSource;
     Transform particleSystemTransform;
     ParticleSystem deathParticles;
 
     private void Awake()
     {
+        m_rockHitSource = GetComponent<AudioSource>();
         m_startPos = transform.position;
         m_wanderTarget = m_startPos;
         //Debug.Log(m_startPos);
@@ -65,6 +67,11 @@ public class StoneFaceMin : EnemyBase
 
         particleSystemTransform = transform.Find("DeathParticles");
         deathParticles = particleSystemTransform.GetComponent<ParticleSystem>();
+    }
+
+    void PlayAttackSound()
+    {
+        m_rockHitSource.Play();
     }
 
     void Update()
@@ -216,7 +223,8 @@ public class StoneFaceMin : EnemyBase
                     if (IsTimerDone(standUpTime, 3.5f))
                     {
                         m_anima.SetTrigger("StartAttack");
-                        m_colliders.noseCollider.enabled = true; 
+                        m_colliders.noseCollider.enabled = true;
+                        PlayAttackSound();
                         Invoke("NoseOff", 2.0f);
                         standUpTime = Time.time;
                     }
