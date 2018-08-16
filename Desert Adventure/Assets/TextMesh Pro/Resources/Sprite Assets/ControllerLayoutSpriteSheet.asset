@@ -63,8 +63,8 @@ MonoBehaviour:
     y: 703.0923
     width: 60.838493
     height: 60.838493
-    xOffset: -30.419247
-    yOffset: 30.419247
+    xOffset: 0
+    yOffset: 50
     xAdvance: 60.838493
     scale: 1
     name: ControllerButtonY

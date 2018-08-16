@@ -33,6 +33,9 @@ public class CameraController : MonoBehaviour {
     public float m_boatCameraRadius = 14;
     public float m_playerCameraRadius = 7;
 
+    [HideInInspector]
+    public bool m_specialDontMove = false;
+
     void Start ()
     {
         m_targetLastPos = transform.position;
@@ -47,6 +50,10 @@ public class CameraController : MonoBehaviour {
 
     void Update()
     {
+        if(m_specialDontMove == true)
+        {
+            return;
+        }
         float xInput = Input.GetAxisRaw("CameraHorizontal");
         float yInput = Input.GetAxisRaw("CameraVertical");
 

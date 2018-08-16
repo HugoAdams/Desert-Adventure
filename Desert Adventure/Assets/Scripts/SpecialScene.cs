@@ -150,6 +150,7 @@ public class SpecialScene : MonoBehaviour {
         m_player.GetComponent<PlayerMovement>().m_specialDontMove = _move;
         m_player.GetComponent<PlayerActions>().m_specialDontMove = _move;
         m_player.GetComponent<PlayerController>().m_specialDontMove = _move;
+        Camera.main.GetComponent<CameraController>().m_specialDontMove = _move;
     }
 
     void DropBoatParts()
