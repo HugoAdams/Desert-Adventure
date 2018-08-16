@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public Transform m_boatPrefab;
     public float m_respawnTime;
     public float m_invunTime;
+    public Transform m_poofParticles;
 
     bool m_onBoat, m_dead, m_invun;
     PlayerMovement m_movement;
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour {
         SoundEffectsPlayer.Instance.PlaySound("Pop");
         Transform newBoat = Instantiate(m_boatPrefab, transform.position, transform.rotation);
         newBoat.GetComponent<BoatMovement>().Initialize(m_currentStats, this);
+        Instantiate(m_poofParticles, transform.position, Quaternion.identity);
     }
 
     public void DismountBoat(Vector3 _velocity)
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour {
         m_onBoat = false;
         m_anim.SetBool("InBoat", false);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0); // Stand back up
+        Instantiate(m_poofParticles, transform.position, Quaternion.identity);
     }
 
     public void OnPlayerHit(int _damage)
