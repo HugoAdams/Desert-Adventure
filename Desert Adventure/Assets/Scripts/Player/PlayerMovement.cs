@@ -209,16 +209,19 @@ public class PlayerMovement : MonoBehaviour {
         m_playerStunned = true;
         m_playerStatusEffects.onIncapacited();
         float timeStamp = Time.time + m_dashTime;
-
-        Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 moveDirection = Camera.main.transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+        {
+            moveDirection = transform.forward;
+        }
+        Vector3 NextDir = (moveDirection).normalized;
+        NextDir.y = 0;
+        NextDir = NextDir * m_dashSpeed;
         while (timeStamp > Time.time)
         {
             if (charControl.isGrounded)
             {
                 // Rotated move dir by camera dir
-                Vector3 NextDir = (Camera.main.transform.rotation * moveDirection).normalized;
-                NextDir.y = 0;
-                NextDir = NextDir * m_dashSpeed;
                 NextDir.y = currentMove.y;
                 currentMove = Vector3.SmoothDamp(currentMove, NextDir, ref m_refMove, m_smoothMoveTime); // Add movement to the move direction vector
             }
