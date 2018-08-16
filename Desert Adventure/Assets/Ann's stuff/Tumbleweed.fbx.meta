@@ -3,95 +3,25 @@ guid: 9310a1a435173eb4e8d0ae188fc0fc71
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: group1
-    100002: pCylinder1
-    100004: pCylinder10
-    100006: pCylinder11
-    100008: pCylinder12
-    100010: pCylinder13
-    100012: pCylinder14
-    100014: pCylinder15
-    100016: pCylinder16
-    100018: pCylinder2
-    100020: pCylinder3
-    100022: pCylinder4
-    100024: pCylinder5
-    100026: pCylinder6
-    100028: pCylinder7
-    100030: pCylinder8
-    100032: pCylinder9
-    100034: transform10
-    100036: transform11
-    100038: transform12
-    100040: transform13
-    100042: transform14
-    100044: transform15
-    100046: transform16
-    100048: transform17
-    100050: transform18
-    100052: transform3
-    100054: transform4
-    100056: transform5
-    100058: transform6
-    100060: transform7
-    100062: transform8
-    100064: transform9
-    100066: Tumble_weed
-    100068: //RootNode
-    100070: TumbleWeedBone1
-    100072: TumbleWeedBone1 1
-    100074: Tumble_weed1
-    100076: Tumble_weed2
-    100078: TumbleWeed
-    400000: group1
-    400002: pCylinder1
-    400004: pCylinder10
-    400006: pCylinder11
-    400008: pCylinder12
-    400010: pCylinder13
-    400012: pCylinder14
-    400014: pCylinder15
-    400016: pCylinder16
-    400018: pCylinder2
-    400020: pCylinder3
-    400022: pCylinder4
-    400024: pCylinder5
-    400026: pCylinder6
-    400028: pCylinder7
-    400030: pCylinder8
-    400032: pCylinder9
-    400034: transform10
-    400036: transform11
-    400038: transform12
-    400040: transform13
-    400042: transform14
-    400044: transform15
-    400046: transform16
-    400048: transform17
-    400050: transform18
-    400052: transform3
-    400054: transform4
-    400056: transform5
-    400058: transform6
-    400060: transform7
-    400062: transform8
-    400064: transform9
-    400066: Tumble_weed
-    400068: //RootNode
-    400070: TumbleWeedBone1
-    400072: TumbleWeedBone1 1
-    400074: Tumble_weed1
-    400076: Tumble_weed2
-    400078: TumbleWeed
+    100000: Tumble_weed1
+    100002: Tumble_weed2
+    100004: TumbleWeed
+    100006: //RootNode
+    100008: TumbleWeedBone1
+    100010: TumbleWeedBone1 1
+    400000: Tumble_weed1
+    400002: Tumble_weed2
+    400004: TumbleWeed
+    400006: //RootNode
+    400008: TumbleWeedBone1
+    400010: TumbleWeedBone1 1
     2100000: M_Tumbleweed
-    4300000: Tumble_weed
-    4300002: Tumble_weed1
-    4300004: Tumble_weed2
+    4300000: Tumble_weed1
+    4300002: Tumble_weed2
     7400000: Tumbleweed
     9500000: //RootNode
-    13700000: Tumble_weed
-    13700002: Tumble_weed1
-    13700004: Tumble_weed2
+    13700000: Tumble_weed1
+    13700002: Tumble_weed2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -147,7 +77,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 1
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
