@@ -22,7 +22,7 @@ public class CactusMin : EnemyBase
 
     Transform m_specialTarget;
     bool m_specialArrived = false;
-
+    bool m_attacking = false;
     void Start ()
     {
         m_state = ENEMYSTATE.WANDER;
@@ -136,6 +136,7 @@ public class CactusMin : EnemyBase
             m_damageStartTime = Time.time;
             m_enterDamageState = m_state;
             m_state = ENEMYSTATE.DAMAGE;
+            m_colliders.m_spearTrigger.enabled = false;
             m_anima.SetTrigger("StartDamage");
 
         }
@@ -166,6 +167,7 @@ public class CactusMin : EnemyBase
         {
             m_state = m_enterDamageState;
             m_renderer.material = m_normalMat;
+            
         }
     }
 
@@ -191,6 +193,10 @@ public class CactusMin : EnemyBase
 
     protected override void Attack()
     {
+        if(m_attacking == true)
+        {
+            return;
+        }
         //go go go
         if (m_target != null)
         {
@@ -200,11 +206,12 @@ public class CactusMin : EnemyBase
             {
                 if (IsTimerDone(m_attackTime, 1.5f))
                 {
+                    m_attacking = true;
                     m_attackTime = Time.time;
                     Invoke("SetAttackHitBox", 0.5f);
                     m_anima.SetTrigger("StartAttack");
                     Debug.Log("here");
-                    Invoke("JumpBack", 1.2f);
+                    Invoke("JumpBack", 0.9f);
 
                 }
                 else
@@ -361,5 +368,6 @@ public class CactusMin : EnemyBase
             rbdy.AddForce(dir.normalized * 1600 * Time.deltaTime, ForceMode.Impulse);
 
         }
+        m_attacking = false;
     }
 }

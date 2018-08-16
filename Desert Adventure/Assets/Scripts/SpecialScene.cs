@@ -17,7 +17,8 @@ public class SpecialScene : MonoBehaviour {
     Vector3 m_campos, m_camrot;
 
     bool m_started = false;
-
+    public ParticleSystem m_splosion;
+    GameObject psgo;
     // Use this for initialization
     private void Start()
     {
@@ -25,15 +26,19 @@ public class SpecialScene : MonoBehaviour {
         {
             ItemList[i].gameObject.SetActive(false);
         }
-
+        ItemList[3].GetChild(2).gameObject.SetActive(false);
 
         m_campos = new Vector3(358.3f, 29.9f, 199.2f);
         m_camrot = new Vector3(30.47f, 22.44f, 0);
 
+        
     }
 
     void SpecialStart()
     {
+        psgo = Instantiate(m_splosion.gameObject);
+        psgo.transform.position = transform.position;
+        psgo.transform.localScale = new Vector3(4,4,4);
 
         Camera.main.GetComponent<CameraController>().b_auto = false;
         Camera.main.GetComponent<CameraController>().m_target = null;
@@ -50,10 +55,10 @@ public class SpecialScene : MonoBehaviour {
 
     void SpecialEnd()
     {
+        ItemList[3].GetChild(2).gameObject.SetActive(true);
         PlayerDontMove(false);
         Camera.main.GetComponent<CameraController>().b_auto = true;
         Camera.main.GetComponent<CameraController>().m_target = m_player;
-        Debug.Log("returned");
 
         EffectCanvas.Instance.TitleText("OBJECTIVE: " + "Recollect your 4 ship pieces");
         Destroy(gameObject);
@@ -77,9 +82,9 @@ public class SpecialScene : MonoBehaviour {
     void CheckIfItemsTaken()
     {
         bool alloff = true;
-        foreach (Transform tr in ItemList)
+        for (int i=0; i< 3; i++)
         {
-            if (tr.gameObject.activeSelf == true)
+            if (ItemList[i].gameObject.activeSelf == true)
             {
                 alloff = false;
                 break;
