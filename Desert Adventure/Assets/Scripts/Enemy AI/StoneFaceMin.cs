@@ -224,7 +224,7 @@ public class StoneFaceMin : EnemyBase
                     {
                         m_anima.SetTrigger("StartAttack");
                         m_colliders.noseCollider.enabled = true;
-                        PlayAttackSound();
+                        Invoke("PlayAttackSound", 0.8f);
                         Invoke("NoseOff", 2.0f);
                         standUpTime = Time.time;
                     }
