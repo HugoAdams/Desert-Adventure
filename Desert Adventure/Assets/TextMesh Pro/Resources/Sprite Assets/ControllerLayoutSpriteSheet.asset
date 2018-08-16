@@ -203,8 +203,8 @@ MonoBehaviour:
     y: 550.05524
     width: 39.51366
     height: 38.88646
-    xOffset: -19.75683
-    yOffset: 19.44323
+    xOffset: -0.47
+    yOffset: 31.3
     xAdvance: 39.51366
     scale: 1
     name: ControllerMenu
