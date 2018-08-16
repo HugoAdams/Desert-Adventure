@@ -201,8 +201,9 @@ public class CactusMin : EnemyBase
                 if (IsTimerDone(m_attackTime, 1.5f))
                 {
                     m_attackTime = Time.time;
-                    m_colliders.m_spearTrigger.enabled = true;
+                    Invoke("SetAttackHitBox", 0.5f);
                     m_anima.SetTrigger("StartAttack");
+                    Debug.Log("here");
                     Invoke("JumpBack", 1.2f);
 
                 }
@@ -248,6 +249,11 @@ public class CactusMin : EnemyBase
                 }
             }
         }
+    }
+
+    void SetAttackHitBox()
+    {
+        m_colliders.m_spearTrigger.enabled = true;
     }
 
     protected override void Wander()
