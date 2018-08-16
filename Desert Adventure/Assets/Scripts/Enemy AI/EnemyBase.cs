@@ -20,6 +20,7 @@ public abstract class EnemyBase : MonoBehaviour
     [Range(1, 40)] public int m_MaxHealth = 10;
     [Range(1, 100)] public float m_maxMoveSpeed = 10;
     protected float m_moveSpeed = 5;
+    protected float m_rotSpeed = 2;
 
     [Header("Vision Stuff")]
     [Range(10, 180)] public int m_halfVisionCone = 80;
@@ -36,6 +37,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     public Material m_damageMat;
     protected Material m_normalMat;
+
+    protected float m_wanderCircle = 10; 
 
     public int GetCurrentHealth()
     { return m_currentHealth; }
@@ -97,7 +100,7 @@ public abstract class EnemyBase : MonoBehaviour
             Vector3 right = Quaternion.Euler(0, -m_halfVisionCone, 0) * transform.forward;
             Gizmos.DrawLine(transform.position, transform.position + (right.normalized * m_visionRadius));
 
-            Gizmos.DrawWireSphere(m_startPos, 10);
+            Gizmos.DrawWireSphere(m_startPos, m_wanderCircle);
         }
     }
     #endregion
@@ -120,7 +123,7 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (_lastWander == -1 || IsTimerDone(_lastWander, 2.5f))
         {
-            Vector2 spot = (Random.insideUnitCircle * 10) + new Vector2(m_startPos.x, m_startPos.z);
+            Vector2 spot = (Random.insideUnitCircle * m_wanderCircle) + new Vector2(m_startPos.x, m_startPos.z);
             //Debug.Log(spot);
             _lastWander = Time.time;
             return new Vector3(spot.x, 0, spot.y);
@@ -141,13 +144,13 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (Distance2D(_lastWanderTarget, transform.position) < 0.2f)
         {
-            Vector2 spot = Random.insideUnitCircle * 10;
+            Vector2 spot = Random.insideUnitCircle * m_wanderCircle;
             spot += new Vector2(m_startPos.x, m_startPos.z);
             
             int savecounter = 0;
             while (true)
             {
-                if(Distance2D(spot,transform.position) >= 4.5f)
+                if(Distance2D(spot,transform.position) >= m_wanderCircle * 0.45f)
                 {
                     break;
                 }
@@ -225,6 +228,25 @@ public abstract class EnemyBase : MonoBehaviour
         
     }
     #endregion
+
+    protected bool RotateToFace(Vector3 _v)
+    {
+        _v.y = transform.position.y;//should stop rotation on x and z;
+
+        Vector3 targetDir = _v - transform.position;
+        Vector3 newdir = Vector3.RotateTowards(transform.forward, targetDir, Time.deltaTime * m_rotSpeed, 0.0f);
+
+        transform.rotation = Quaternion.LookRotation(newdir);
+
+        if (Vector3.Angle(transform.forward, targetDir) < 0.5f)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     protected void LookAt(Transform _t)
     {

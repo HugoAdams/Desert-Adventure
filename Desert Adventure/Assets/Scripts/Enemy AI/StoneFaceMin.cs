@@ -372,24 +372,7 @@ public class StoneFaceMin : EnemyBase
         }
     }
 
-    bool RotateToFace(Vector3 _v)
-    {
-        _v.y = transform.position.y;//should stop rotation on x and z;
 
-        Vector3 targetDir = _v - transform.position;
-        Vector3 newdir = Vector3.RotateTowards(transform.forward, targetDir, Time.deltaTime * 2, 0.0f);
-
-        transform.rotation = Quaternion.LookRotation(newdir);
-        
-        if(Vector3.Angle(transform.forward,targetDir) < 0.5f)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
 
     void NoseOff()
     {
