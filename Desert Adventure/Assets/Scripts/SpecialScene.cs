@@ -10,36 +10,69 @@ public class SpecialScene : MonoBehaviour {
 
     float startTimeToEnd = -1;
 
-    PlayerMovement m_player = null;
+    Transform m_player = null;
+
+    Transform m_oldCamPos = null;
+
+    Vector3 m_campos, m_camrot;
+
+    bool m_started = false;
+
     // Use this for initialization
     private void Start()
     {
-        for (int i = 0; i < ItemList.Capacity; i++)
+        for (int i = 0; i < ItemList.Count; i++)
         {
             ItemList[i].gameObject.SetActive(false);
         }
+
+
+        m_campos = new Vector3(358.3f, 29.9f, 199.2f);
+        m_camrot = new Vector3(30.47f, 22.44f, 0);
+
     }
 
     void SpecialStart()
     {
-        
 
-        for (int i=0; i< Cactilist.Capacity; i++)
+        Camera.main.GetComponent<CameraController>().b_auto = false;
+        Camera.main.GetComponent<CameraController>().m_target = null;
+        m_oldCamPos = Camera.main.transform;
+        Camera.main.transform.position = m_campos;
+        Camera.main.transform.eulerAngles = m_camrot;
+
+        for (int i = 0; i < Cactilist.Count; i++) 
         {
             Cactilist[i].SpecRunToTransform(ItemList[i]);
         }
+        m_started = true;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void SpecialEnd()
     {
-	    if(Input.GetKeyDown(KeyCode.Minus))
+        PlayerDontMove(false);
+        Camera.main.GetComponent<CameraController>().b_auto = true;
+        Camera.main.GetComponent<CameraController>().m_target = m_player;
+        Debug.Log("returned");
+
+        EffectCanvas.Instance.TitleText("OBJECTIVE: " + "Recollect your 4 ship pieces");
+        Destroy(gameObject);
+        //done
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Minus))
         {
             SpecialStart();
         }
 
-        
-	}
+        if (m_started == true)
+        {
+            CheckIfItemsTaken();
+        }
+    }
 
     void CheckIfItemsTaken()
     {
@@ -56,6 +89,7 @@ public class SpecialScene : MonoBehaviour {
         if(alloff == true)
         {
             startTimeToEnd = Time.time;
+            Invoke("SpecialEnd", 4.0f);
         }
     }
 
@@ -77,15 +111,17 @@ public class SpecialScene : MonoBehaviour {
             BoatMovement bm = null;
             if(boat == true)
             {
-                m_player = other.GetComponentInChildren<PlayerMovement>();
+               // m_player = other.GetComponentInChildren<PlayerMovement>().transform;
                 bm = other.GetComponentInParent<BoatMovement>();
+                m_player = bm.transform.GetChild(3);
+                PlayerDontMove(true);
                 bm.m_specialDismountBoat = true;
             }
             else
             {
-                m_player = other.GetComponent<PlayerMovement>();
+                m_player = other.GetComponent<PlayerMovement>().transform;
+                PlayerDontMove(true);
             }
-            PlayerDontMove(true);
             DropBoatParts();
 
             //turn off this triggerbox
@@ -93,7 +129,7 @@ public class SpecialScene : MonoBehaviour {
             //turnoff all other colliders
             transform.GetChild(0).gameObject.SetActive(false);
 
-
+            SpecialStart();
             //at the end of the scene turn off boat
         }
 
@@ -105,7 +141,7 @@ public class SpecialScene : MonoBehaviour {
         {
             return;
         }
-        m_player.m_specialDontMove = _move;
+        m_player.GetComponent<PlayerMovement>().m_specialDontMove = _move;
         m_player.GetComponent<PlayerActions>().m_specialDontMove = _move;
         m_player.GetComponent<PlayerController>().m_specialDontMove = _move;
     }
@@ -114,9 +150,10 @@ public class SpecialScene : MonoBehaviour {
     {
         m_player.GetComponent<PlayerController>().LoseAllBoatParts();
 
-        for(int i=0; i< ItemList.Capacity; i++)
+        for(int i=0; i< ItemList.Count; i++)
         {
             ItemList[i].gameObject.SetActive(true);
         }
     }
+
 }

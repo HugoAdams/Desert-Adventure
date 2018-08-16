@@ -84,6 +84,10 @@ public class PlayerController : MonoBehaviour {
         SoundEffectsPlayer.Instance.PlaySound("Pop");
         Camera.main.GetComponent<CameraController>().SetToPlayerMode();
         GetComponent<CharacterController>().enabled = true;
+        if(m_specialDontMove)
+        {
+            _velocity = Vector3.zero;
+        }
         m_movement.DismountBoat(_velocity);
         m_actions.DismountBoat();
         m_onBoat = false;
