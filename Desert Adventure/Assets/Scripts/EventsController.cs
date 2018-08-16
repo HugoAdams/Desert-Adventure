@@ -26,12 +26,6 @@ public class EventsController : MonoBehaviour {
         Instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("shit"))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     public void TriggerPlayerLifeChange()
     {
         if (OnPlayerLifeChange != null)
