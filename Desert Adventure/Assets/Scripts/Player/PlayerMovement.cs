@@ -250,12 +250,16 @@ public class PlayerMovement : MonoBehaviour {
         else if (charControl.isGrounded)
         {
             m_animator.SetBool("Jumping", false);
+            m_animator.SetBool("IsFalling", false);
             m_jumping = false;
                      return;
         }
 
         if (currentMove.y < 0) // If the player is falling, make gravity stronger
+        {
+            //m_animator.SetBool("IsFalling", true);
             m_gravityScale = m_fallMultiplier;
+        }
         else if (!Input.GetButton("Jump")) // If the player is not falling and they are not holding the jump key, make the jump smaller by increasing gravity
             m_gravityScale = m_lowJumpMultiplier;
         else
