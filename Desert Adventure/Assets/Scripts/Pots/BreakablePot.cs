@@ -8,6 +8,7 @@ public class BreakablePot : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        SoundEffectsPlayer.Instance.PlaySound("BreakPot");
         Destroy(gameObject);
         if(Random.Range(0,2) == 0)
         {
