@@ -5081,7 +5081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb3f22eea0fb1b47927bef8952f1377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  b_auto: 1
+  b_auto: 0
   m_target: {fileID: 1547164495}
   m_topAngle: 0
   m_yAxisSpeed: 100
