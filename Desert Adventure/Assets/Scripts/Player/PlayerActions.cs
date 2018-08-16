@@ -72,7 +72,7 @@ public class PlayerActions : MonoBehaviour {
         if (m_playerIncapacited || m_onBoat || m_attacking || m_specialDontMove)
             return;
 
-        if (Input.GetButtonDown("Attack"))
+        if (Input.GetButton("Attack"))
         {
             Attack();
         }
@@ -198,13 +198,13 @@ public class PlayerActions : MonoBehaviour {
     {
         bool m_attackLinedUp = false;
         bool hitboxOn = false;
-        float timeframe = Time.time + 0.833f;
-        float hitboxTime = Time.time + 0.4f;
+        float timeframe = Time.time + 0.62475f;
+        float hitboxTime = Time.time + 0.3f;
         float turnOffHitBox = timeframe - 0.2f;
         yield return null;
         while (timeframe > Time.time)
         {
-            if (m_characterController.isGrounded && !m_attackLinedUp && Input.GetButtonDown("Attack"))
+            if (m_characterController.isGrounded && !m_attackLinedUp && ((hitboxTime <= Time.time && Input.GetButton("Attack")) || Input.GetButtonDown("Attack")))
             {
                 m_charAnimator.SetBool("Attack2", true);
                 m_attackLinedUp = true;
@@ -227,13 +227,14 @@ public class PlayerActions : MonoBehaviour {
         {
             m_playerMovement.SetIsAttacking(true, m_attackMoveDelay2);
             m_attackLinedUp = false;
-            timeframe = Time.time + 1.0f;
-            hitboxTime = Time.time + 0.4f;
+            timeframe = Time.time + 0.5f;
+            hitboxTime = Time.time + 0.1f;
             turnOffHitBox = timeframe - 0.2f;
+
             yield return null;
             while (timeframe > Time.time)
             {
-                if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
+                if (!m_attackLinedUp && ((hitboxTime <= Time.time && Input.GetButton("Attack")) || Input.GetButtonDown("Attack")))
                 {
                     m_attackLinedUp = true;
                     m_charAnimator.SetBool("Attack3", true);
@@ -258,13 +259,13 @@ public class PlayerActions : MonoBehaviour {
         {
             m_playerMovement.SetIsAttacking(true, m_attackMoveDelay3);
             hitboxOn = false;
-            timeframe = Time.time + 1.5f;
-            hitboxTime = Time.time + 0.4f;
-            turnOffHitBox = timeframe - 0.2f;
+            timeframe = Time.time + 0.5f;
+            hitboxTime = Time.time + 0.2f;
+            turnOffHitBox = timeframe - 0.05f;
             yield return null;
             while (timeframe > Time.time)
             {
-                if (!m_attackLinedUp && Input.GetButtonDown("Attack"))
+                if (!m_attackLinedUp && hitboxTime <= Time.time && Input.GetButtonDown("Attack"))
                 {
                     m_attackLinedUp = true;
                 }
