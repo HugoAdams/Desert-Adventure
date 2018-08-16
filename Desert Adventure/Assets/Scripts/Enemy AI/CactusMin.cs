@@ -334,6 +334,14 @@ public class CactusMin : EnemyBase
         m_moveSpeed = m_maxMoveSpeed;
         m_specialTarget.parent = transform;
         m_specialTarget.gameObject.SetActive(false);
+        if(Random.Range(0, 2) == 0)
+        {
+            SoundEffectsPlayer.Instance.PlaySound("Quack1");
+        }
+        else
+        {
+            SoundEffectsPlayer.Instance.PlaySound("Quack2");
+        }
         Invoke("SpecSpeedUp", 1.1f);
     }
 
