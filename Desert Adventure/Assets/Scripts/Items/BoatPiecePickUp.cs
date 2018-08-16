@@ -53,5 +53,6 @@ public class BoatPiecePickUp : ItemPickUp {
         // player has player only collider on child
         PlayerController currentStats = other.GetComponentInParent<PlayerController>();
         OnPickUp(currentStats);
+        SoundEffectsPlayer.Instance.PlaySound("PuzzleComplete");
     }
 }

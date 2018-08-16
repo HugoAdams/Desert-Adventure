@@ -37,6 +37,7 @@ public class RockPuzzle : MonoBehaviour {
         m_rewardSpawnLocation.y -= m_spawnYOffset;
         m_nextPuzzle = Instantiate(m_RewardObject, m_rewardSpawnLocation, transform.rotation);
         StartCoroutine(raisePuzzle());
+        SoundEffectsPlayer.Instance.PlaySound("PuzzleComplete");
     }
 
     // Raises the newly spawned puzzle out of the ground until it hits its spawn height
