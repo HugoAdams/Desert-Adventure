@@ -225,7 +225,7 @@ public class StoneFaceMin : EnemyBase
                     if (IsTimerDone(standUpTime, 3.5f))
                     {
                         m_anima.SetTrigger("StartAttack");
-                        m_colliders.noseCollider.enabled = true;
+                        Invoke("TriggerAttackHitbox", 0.8f);
                         Invoke("PlayAttackSound", 0.8f);
                         Invoke("NoseOff", 2.0f);
                         standUpTime = Time.time;
@@ -279,6 +279,10 @@ public class StoneFaceMin : EnemyBase
         }
     }
 
+    void TriggerAttackHitbox()
+    {
+        m_colliders.noseCollider.enabled = true;
+    }
 
     protected override void Wander()
     {
