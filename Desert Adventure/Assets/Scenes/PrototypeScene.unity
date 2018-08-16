@@ -22993,6 +22993,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114590097332096212, guid: 4510f6c2f680f3644ac2fd53656164d5,
+        type: 2}
+      propertyPath: m_initalClips.Array.size
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4966127980928430, guid: 4510f6c2f680f3644ac2fd53656164d5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 1000
@@ -23024,6 +23029,16 @@ Prefab:
     - target: {fileID: 4966127980928430, guid: 4510f6c2f680f3644ac2fd53656164d5, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590097332096212, guid: 4510f6c2f680f3644ac2fd53656164d5,
+        type: 2}
+      propertyPath: m_initalClips.Array.data[10].m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 993e1fc6649093144b4ff80c7542491f, type: 3}
+    - target: {fileID: 114590097332096212, guid: 4510f6c2f680f3644ac2fd53656164d5,
+        type: 2}
+      propertyPath: m_initalClips.Array.data[10].m_name
+      value: HeartPickup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4510f6c2f680f3644ac2fd53656164d5, type: 2}

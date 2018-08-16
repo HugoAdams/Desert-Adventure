@@ -261,6 +261,7 @@ public class CactusMin : EnemyBase
     void SetAttackHitBox()
     {
         m_colliders.m_spearTrigger.enabled = true;
+        SoundEffectsPlayer.Instance.PlaySound("CactusAttack");
     }
 
     protected override void Wander()
