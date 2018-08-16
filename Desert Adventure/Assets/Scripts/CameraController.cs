@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 
-    void Update()
+    void LateUpdate()
     {
         if(m_specialDontMove == true)
         {
@@ -140,7 +140,7 @@ public class CameraController : MonoBehaviour {
         x += m_target.position.x;
         yz += m_target.position.z;
 
-        transform.position = Vector3.Lerp(transform.position, new Vector3(x, m_target.position.y + m_YDiff, yz), 4 * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(x, m_target.position.y + m_YDiff, yz), 2 * Time.deltaTime);
         transform.LookAt(m_target);
     }
 
