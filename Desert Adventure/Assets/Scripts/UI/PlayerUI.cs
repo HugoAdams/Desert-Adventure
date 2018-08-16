@@ -42,7 +42,7 @@ public class PlayerUI : MonoBehaviour {
 
         if (_boatPiece == BoatPiece.BASE)
         {
-            StartCoroutine(DelayedHelperText("Press [B] to get into your boat!"));
+            StartCoroutine(DelayedHelperText("Press <sprite=8> to get into your boat!"));
 
             if (!m_currentViewedStats.BoatTiller && (!m_currentViewedStats.BoatMast || !m_currentViewedStats.BoatSail))
                 StartCoroutine(DelayedHelperText("missing some sort of engine though...", 3.8f));
